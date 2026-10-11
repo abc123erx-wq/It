@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BO1 Zombies — Modo Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Barlow+Condensed:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ================= BARRA SUPERIOR ================= -->
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-kicker">CALL OF DUTY: BLACK OPS</div>
+    <h1>ZOMBIES <span class="brand-tag">// MODO ONLINE</span></h1>
+  </div>
+  <div class="topbar-right">
+    <div id="conn-pill" class="pill pill-off"><span class="dot"></span><span id="conn-text">conectando…</span></div>
+    <div id="player-chip" class="player-chip hidden">
+      <span class="avatar" id="player-avatar">?</span>
+      <span id="player-name">—</span>
+      <button id="btn-logout" class="btn btn-ghost btn-sm" title="Trocar de apelido">sair</button>
+    </div>
+  </div>
+</header>
+
+<div id="banner" class="banner hidden"></div>
+
+<main id="main" class="main">
+
+  <!-- ================= LOGIN ================= -->
+  <section id="view-login" class="view">
+    <div class="login-card panel">
+      <div class="panel-title">IDENTIFICAÇÃO DE OPERADOR</div>
+      <p class="muted">Escolha um apelido para entrar no modo online. Sua identidade e suas estatísticas ficam salvas neste navegador e no Firebase.</p>
+      <label class="field">
+        <span>Apelido</span>
+        <input id="input-nickname" type="text" maxlength="20" placeholder="ex.: Richtofen" autocomplete="off">
+      </label>
+      <button id="btn-enter" class="btn btn-primary btn-big">ENTRAR NO MODO ONLINE</button>
+      <p class="note">Ao entrar você concorda em sincronizar presença, salas e estatísticas com o Firebase Realtime Database do projeto <b>kaka-ca0ff</b>.</p>
+    </div>
+  </section>
+
+  <!-- ================= APP ================= -->
+  <section id="view-app" class="view hidden">
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="rooms">SALAS</button>
+      <button class="tab" data-tab="room">MINHA SALA</button>
+      <button class="tab" data-tab="leaderboard">RANKING</button>
+      <button class="tab" data-tab="chat">CHAT GLOBAL</button>
+      <button class="tab" data-tab="help">AJUDA</button>
+    </nav>
+
+    <!-- ------- SALAS ------- -->
+    <div class="tab-pane active" id="pane-rooms">
+      <div class="grid-3">
+        <div class="col-2">
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">SALAS DISPONÍVEIS</div>
+              <button id="btn-create-room" class="btn btn-primary">+ CRIAR SALA</button>
+            </div>
+            <div id="rooms-list" class="rooms-list">
+              <div class="empty">Nenhuma sala aberta. Crie a primeira!</div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-title">ENTRAR COM CÓDIGO</div>
+            <div class="join-row">
+              <input id="input-room-code" type="text" maxlength="6" placeholder="CÓDIGO (ex.: K1NO7)" autocomplete="off" class="code-input">
+              <button id="btn-join-code" class="btn">ENTRAR</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-1">
+          <div class="panel">
+            <div class="panel-title">OPERADORES ONLINE <span id="online-count" class="count-badge">0</span></div>
+            <div id="players-online" class="players-online"><div class="empty">Carregando…</div></div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">SEU PERFIL</div>
+            <div id="profile-box" class="profile-box"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------- MINHA SALA ------- -->
+    <div class="tab-pane" id="pane-room">
+      <div id="room-empty" class="panel">
+        <div class="empty">Você não está em nenhuma sala. Vá em <b>SALAS</b> para criar ou entrar em uma.</div>
+      </div>
+
+      <div id="room-view" class="hidden">
+        <div class="panel room-header">
+          <div>
+            <div class="room-title-row">
+              <h2 id="room-name">—</h2>
+              <span id="room-status-badge" class="badge">AGUARDANDO</span>
+            </div>
+            <div class="room-meta">
+              <span id="room-map">—</span> · <span id="room-mode">—</span> ·
+              anfitrião <b id="room-host">—</b> ·
+              jogadores <b id="room-count">0/0</b>
+            </div>
+          </div>
+          <div class="room-actions">
+            <button id="btn-copy-invite" class="btn">COPIAR CONVITE</button>
+            <button id="btn-ready" class="btn">PRONTO</button>
+            <button id="btn-start-match" class="btn btn-primary hidden">INICIAR PARTIDA</button>
+            <button id="btn-end-match" class="btn hidden">ENCERRAR PARTIDA</button>
+            <button id="btn-leave-room" class="btn btn-danger">SAIR DA SALA</button>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="col-2">
+            <div class="panel">
+              <div class="panel-head">
+                <div class="panel-title">ESQUADRÃO</div>
+                <button id="btn-simulate" class="btn btn-sm hidden">SIMULAR PARTIDA (DEMO)</button>
+              </div>
+              <div id="room-players" class="room-players"></div>
+            </div>
+
+            <div class="panel" id="match-panel">
+              <div class="panel-title">PARTIDA AO VIVO</div>
+              <div class="match-stats">
+                <div class="stat"><div class="stat-num" id="match-round">0</div><div class="stat-label">RODADA</div></div>
+                <div class="stat"><div class="stat-num" id="match-kills">0</div><div class="stat-label">ABATES</div></div>
+                <div class="stat"><div class="stat-num" id="match-downs">0</div><div class="stat-label">BAIXAS</div></div>
+                <div class="stat"><div class="stat-num" id="match-alive">0</div><div class="stat-label">VIVOS</div></div>
+                <div class="stat"><div class="stat-num" id="match-points">0</div><div class="stat-label">PONTOS</div></div>
+              </div>
+              <div class="panel-subtitle">EVENTOS</div>
+              <div id="match-events" class="events-feed"><div class="empty">Aguardando início da partida…</div></div>
+            </div>
+          </div>
+
+          <div class="col-1">
+            <div class="panel chat-panel">
+              <div class="panel-title">CHAT DA SALA</div>
+              <div id="room-chat" class="chat-box"></div>
+              <div class="chat-row">
+                <input id="input-room-chat" type="text" maxlength="140" placeholder="Mensagem…" autocomplete="off">
+                <button id="btn-send-room-chat" class="btn btn-primary">ENVIAR</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------- RANKING ------- -->
+    <div class="tab-pane" id="pane-leaderboard">
+      <div class="panel">
+        <div class="panel-title">RANKING GLOBAL DE OPERADORES</div>
+        <table class="table" id="leaderboard-table">
+          <thead>
+            <tr><th>#</th><th>OPERADOR</th><th>PARTIDAS</th><th>ABATES</th><th>BAIXAS</th><th>MELHOR RODADA</th><th>PONTOS</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="empty" id="leaderboard-empty">Sem estatísticas ainda.</div>
+      </div>
+    </div>
+
+    <!-- ------- CHAT GLOBAL ------- -->
+    <div class="tab-pane" id="pane-chat">
+      <div class="panel chat-panel">
+        <div class="panel-title">CHAT GLOBAL</div>
+        <div id="global-chat" class="chat-box chat-tall"></div>
+        <div class="chat-row">
+          <input id="input-global-chat" type="text" maxlength="140" placeholder="Fale com todos os operadores…" autocomplete="off">
+          <button id="btn-send-global-chat" class="btn btn-primary">ENVIAR</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------- AJUDA ------- -->
+    <div class="tab-pane" id="pane-help">
+      <div class="panel">
+        <div class="panel-title">COMO USAR O MODO ONLINE</div>
+        <div class="help-body">
+          <h3>No navegador (este hub)</h3>
+          <ol>
+            <li>Entre com um apelido.</li>
+            <li><b>Crie uma sala</b> (mapa, modo, nº de jogadores) ou entre com um código de convite.</li>
+            <li>Convide amigos pelo botão <b>COPIAR CONVITE</b> — o link abre esta página e entra direto na sala.</li>
+            <li>Marque <b>PRONTO</b>; quando todos estiverem prontos, o anfitrião inicia a partida.</li>
+            <li>Use <b>SIMULAR PARTIDA (DEMO)</b> para ver a sincronização em tempo real (abra outra aba/janela para conferir).</li>
+          </ol>
+          <h3>No jogo (BO1Zombies.exe)</h3>
+          <ol>
+            <li>Compile o jogo (CMake + Visual Studio, ver README da raiz).</li>
+            <li>Inicie com <code>+set online_name "SeuNick" +set fs_mods online</code> (e opcionalmente <code>+set online_room CODIGO</code>).</li>
+            <li>O mod <code>mods/online</code> conecta ao mesmo Firebase: presença, chat, rodadas, abates e baixas aparecem aqui no hub em tempo real.</li>
+          </ol>
+          <h3>Configuração do Firebase</h3>
+          <p>Este hub usa o projeto <b>kaka-ca0ff</b> (Realtime Database). Se os botões de escrita falharem, publique as regras de <code>online/database.rules.json</code> no console do Firebase e/ou ative a <b>Autenticação anônima</b>.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<!-- ================= MODAL CRIAR SALA ================= -->
+<div id="modal-create" class="modal hidden">
+  <div class="modal-box panel">
+    <div class="panel-title">CRIAR SALA</div>
+    <label class="field"><span>Nome da sala</span>
+      <input id="input-room-name" type="text" maxlength="28" placeholder="ex.: Noite de Kino" autocomplete="off">
+    </label>
+    <label class="field"><span>Mapa</span>
+      <select id="select-map"></select>
+    </label>
+    <label class="field"><span>Modo</span>
+      <select id="select-mode"></select>
+    </label>
+    <label class="field"><span>Máximo de jogadores</span>
+      <select id="select-max">
+        <option>2</option><option selected>4</option><option>6</option><option>8</option>
+      </select>
+    </label>
+    <div class="modal-actions">
+      <button id="btn-cancel-create" class="btn">CANCELAR</button>
+      <button id="btn-confirm-create" class="btn btn-primary">CRIAR</button>
+    </div>
+  </div>
+</div>
+
+<div id="toasts" class="toasts"></div>
+
+<footer class="footer">
+  BO1 Zombies — Modo Online · Firebase Realtime Database · projeto <b>kaka-ca0ff</b> · não afiliado à Activision
+</footer>
+
+<script src="vendor/firebase-all.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

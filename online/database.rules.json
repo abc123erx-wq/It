@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "bo1z": {
+      ".read": true,
+      ".write": true,
+      "players": {
+        "$uid": {
+          ".write": "auth != null ? auth.uid == $uid : true"
+        }
+      }
+    }
+  }
+}
