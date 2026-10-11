@@ -1,0 +1,57 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "bo1zweb": {
+      "rooms": {
+        ".read": "auth != null",
+        "$code": {
+          ".read": "auth != null",
+          ".write": "auth != null && ((!data.exists() && newData.child('owner').val() == auth.uid) || data.child('owner').val() == auth.uid)",
+          ".validate": "newData.hasChildren(['owner', 'protocol', 'state', 'presence', 'inputs'])",
+          "owner": {
+            ".validate": "newData.isString() && newData.val() == auth.uid || data.val() == newData.val()"
+          },
+          "protocol": { ".validate": "newData.isNumber() && newData.val() == 3" },
+          "state": { ".validate": "newData.isString() && (newData.val() == 'waiting' || newData.val() == 'playing' || newData.val() == 'closed')" },
+          "presence": {
+            "$uid": {
+              ".write": "auth != null && auth.uid == $uid",
+              ".validate": "newData.hasChildren(['uid', 'name', 'color', 'ready', 'seen'])",
+              "uid": { ".validate": "newData.isString() && newData.val() == $uid" },
+              "name": { ".validate": "newData.isString() && newData.val().length <= 18" },
+              "color": { ".validate": "newData.isString() && newData.val().matches(/^#[0-9a-fA-F]{6}$/)" },
+              "ready": { ".validate": "newData.isBoolean()" },
+              "seen": { ".validate": "newData.isNumber() && newData.val() > now - 20000 && newData.val() <= now + 5000" },
+              "$other": { ".validate": false }
+            }
+          },
+          "inputs": {
+            "$uid": {
+              ".write": "auth != null && auth.uid == $uid && root.child('bo1zweb/rooms/' + $code + '/presence/' + $uid).exists()",
+              ".validate": "newData.hasChildren(['x', 'y', 'aim', 'fire', 'sprint', 'interactHeld', 'slot', 'seq', 'at'])",
+              "x": { ".validate": "newData.isNumber() && newData.val() >= -1 && newData.val() <= 1" },
+              "y": { ".validate": "newData.isNumber() && newData.val() >= -1 && newData.val() <= 1" },
+              "aim": { ".validate": "newData.isNumber() && newData.val() >= -7 && newData.val() <= 7" },
+              "fire": { ".validate": "newData.isBoolean()" },
+              "sprint": { ".validate": "newData.isBoolean()" },
+              "interactHeld": { ".validate": "newData.isBoolean()" },
+              "slot": { ".validate": "newData.isString() && (newData.val() == 'primary' || newData.val() == 'secondary' || newData.val() == 'tertiary')" },
+              "at": { ".validate": "newData.isNumber() && newData.val() > now - 15000 && newData.val() <= now + 5000" },
+              "seq": {
+                ".validate": "newData.hasChildren(['interact', 'reload', 'melee', 'swap'])",
+                "interact": { ".validate": "newData.isNumber() && newData.val() >= 0" },
+                "reload": { ".validate": "newData.isNumber() && newData.val() >= 0" },
+                "melee": { ".validate": "newData.isNumber() && newData.val() >= 0" },
+                "swap": { ".validate": "newData.isNumber() && newData.val() >= 0" },
+                "$other": { ".validate": false }
+              },
+              "$other": { ".validate": false }
+            }
+          },
+          "$other": { ".validate": true }
+        }
+      }
+    }
+  }
+}

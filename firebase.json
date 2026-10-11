@@ -1,0 +1,24 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "database.rules.json",
+      "README.md",
+      "package.json",
+      "server.mjs",
+      ".git/**",
+      "node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          { "key": "X-Content-Type-Options", "value": "nosniff" },
+          { "key": "Referrer-Policy", "value": "no-referrer" }
+        ]
+      }
+    ]
+  },
+  "database": { "rules": "database.rules.json" }
+}

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0d10" />
+  <meta name="description" content="Kino — um survival cooperativo de zumbis no navegador, com salas online pelo Firebase." />
+  <title>KINO // Zombies Co-op</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23131719'/%3E%3Cpath d='M50 10 86 30v40L50 90 14 70V30z' fill='none' stroke='%23cda65d' stroke-width='5'/%3E%3Cpath d='M34 34v32m0-17 26-15M42 50l22 16' stroke='%23efe3c8' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-topbar">
+    <a class="brand" href="#" aria-label="Kino Zombies início">
+      <span class="brand-mark">K<span>•</span></span>
+      <span class="brand-name">KINO <i>//</i> ZOMBIES</span>
+    </a>
+    <div class="topbar-right">
+      <span class="build-tag"><span class="live-dot"></span> WEB CO-OP <b>v1.0</b></span>
+      <button class="icon-button help-open" id="help-open" aria-label="Ajuda" title="Ajuda">?</button>
+    </div>
+  </header>
+
+  <main id="home-screen" class="home-screen">
+    <section class="hero-grid">
+      <div class="hero-copy">
+        <div class="overline"><span class="overline-line"></span> BERLIM • 1945 • SETOR DE OPERAÇÕES</div>
+        <h1>A noite<br />não <em>termina.</em></h1>
+        <p class="hero-lead">A energia caiu. As portas estão fechadas.<br />Quantas rodadas você consegue sobreviver?</p>
+        <div class="hero-stats">
+          <div><strong>04</strong><span>OPERADORES</span></div>
+          <div><strong>∞</strong><span>RODADAS</span></div>
+          <div><strong>01</strong><span>OBJETIVO</span></div>
+        </div>
+        <div class="hero-stamp"><span>CLASSIFICADO</span><b>KINO DER TOTEN</b><small>PROTOCOLO CO-OP • FIREBASE RTDB</small></div>
+      </div>
+      <div class="map-art" aria-hidden="true">
+        <div class="art-halo"></div>
+        <div class="art-grid"></div>
+        <div class="art-crosshair">+</div>
+        <div class="theater-stage"></div>
+        <div class="art-room room-a"><i></i><b>STAGE</b></div>
+        <div class="art-room room-b"><i></i><b>LOBBY</b></div>
+        <div class="art-room room-c"><i></i><b>POWER</b></div>
+        <div class="art-corridor"></div>
+        <div class="art-zombie z-one"><i></i><i></i><b></b></div>
+        <div class="art-zombie z-two"><i></i><i></i><b></b></div>
+        <span class="coord coord-one">52°31' N / 13°24' E</span>
+        <span class="coord coord-two">SECTOR 05—B</span>
+        <div class="art-scanline"></div>
+        <div class="map-legend"><span class="legend-dot"></span> SINAL HOSTIL DETECTADO</div>
+      </div>
+    </section>
+
+    <section class="deploy-section">
+      <div class="section-heading">
+        <div><div class="eyebrow">SELECIONE O MODO</div><h2>Preparar para <span>deploy</span></h2></div>
+        <p>COOPERATIVO • SOBREVIVÊNCIA<br /><span>Escolha seu esquadrão.</span></p>
+      </div>
+
+      <div class="deploy-grid">
+        <article class="deploy-card solo-card">
+          <div class="card-topline"><span class="mode-symbol">01</span><span class="mode-state">OFFLINE</span></div>
+          <div class="mode-icon solo-icon" aria-hidden="true"><span></span><i></i></div>
+          <h3>Sobrevivência<br /><em>solo</em></h3>
+          <p>Entre direto na luta. Perfeito para conhecer as salas, testar as armas e afiar a mira.</p>
+          <button id="play-solo" class="action-button action-light"><span>INICIAR PARTIDA</span><b>↗</b></button>
+          <div class="card-foot"><span>SEM CONEXÃO NECESSÁRIA</span><span>01 JOGADOR</span></div>
+        </article>
+
+        <article class="deploy-card online-card">
+          <div class="card-topline"><span class="mode-symbol">02</span><span class="mode-state online-state"><i></i> ONLINE</span></div>
+          <div class="online-heading">
+            <div class="mode-icon online-icon" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <div><h3>Esquadrão<br /><em>cooperativo</em></h3><p>Crie uma sala privada ou entre com o código do seu amigo.</p></div>
+          </div>
+          <div class="operator-row">
+            <label for="player-name">NOME DO OPERADOR</label>
+            <div class="name-wrap"><span class="name-sigil">⌁</span><input id="player-name" maxlength="18" autocomplete="nickname" placeholder="Seu codinome" value="" /></div>
+          </div>
+          <div class="online-actions">
+            <button id="create-room" class="action-button action-gold"><span>CRIAR SALA</span><b>＋</b></button>
+            <div class="join-form">
+              <label class="sr-only" for="room-code-input">Código da sala</label>
+              <input id="room-code-input" maxlength="5" inputmode="text" autocomplete="off" placeholder="CÓDIGO" aria-label="Código da sala" />
+              <button id="join-room" class="action-button action-outline"><span>ENTRAR</span><b>→</b></button>
+            </div>
+          </div>
+          <div class="card-foot"><span>ATÉ 4 OPERADORES</span><span>FIREBASE REALTIME</span></div>
+        </article>
+      </div>
+      <p id="firebase-note" class="firebase-note"><span class="signal-icon">◉</span> Login anônimo seguro • O online requer regras do Realtime Database publicadas.</p>
+    </section>
+
+    <section id="lobby-panel" class="lobby-panel hidden" aria-live="polite">
+      <div class="lobby-heading">
+        <div><div class="eyebrow">SALA PRIVADA • KINO DER TOTEN</div><h2>Forme seu <span>esquadrão.</span></h2></div>
+        <button id="lobby-leave" class="text-button">SAIR DA SALA <b>×</b></button>
+      </div>
+      <div class="lobby-content">
+        <div class="lobby-code-block">
+          <span class="field-label">CÓDIGO DA SALA</span>
+          <div class="share-code"><strong id="lobby-code">-----</strong><button id="copy-code" class="icon-button copy-button" aria-label="Copiar código">▣</button></div>
+          <p>Compartilhe este código com até 3 amigos.</p>
+          <div class="lobby-map-chip"><span class="chip-map-icon">⌖</span><span><b>KINO DER TOTEN</b><small>TEATRO • BERLIM, ALEMANHA</small></span><span class="chip-round">01</span></div>
+        </div>
+        <div class="lobby-roster-block">
+          <div class="roster-heading"><span class="field-label">OPERADORES NA SALA</span><span id="lobby-count" class="roster-count">0 / 4</span></div>
+          <div id="lobby-roster" class="lobby-roster"></div>
+          <div class="lobby-controls">
+            <button id="ready-toggle" class="action-button action-outline ready-button"><span>PRONTO</span><b>✓</b></button>
+            <button id="start-online" class="action-button action-gold"><span>INICIAR PARTIDA</span><b>↗</b></button>
+          </div>
+          <p id="lobby-status" class="lobby-status">Aguardando operadores…</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="home-footer"><span>PROJETO FAN-MADE • FEITO PARA O NAVEGADOR</span><span>SEM ASSETS OFICIAIS • KINO WEB SURVIVAL</span><span>◈ 1945 // KINO</span></footer>
+  </main>
+
+  <section id="game-screen" class="game-screen hidden" aria-label="Partida de sobrevivência">
+    <div class="game-topbar">
+      <div class="game-brand-mini"><span class="brand-mark small">K<span>•</span></span><div><b>KINO // ZOMBIES</b><small id="game-mode-label">SOLO • SOBREVIDA</small></div></div>
+      <div class="round-display"><small>RODADA</small><strong id="round-number">01</strong><span id="round-subtitle">PREPARE-SE</span></div>
+      <div class="game-top-actions"><span id="room-online-badge" class="online-badge hidden"><i></i><b>ONLINE</b> <span id="room-code-badge">-----</span></span><button id="scoreboard-open" class="hud-icon-button" title="Placar (Tab)">≡</button><button id="pause-open" class="hud-icon-button" title="Pausar (Esc)">Ⅱ</button></div>
+    </div>
+    <div class="game-stage">
+      <canvas id="game-canvas" aria-label="Campo de jogo. WASD para mover, mouse para mirar e clicar para atirar."></canvas>
+      <div class="game-vignette"></div>
+      <div class="hud-left">
+        <div class="operator-hud"><span id="hud-player-dot" class="operator-dot"></span><div><b id="hud-player-name">OPERADOR</b><small id="hud-player-state">VIVO • KINO</small></div><span id="hud-kills" class="kills-count">0 <small>K</small></span></div>
+        <div class="health-shell"><div class="health-icon">♥</div><div class="health-info"><div class="health-text"><b>VITALIDADE</b><span id="health-value">100</span></div><div class="health-track"><i id="health-fill"></i></div></div></div>
+        <div class="score-shell"><span class="score-diamond">◆</span><div><small>PONTUAÇÃO</small><b id="score-value">500</b></div><span id="revive-indicator" class="revive-indicator hidden">REANIMAR</span></div>
+      </div>
+      <div class="hud-right">
+        <div class="threat-card"><small>AMEAÇAS</small><b id="zombie-count">0</b><span>ZUMBIS RESTANTES <i></i></span></div>
+        <div id="effects-row" class="effects-row"></div>
+        <div class="squad-stack" id="game-squad"></div>
+      </div>
+      <div id="game-notices" class="game-notices" aria-live="polite"></div>
+      <div id="round-banner" class="round-banner"><small>RODADA</small><strong>01</strong><span>PREPARE-SE</span></div>
+      <div id="interaction-prompt" class="interaction-prompt hidden"><kbd>E</kbd><span></span></div>
+      <div class="weapon-hud">
+        <div class="weapon-info"><div class="weapon-kicker"><span id="weapon-slot-label">PRIMÁRIA [1]</span><span id="weapon-class">PISTOLA</span></div><b id="weapon-name">M1911</b><div class="weapon-bottom"><span id="weapon-ammo">8</span><i>/</i><span id="weapon-reserve">80</span><small>AMMO</small></div></div>
+        <div class="weapon-illustration"><div class="weapon-silhouette"></div><div class="ammo-dots" id="ammo-dots"></div></div>
+        <div class="weapon-switch"><span id="weapon-one" class="weapon-slot active"><b>1</b><small>M1911</small></span><span id="weapon-two" class="weapon-slot"><b>2</b><small>VAZIO</small></span><span id="weapon-three" class="weapon-slot hidden"><b>3</b><small>VAZIO</small></span></div>
+      </div>
+      <div id="perk-row" class="perk-row"></div>
+      <div id="touch-controls" class="touch-controls" aria-label="Controles touch">
+        <div class="stick-zone left-zone"><span class="stick-label">MOVE</span><div class="virtual-stick" id="move-stick"><div class="stick-ring"></div><div class="stick-knob"></div></div></div>
+        <div class="stick-zone right-zone"><span class="stick-label">AIM</span><div class="virtual-stick" id="aim-stick"><div class="stick-ring"></div><div class="stick-knob"></div></div></div>
+        <div class="touch-actions">
+          <button data-touch="reload" class="touch-btn touch-reload" aria-label="Recarregar">R</button>
+          <button data-touch="melee" class="touch-btn touch-melee" aria-label="Corpo a corpo">⌁</button>
+          <button data-touch="swap" class="touch-btn touch-swap" aria-label="Trocar arma">⇄</button>
+          <button data-touch="interact" class="touch-btn touch-interact" aria-label="Interagir">E</button>
+          <button data-touch="sprint" class="touch-btn touch-sprint" aria-label="Correr">»</button>
+          <button data-touch="fire" class="touch-btn touch-fire" aria-label="Atirar"><span>FIRE</span></button>
+        </div>
+      </div>
+      <div class="controls-hint"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> MOVER</span><span><kbd>CLICK</kbd> ATIRAR</span><span><kbd>R</kbd> RECARREGAR</span><span><kbd>E</kbd> INTERAGIR</span></div>
+    </div>
+  </section>
+
+  <div id="pause-overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+    <div class="overlay-card pause-card"><div class="eyebrow">PAUSA TÁTICA</div><h2 id="pause-title">Respire.<br /><em>Ainda não acabou.</em></h2><p id="pause-message">A horda continua esperando.</p><div class="pause-stats"><span>RODADA <b id="pause-round">01</b></span><span>ELIMINAÇÕES <b id="pause-kills">0</b></span></div><button id="resume-game" class="action-button action-gold"><span>VOLTAR À PARTIDA</span><b>↗</b></button><button id="leave-game" class="text-button leave-game">ABANDONAR PARTIDA</button></div>
+  </div>
+
+  <div id="scoreboard-overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="scoreboard-title">
+    <div class="overlay-card scoreboard-card"><div class="eyebrow">RELATÓRIO DO ESQUADRÃO • KINO</div><h2 id="scoreboard-title">Placar da <em>sobrevivência.</em></h2><div id="scoreboard-list" class="scoreboard-list"></div><p class="scoreboard-hint">SOLTE TAB PARA CONTINUAR</p></div>
+  </div>
+
+  <div id="gameover-overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="gameover-title">
+    <div class="overlay-card gameover-card"><div class="eyebrow danger-eyebrow">SINAL PERDIDO • EQUIPE ELIMINADA</div><h2 id="gameover-title">A noite <em>venceu.</em></h2><div class="gameover-round"><small>VOCÊS SOBREVIVERAM ATÉ</small><strong id="final-round">01</strong><span>RODADA</span></div><div id="final-scoreboard" class="scoreboard-list"></div><button id="play-again" class="action-button action-gold"><span>TENTAR NOVAMENTE</span><b>↻</b></button><button id="exit-home" class="text-button">VOLTAR AO MENU</button></div>
+  </div>
+
+  <div id="help-overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="help-title">
+    <div class="overlay-card help-card"><button id="help-close" class="modal-close" aria-label="Fechar">×</button><div class="eyebrow">GUIA DO OPERADOR</div><h2 id="help-title">Sobreviva <em>em equipe.</em></h2><div class="help-grid"><div><b>MOVIMENTAÇÃO</b><p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> para andar<br /><kbd>SHIFT</kbd> para correr</p></div><div><b>COMBATE</b><p>Mouse para mirar e atirar<br /><kbd>R</kbd> recarrega • <kbd>V</kbd> golpe</p></div><div><b>INTERAÇÃO</b><p><kbd>E</kbd> compra armas, abre portas, repara barricadas, liga energia e revive aliados.</p></div><div><b>CO-OP ONLINE</b><p>Um operador cria a sala e compartilha o código. O host mantém a simulação da horda.</p></div></div><div class="help-note">DICA: tiros no alvo dão 10 pts; eliminações, tiros na cabeça e golpes valem pontos extras. Juggernog aumenta sua resistência.</div><button id="help-ok" class="action-button action-outline"><span>ENTENDI</span><b>✓</b></button></div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="loading-overlay" class="loading-overlay hidden" role="status" aria-live="polite"><div class="loading-mark">K</div><div class="loading-copy"><b id="loading-title">CONECTANDO</b><span id="loading-text">Preparando o esquadrão…</span></div><div class="loading-spinner"></div></div>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
