@@ -1,0 +1,12 @@
+{
+  "name": "kino-zombies-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Fan-made top-down Zombies co-op for the browser with Firebase Realtime Database.",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs",
+    "test": "node --test"
+  }
+}
