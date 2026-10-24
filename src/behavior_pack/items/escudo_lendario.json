@@ -1,0 +1,38 @@
+{
+  "format_version": "1.26.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cs:escudo_lendario",
+      "menu_category": {
+        "category": "equipment",
+        "is_hidden_in_commands": false
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "escudo_lendario"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.cs.escudo_lendario.name"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:glint": {
+        "value": true
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:tags": {
+        "tags": [
+          "cs:lendario",
+          "cs:escudo"
+        ]
+      },
+      "minecraft:allow_off_hand": {
+        "value": true
+      }
+    }
+  }
+}

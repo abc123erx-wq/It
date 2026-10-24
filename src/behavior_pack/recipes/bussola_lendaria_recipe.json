@@ -1,0 +1,30 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cs:bussola_lendaria_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "result": {
+      "item": "cs:bussola_lendaria"
+    },
+    "unlock": [
+      {
+        "item": "minecraft:compass"
+      }
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:compass"
+      },
+      {
+        "item": "minecraft:ender_eye"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      }
+    ]
+  }
+}

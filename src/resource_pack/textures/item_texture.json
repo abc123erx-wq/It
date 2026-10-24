@@ -1,0 +1,48 @@
+{
+  "resource_pack_name": "creative_squad_itens_lendarios",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "espada_do_cacador": {
+      "textures": "textures/items/espada_do_cacador"
+    },
+    "batata_do_bobo": {
+      "textures": "textures/items/batata_do_bobo"
+    },
+    "bota_lendaria": {
+      "textures": "textures/items/bota_lendaria"
+    },
+    "capacete_gemeo_bern": {
+      "textures": "textures/items/capacete_gemeo_bern"
+    },
+    "capacete_gemeo_chip": {
+      "textures": "textures/items/capacete_gemeo_chip"
+    },
+    "dragao_lendario": {
+      "textures": "textures/items/dragao_lendario"
+    },
+    "escudo_lendario": {
+      "textures": "textures/items/escudo_lendario"
+    },
+    "bussola_lendaria": {
+      "textures": "textures/items/bussola_lendaria"
+    },
+    "lampiao_lendario": {
+      "textures": "textures/items/lampiao_lendario"
+    },
+    "pena_lendaria": {
+      "textures": "textures/items/pena_lendaria"
+    },
+    "picareta_lendaria": {
+      "textures": "textures/items/picareta_lendaria"
+    },
+    "pocao_lendaria": {
+      "textures": "textures/items/pocao_lendaria"
+    },
+    "relogio_lendario": {
+      "textures": "textures/items/relogio_lendario"
+    },
+    "tridente_lendario": {
+      "textures": "textures/items/tridente_lendario"
+    }
+  }
+}

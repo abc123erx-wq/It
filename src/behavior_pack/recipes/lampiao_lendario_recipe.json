@@ -1,0 +1,30 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cs:lampiao_lendario_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "result": {
+      "item": "cs:lampiao_lendario"
+    },
+    "unlock": [
+      {
+        "item": "minecraft:lantern"
+      }
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:lantern"
+      },
+      {
+        "item": "minecraft:glow_ink_sac"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      }
+    ]
+  }
+}

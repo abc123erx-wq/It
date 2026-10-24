@@ -1,0 +1,43 @@
+{
+  "format_version": "1.26.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cs:bota_lendaria",
+      "menu_category": {
+        "category": "equipment",
+        "is_hidden_in_commands": false
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "bota_lendaria"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.cs.bota_lendaria.name"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:glint": {
+        "value": true
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:tags": {
+        "tags": [
+          "cs:lendario",
+          "cs:bota"
+        ]
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.feet",
+        "protection": 3
+      },
+      "minecraft:enchantable": {
+        "slot": "armor_feet",
+        "value": 12
+      }
+    }
+  }
+}

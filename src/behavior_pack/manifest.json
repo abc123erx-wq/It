@@ -1,0 +1,39 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "pack.name",
+    "description": "pack.description",
+    "uuid": "6bd81fad-627d-4d1c-a1a5-a4dc30dc6cfa",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 26, 52]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "b74a93a2-9b9e-4754-8e4a-c639709db0d5",
+      "version": [1, 0, 0]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "23ac7f17-d3db-4a90-a292-f46793d5c3e6",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.0.0"
+    },
+    {
+      "uuid": "4d92b801-1b73-41e0-9a5a-98c5a9142675",
+      "version": [1, 0, 0]
+    }
+  ],
+  "metadata": {
+    "authors": ["Addon da comunidade - Itens Lendarios da Creative Squad"],
+    "license": "MIT",
+    "product_type": "addon"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cs:pocao_lendaria_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "result": {
+      "item": "cs:pocao_lendaria"
+    },
+    "unlock": [
+      {
+        "item": "minecraft:glass_bottle"
+      }
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:glass_bottle"
+      },
+      {
+        "item": "minecraft:ink_sac"
+      },
+      {
+        "item": "minecraft:gunpowder"
+      }
+    ]
+  }
+}

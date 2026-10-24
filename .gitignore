@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.pyc
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Saidas temporarias dos testes
+/tmp/

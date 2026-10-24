@@ -1,0 +1,31 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cs:capacete_gemeo_chip_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "result": {
+      "item": "cs:capacete_gemeo_chip"
+    },
+    "unlock": [
+      {
+        "item": "minecraft:turtle_scute"
+      }
+    ],
+    "pattern": [
+      "SSS",
+      "SNS"
+    ],
+    "key": {
+      "S": {
+        "item": "minecraft:turtle_scute"
+      },
+      "N": {
+        "item": "minecraft:nautilus_shell"
+      }
+    }
+  }
+}

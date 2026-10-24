@@ -1,0 +1,32 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cs:picareta_lendaria_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "result": {
+      "item": "cs:picareta_lendaria"
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ],
+    "pattern": [
+      "III",
+      "ISI",
+      " S "
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    }
+  }
+}

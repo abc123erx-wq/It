@@ -1,0 +1,35 @@
+{
+  "format_version": "1.26.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cs:pocao_lendaria",
+      "menu_category": {
+        "category": "items",
+        "is_hidden_in_commands": false
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "pocao_lendaria"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.cs.pocao_lendaria.name"
+      },
+      "minecraft:max_stack_size": 16,
+      "minecraft:glint": {
+        "value": true
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:tags": {
+        "tags": [
+          "cs:lendario",
+          "cs:pocao"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "format_version": "1.26.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cs:picareta_lendaria",
+      "menu_category": {
+        "category": "equipment",
+        "is_hidden_in_commands": false
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "picareta_lendaria"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.cs.picareta_lendaria.name"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:glint": {
+        "value": true
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:tags": {
+        "tags": [
+          "cs:lendario",
+          "cs:picareta"
+        ]
+      },
+      "minecraft:damage": {
+        "value": 3
+      },
+      "minecraft:enchantable": {
+        "slot": "pickaxe",
+        "value": 15
+      },
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "destroy_speeds": [
+          {
+            "block": "minecraft:stone",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:cobblestone",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:mossy_cobblestone",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:smooth_stone",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:granite",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:diorite",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:andesite",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:polished_granite",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:polished_diorite",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:polished_andesite",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:deepslate",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:cobbled_deepslate",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:tuff",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:calcite",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:dripstone_block",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:netherrack",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:basalt",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:smooth_basalt",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:blackstone",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:end_stone",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:sandstone",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:red_sandstone",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:dirt",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:grass_block",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:sand",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:red_sand",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:gravel",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:clay",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:coal_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:iron_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:copper_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:gold_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:redstone_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:lapis_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:diamond_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:emerald_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:nether_gold_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:quartz_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:deepslate_coal_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:deepslate_iron_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:deepslate_copper_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:deepslate_gold_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:deepslate_redstone_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:deepslate_lapis_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:deepslate_diamond_ore",
+            "speed": 60
+          },
+          {
+            "block": "minecraft:deepslate_emerald_ore",
+            "speed": 60
+          }
+        ]
+      }
+    }
+  }
+}

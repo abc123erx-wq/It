@@ -1,0 +1,33 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cs:relogio_lendario_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "result": {
+      "item": "cs:relogio_lendario"
+    },
+    "unlock": [
+      {
+        "item": "minecraft:clock"
+      }
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:clock"
+      },
+      {
+        "item": "minecraft:ender_pearl"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      },
+      {
+        "item": "minecraft:name_tag"
+      }
+    ]
+  }
+}

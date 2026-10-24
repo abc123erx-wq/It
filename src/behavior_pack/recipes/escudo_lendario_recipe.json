@@ -1,0 +1,35 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cs:escudo_lendario_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "result": {
+      "item": "cs:escudo_lendario"
+    },
+    "unlock": [
+      {
+        "item": "minecraft:shield"
+      }
+    ],
+    "pattern": [
+      "IEI",
+      "ISI",
+      " I "
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "E": {
+        "item": "minecraft:echo_shard"
+      },
+      "S": {
+        "item": "minecraft:shield"
+      }
+    }
+  }
+}

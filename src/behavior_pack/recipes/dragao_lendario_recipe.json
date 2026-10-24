@@ -1,0 +1,32 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cs:dragao_lendario_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "result": {
+      "item": "cs:dragao_lendario"
+    },
+    "unlock": [
+      {
+        "item": "minecraft:dragon_breath"
+      }
+    ],
+    "pattern": [
+      " E ",
+      "EDE",
+      " E "
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:ender_pearl"
+      },
+      "D": {
+        "item": "minecraft:dragon_breath"
+      }
+    }
+  }
+}

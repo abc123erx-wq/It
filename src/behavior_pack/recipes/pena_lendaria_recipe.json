@@ -1,0 +1,30 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cs:pena_lendaria_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "result": {
+      "item": "cs:pena_lendaria"
+    },
+    "unlock": [
+      {
+        "item": "minecraft:feather"
+      }
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:feather"
+      },
+      {
+        "item": "minecraft:phantom_membrane"
+      },
+      {
+        "item": "minecraft:wind_charge"
+      }
+    ]
+  }
+}
