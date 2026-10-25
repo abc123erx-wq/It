@@ -7,7 +7,8 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 
-from tacgen.specs import BY_ID, FAMILIES, SPECS, recipe_items  # noqa: E402
+from tacgen.specs import (BY_ID, FAMILIES, SPECS, recipe_items,  # noqa: E402
+                         shop_entries)
 
 TEMPLATE_AMMO = {"mk18": "556x45mm", "glock17": "9x19mm", "coltpython": "357magnum",
                  "awp": "338lapua", "m870": "12gauge"}
@@ -156,6 +157,7 @@ def render():
     add("")
     # ------------------------------------------------ linha de faccao
     crime = [w for w in SPECS if w.get("faction") == "crime"]
+    police = [w for w in SPECS if w.get("faction") != "crime"]
     add("## Linha de facção — armas de crime organizado")
     add("")
     add(f"{len(crime)} armas inspiradas em apreensões reais, na mesma plataforma de "
@@ -248,6 +250,97 @@ def render():
             add(f"*Receita na bancada de trabalho (aba {spec['tab']}, item {spec['itemtab']}):* "
                 f"{recipe} → `tac_guns:{gid}_emp` (arma vazia, pronta para municiar).")
             add("")
+    # ------------------------------------------------- camada policia x ladrao
+    add("## Facções: policial x ladrão (camada de jogo)")
+    add("")
+    add("A camada de facção é implementada por script (`scripts/events/factions.js`) e não "
+        "duplica itens: as 46 armas continuam as mesmas, mas passam a responder ao lado do "
+        "jogador. O lado é guardado na tag `policia` / `ladrao` (compatível com `/tag`) e "
+        "espelhado no scoreboard `faccao` (1 = policial, 2 = ladrão).")
+    add("")
+    add("### Tela de escolha de lado")
+    add("")
+    add("Ao entrar no mundo sem facção, o script abre um formulário "
+        "(`ActionFormData`) com o layout do card de referência: título "
+        "**ESCOLHA SEU LADO**, subtítulo *LEI OU LIBERDADE?* e dois botões-imagem de "
+        "256x256 — metade azul **POLICIAL** (escudo, *PROTEJA A CIDADE / MANTENHA A ORDEM*) "
+        "e metade vermelha **LADRÃO** (máscara, *FAÇA SEU DINHEIRO / DESAFIE A LEI*).")
+    add("")
+    add("| Arquivo | Papel |")
+    add("|---|---|")
+    add("| `out/TacGuns(R)/textures/ui/policial.png` | card azul do botão POLICIAL |")
+    add("| `out/TacGuns(R)/textures/ui/ladrao.png` | card vermelho do botão LADRÃO |")
+    add("| `out/TacGuns(B)/scripts/events/factions.js` | tela, economia, loja, abates |")
+    add("| `tools/tacgen/templates/factions.js` | fonte do script (tabelas geradas no build) |")
+    add("| `docs/faccao_tela.png` | mock da tela (gerado por `tools/tacgen/render_faction_screen.py`) |")
+    add("")
+    add("![Tela de escolha de lado](faccao_tela.png)")
+    add("")
+    add("Ao confirmar, o jogador recebe o título do lado (azul ou vermelho), som próprio, "
+        "kit inicial (pistola + 60 munições, uma vez por lado) e o placar lateral "
+        "*FACÇÃO BRASIL* com dinheiro, abates, reputação, lado e contagem de jogadores.")
+    add("")
+    add("### Arsenais separados")
+    add("")
+    add("Cada arma pertence a um lado. **Usar arma do lado oposto é bloqueado** "
+        "(`beforeEvents.itemUse` cancelado, som de erro e aviso na action bar). As armas do "
+        "pacote original (AK-47, MK18, AWP, M870, Glock 17, Colt Python, Desert Eagle, DB, "
+        "DP-28, M134) ficam **neutras** — as duas facções podem usar.")
+    add("")
+    add(f"- **POLICIAL** — {len(police)} armas de dotação/forças especiais: IA2 5.56 e 7.62, "
+        "MD97L/LM, M964 FAL, MD2, T4/T4 CQC, SAF 9mm, Mini-SAF, MT9 G2, SMT9, Uru, MT12, "
+        "PT92, PT24/7, TS9, TH9, G3c, GX4, RT85, RT608, Raging Bull, AGLC, ST12 e CBC Military.")
+    add(f"- **LADRÃO** — as {len(crime)} armas de facção (abas 7 e 8), com os acessórios "
+        "improvisados (`att_tape_optic`, `att_dualmag`) que a polícia **não** pode usar.")
+    add("")
+    add("### Recompensas, recuo e apreensão")
+    add("")
+    add("| Ação | POLICIAL | LADRÃO |")
+    add("|---|---|---|")
+    add("| Abater jogador do lado oposto | +R$ 400, +1 abate, +1 reputação | idem |")
+    add("| Abater monstro | +R$ 40 | +R$ 25 |")
+    add("| Matar aldeão | -R$ 100 (conduta imprópria) | +R$ 120 (assalto) |")
+    add("| Recuo da câmera por disparo | 0,022 (treinamento) | 0,058 (arma sem manutenção) |")
+    add("| Arma do lado oposto | não dispara | não dispara |")
+    add("| Dano de arma própria | x1,05 | x1,10 |")
+    add("| Dano de arma alheia | x0,75 | x0,70 |")
+    add("")
+    add("**Apreensão:** ao abater um jogador do lado oposto, a arma na mão dele cai no chão "
+        "(o pente é zerado) e o matador recebe o dinheiro. **Reputação** sobe com abates e "
+        "define a patente mostrada no `/scriptevent tac_guns:info` "
+        "(*Recruta → Coronel* na polícia, *Verme → Dono* na facção).")
+    add("")
+    add("### Loja de campanha")
+    add("")
+    add("`/scriptevent tac_guns:loja` abre a loja do lado com 6 itens (pistola, escopeta, "
+        "dois fuzis, revólver e precisão), preço calculado a partir do dano real da arma e "
+        "munição inclusa:")
+    add("")
+    for lado, rotulo in (("policia", "POLICIAL"), ("ladrao", "LADRÃO")):
+        add(f"**{rotulo}**")
+        add("")
+        add("| Item | Preço | Munição inclusa |")
+        add("|---|---|---|")
+        for e in shop_entries(lado):
+            add(f"| {e['nome']} (`{e['item']}`) | R$ {e['preco']} | "
+                f"{e['municao']}x `{e['ammo']}` |")
+        add("")
+    add("A tabela completa é gerada em `factions.js` e validada por `tools/validate.py` "
+        "(garante que a loja da polícia nunca vende arma de facção).")
+    add("")
+    add("### Comandos")
+    add("")
+    add("| Comando | Efeito |")
+    add("|---|---|")
+    add("| `/scriptevent tac_guns:faccao` | abre a tela de escolha (troca de lado) |")
+    add("| `/scriptevent tac_guns:loja` | abre a loja do lado atual |")
+    add("| `/scriptevent tac_guns:info` | lado, dinheiro, abates, patente e atalhos |")
+    add("| `/tag @s add policia` / `add ladrao` | define o lado por comando |")
+    add("| `/scoreboard players set <jogador> dinheiro 5000` | define o dinheiro |")
+    add("")
+    add("Trocar de lado zera dinheiro, abates e reputação (o kit inicial de cada lado é "
+        "entregue uma única vez, controlado pelas tags `kit_policia` / `kit_ladrao`).")
+    add("")
     add("## Cobertura da lista solicitada")
     add("")
     add("| Categoria | Armas implementadas |")

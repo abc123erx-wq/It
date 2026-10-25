@@ -25,7 +25,8 @@ from tacgen.designs_crime import DESIGNS_CRIME  # noqa: E402
 ALL_DESIGNS = dict(DESIGNS)
 ALL_DESIGNS.update(DESIGNS_CRIME)
 from tacgen.geometry import build_geometry  # noqa: E402
-from tacgen.specs import (FAMILIES, RECOLORS, RIGS, SPECS, recipe_items,  # noqa: E402
+from tacgen.specs import (BY_ID, FAMILIES, RECOLORS, RIGS, SPECS, recipe_items,
+                         shop_entries,  # noqa: E402
                          recipe_pattern)
 
 SRC_BP = os.path.join(ROOT, "src", "TacGuns(B)")
@@ -707,6 +708,132 @@ class Build:
             text = text.replace(anchor, anchor + "\nimport './events/attachments.js';")
         write_text(main, text)
 
+
+    # ---------------------------------------------------------------- facções
+    def faction_icons(self):
+        """Ícones-botão da tela de escolha de lado: metades do card (azul/vermelho)."""
+        import unicodedata
+        from PIL import ImageFont
+
+        _ttf = None
+        for cand in ("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+                     "/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf",
+                     "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf",
+                     "/Library/Fonts/Arial Bold.ttf",
+                     "C:/Windows/Fonts/arialbd.ttf"):
+            if os.path.exists(cand):
+                _ttf = cand
+                break
+
+        def fonte(tam):
+            if _ttf:
+                return ImageFont.truetype(_ttf, tam)
+            try:
+                return ImageFont.load_default(size=tam)
+            except TypeError:
+                return ImageFont.load_default()
+
+        def legenda(d, cx, y, texto, tam, cor, esp=0):
+            f = fonte(tam)
+            if not _ttf:
+                texto = "".join(c for c in unicodedata.normalize("NFD", texto)
+                                if unicodedata.category(c) != "Mn")
+            for dx in range(-esp, esp + 1):
+                for dy in range(-esp, esp + 1):
+                    d.text((cx + dx, y + dy), texto, font=f, fill=cor, anchor="ma")
+
+        def card(nome, topo, sub, sub2, base, borda, claro, escuro, emblema):
+            img = Image.new("RGBA", (256, 256), (0, 0, 0, 0))
+            d = ImageDraw.Draw(img)
+            d.rounded_rectangle([2, 2, 253, 253], radius=26, fill=base, outline=borda, width=5)
+            d.rounded_rectangle([10, 10, 245, 245], radius=20, outline=claro, width=2)
+            d.rectangle([12, 12, 243, 44], fill=escuro)
+            legenda(d, 128, 20, topo, 22, (240, 246, 255, 255), 1)
+            # faixa de destaque diagonal
+            d.polygon([(10, 226), (245, 150), (245, 150), (245, 245), (10, 245)], fill=escuro)
+            emblema(d, 128, 118)
+            legenda(d, 128, 176, sub, 15, claro, 1)
+            legenda(d, 128, 198, sub2, 15, claro, 1)
+            d.rounded_rectangle([10, 10, 245, 245], radius=20, outline=claro, width=2)
+            img.save(os.path.join(OUT_RP, "textures", "ui", nome + ".png"))
+
+        def escudo(d, cx, cy):
+            d.polygon([(cx, cy - 46), (cx + 42, cy - 30), (cx + 38, cy + 20),
+                       (cx, cy + 52), (cx - 38, cy + 20), (cx - 42, cy - 30)],
+                      fill=(22, 70, 150, 255), outline=(168, 214, 255, 255), width=3)
+            d.polygon([(cx, cy - 30), (cx + 28, cy - 18), (cx + 25, cy + 14),
+                       (cx, cy + 34), (cx - 25, cy + 14), (cx - 28, cy - 18)],
+                      fill=(40, 112, 208, 255))
+            import math as _m
+            for i in range(5):
+                a0 = -90 + i * 72
+                a1 = a0 + 36
+                cx0, cy0 = cx, cy - 4
+                p0 = (cx0 + 18 * _m.cos(_m.radians(a0)), cy0 + 18 * _m.sin(_m.radians(a0)))
+                p1 = (cx0 + 7 * _m.cos(_m.radians(a1)), cy0 + 7 * _m.sin(_m.radians(a1)))
+                d.polygon([(cx0, cy0), p0, p1], fill=(238, 246, 255, 255))
+
+        def mascara(d, cx, cy):
+            d.ellipse([cx - 46, cy - 48, cx + 46, cy + 44], fill=(20, 20, 24, 255),
+                      outline=(240, 96, 92, 255), width=3)
+            d.polygon([(cx - 40, cy - 12), (cx - 6, cy - 18), (cx - 10, cy + 4), (cx - 40, cy + 4)],
+                      fill=(246, 246, 246, 255))
+            d.polygon([(cx + 40, cy - 12), (cx + 6, cy - 18), (cx + 10, cy + 4), (cx + 40, cy + 4)],
+                      fill=(246, 246, 246, 255))
+            d.ellipse([cx - 30, cy - 12, cx - 14, cy + 2], fill=(20, 20, 24, 255))
+            d.ellipse([cx + 14, cy - 12, cx + 30, cy + 2], fill=(20, 20, 24, 255))
+            d.rectangle([cx - 36, cy + 18, cx + 36, cy + 34], fill=(14, 14, 18, 255))
+            d.line([cx - 36, cy + 18, cx + 36, cy + 18], fill=(214, 62, 58, 255), width=2)
+
+        card("policial", "POLICIAL", "PROTEJA A CIDADE", "MANTENHA A ORDEM",
+             (12, 26, 54, 255), (58, 138, 226, 255), (150, 205, 255, 255),
+             (18, 52, 110, 235), escudo)
+        card("ladrao", "LADRÃO", "FAÇA SEU DINHEIRO", "DESAFIE A LEI",
+             (38, 8, 10, 255), (214, 62, 58, 255), (255, 176, 170, 255),
+             (92, 20, 20, 235), mascara)
+
+    def faction_script(self):
+        """Script da camada de facções + tabelas geradas a partir do catálogo."""
+        def shop(side):
+            return "\n".join(
+                f'        {{ nome: "{e["nome"]}", item: "{e["item"]}", ammo: "{e["ammo"]}", '
+                f'preco: {e["preco"]}, municao: {e["municao"]}, icone: "{e["icone"]}" }},'
+                for e in shop_entries(side))
+
+        police = [s["id"] for s in SPECS if s.get("faction") != "crime"]
+        crime = [s["id"] for s in SPECS if s.get("faction") == "crime"]
+        # armas do pacote original (sem facção declarada) ficam liberadas para os dois lados
+        legacy = ["ak47", "mk18", "awp", "m870", "glock17", "coltpython",
+                  "deagle", "db", "dp28", "m134"]
+
+        table = ("{\n    policia: [\n" + shop("policia") + "\n    ],\n"
+                 "    ladrao: [\n" + shop("ladrao") + "\n    ],\n}")
+
+        def js_set(ids):
+            return "[" + ", ".join(f'"{i}"' for i in ids) + "]"
+
+        police_js = js_set(police + legacy)
+        crime_js = js_set(crime)
+
+        template = read(os.path.join(ROOT, "tools", "tacgen", "templates", "factions.js"))
+        body = (template
+                .replace("__POLICE_WEAPONS__", police_js)
+                .replace("__CRIME_WEAPONS__", crime_js)
+                .replace("__SHOP__", table))
+        write_text(os.path.join(OUT_BP, "scripts", "events", "factions.js"), body)
+
+        hit = read(os.path.join(ROOT, "tools", "tacgen", "templates", "projectile_hit.js"))
+        hit = (hit.replace("__POLICE_WEAPONS__", police_js)
+                  .replace("__CRIME_WEAPONS__", crime_js))
+        write_text(os.path.join(OUT_BP, "scripts", "events", "projectileHitEntity.js"), hit)
+
+        main = os.path.join(OUT_BP, "scripts", "main.js")
+        text = read(main)
+        anchor = "import './global/global.js';"
+        if "factions.js" not in text:
+            text = text.replace(anchor, anchor + "\nimport './events/factions.js';")
+        write_text(main, text)
+
     # ---------------------------------------------------------------- resources
     def item_texture(self):
         path = os.path.join(OUT_RP, "textures", "item_texture.json")
@@ -796,6 +923,8 @@ def build():
     b.attach_items()
     b.attach_properties()
     b.attach_script()
+    b.faction_icons()
+    b.faction_script()
     b.scripts()
     b.item_texture()
     b.sounds()

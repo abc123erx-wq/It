@@ -442,6 +442,39 @@ SPECS = [
 
 BY_ID = {s["id"]: s for s in SPECS}
 
+# ------------------------------------------------------------------ loja de facção
+PESO_PRECO = {"pistol": 30, "revolver": 45, "shotgun": 55, "rifle": 70, "sniper": 90}
+MUNICAO_LOJA = {"pistol": 60, "revolver": 40, "shotgun": 24, "rifle": 90, "sniper": 20}
+SHOP_FAMILIES = {
+    "policia": ["pistol", "shotgun", "rifle", "revolver", "sniper", "rifle"],
+    "ladrao": ["pistol", "shotgun", "rifle", "rifle", "sniper", "rifle"],
+}
+
+
+def shop_price(spec):
+    """Preço em R$ derivado do dano real e do tipo de arma."""
+    return max(120, int(round(spec["damage"] * PESO_PRECO[spec["family"]] / 10.0)) * 10)
+
+
+def shop_entries(side):
+    """Seis armas por lado: uma de cada família (fuzil repete), sem duplicatas."""
+    ids = [s["id"] for s in SPECS
+           if (s.get("faction") == "crime") == (side == "ladrao")]
+    usados, out = set(), []
+    for fam in SHOP_FAMILIES[side]:
+        cand = sorted((g for g in ids if BY_ID[g]["family"] == fam and g not in usados),
+                      key=lambda g: -BY_ID[g]["damage"])
+        if not cand:
+            continue
+        gid = cand[0]
+        usados.add(gid)
+        spec = BY_ID[gid]
+        out.append({"id": gid, "nome": spec["name"], "item": f"tac_guns:{gid}_emp",
+                    "ammo": f"tac_guns:{spec['ammo']}", "preco": shop_price(spec),
+                    "municao": MUNICAO_LOJA[fam], "icone": f"textures/items/{gid}"})
+    return out
+
+
 
 def recipe_items(spec, max_total=8):
     """Custo reduzido e proporcional para caber numa receita de bancada 3x3."""
@@ -769,3 +802,36 @@ CRIME = [
 
 SPECS = SPECS + CRIME
 BY_ID = {s["id"]: s for s in SPECS}
+
+# ------------------------------------------------------------------ loja de facção
+PESO_PRECO = {"pistol": 30, "revolver": 45, "shotgun": 55, "rifle": 70, "sniper": 90}
+MUNICAO_LOJA = {"pistol": 60, "revolver": 40, "shotgun": 24, "rifle": 90, "sniper": 20}
+SHOP_FAMILIES = {
+    "policia": ["pistol", "shotgun", "rifle", "revolver", "sniper", "rifle"],
+    "ladrao": ["pistol", "shotgun", "rifle", "rifle", "sniper", "rifle"],
+}
+
+
+def shop_price(spec):
+    """Preço em R$ derivado do dano real e do tipo de arma."""
+    return max(120, int(round(spec["damage"] * PESO_PRECO[spec["family"]] / 10.0)) * 10)
+
+
+def shop_entries(side):
+    """Seis armas por lado: uma de cada família (fuzil repete), sem duplicatas."""
+    ids = [s["id"] for s in SPECS
+           if (s.get("faction") == "crime") == (side == "ladrao")]
+    usados, out = set(), []
+    for fam in SHOP_FAMILIES[side]:
+        cand = sorted((g for g in ids if BY_ID[g]["family"] == fam and g not in usados),
+                      key=lambda g: -BY_ID[g]["damage"])
+        if not cand:
+            continue
+        gid = cand[0]
+        usados.add(gid)
+        spec = BY_ID[gid]
+        out.append({"id": gid, "nome": spec["name"], "item": f"tac_guns:{gid}_emp",
+                    "ammo": f"tac_guns:{spec['ammo']}", "preco": shop_price(spec),
+                    "municao": MUNICAO_LOJA[fam], "icone": f"textures/items/{gid}"})
+    return out
+

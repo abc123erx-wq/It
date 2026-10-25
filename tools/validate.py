@@ -319,6 +319,42 @@ def check_reload_band():
                 warn(f"bases de {name} muito proximas: {a} ({bases[a]}) e {b} ({bases[b]})")
 
 
+def check_factions():
+    """Camada de facções: tabelas geradas, ícones da tela e script ligado."""
+    script = os.path.join(BP, "scripts", "events", "factions.js")
+    if not os.path.exists(script):
+        fail("factions.js nao gerado")
+        return
+    text = open(script, encoding="utf-8").read()
+    if "__POLICE_WEAPONS__" in text or "__SHOP__" in text:
+        fail("factions.js: template nao substituido")
+    for spec in SPECS:
+        if f'"{spec["id"]}"' not in text:
+            fail(f"factions.js: arma {spec['id']} fora das tabelas de faccao")
+    for icone in ("policial", "ladrao"):
+        path = os.path.join(RP, "textures", "ui", icone + ".png")
+        if not os.path.exists(path):
+            fail(f"textures/ui/{icone}.png ausente")
+    for linha in ("tac_guns:faccao", "tac_guns:loja", "tac_guns:info"):
+        if linha not in text:
+            fail(f"factions.js: comando {linha} ausente")
+    main = open(os.path.join(BP, "scripts", "main.js"), encoding="utf-8").read()
+    if "factions.js" not in main:
+        fail("main.js nao importa events/factions.js")
+    hit = open(os.path.join(BP, "scripts", "events", "projectileHitEntity.js"),
+               encoding="utf-8").read()
+    if "multiplicador" not in hit:
+        fail("projectileHitEntity.js sem modificador de faccao")
+    # loja so deve vender coisa do proprio lado
+    for bloco, marca in (("policia", "crime"), ("ladrao", None)):
+        trecho = text.split(f"    {bloco}: [", 1)[-1].split("],", 1)[0]
+        if marca is None:
+            if "_crime_emp" not in trecho and bloco == "ladrao":
+                warn("loja do ladrao sem itens de faccao")
+        elif "_crime_emp" in trecho:
+            fail("loja da policia vendendo arma de faccao")
+
+
 def main():
     check_json_syntax()
     check_manifest()
@@ -332,6 +368,7 @@ def main():
     check_bones()
     check_assets()
     check_reload_band()
+    check_factions()
     for w in warns:
         print("AVISO:", w)
     for e in errors:

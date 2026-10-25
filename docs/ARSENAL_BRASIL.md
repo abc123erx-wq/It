@@ -1926,6 +1926,87 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 
 *Receita na bancada de trabalho (aba 8, item 10):* 7x `minecraft:iron_ingot`, 1x `minecraft:gunpowder` → `tac_guns:pt24_7_raspada_emp` (arma vazia, pronta para municiar).
 
+## Facções: policial x ladrão (camada de jogo)
+
+A camada de facção é implementada por script (`scripts/events/factions.js`) e não duplica itens: as 46 armas continuam as mesmas, mas passam a responder ao lado do jogador. O lado é guardado na tag `policia` / `ladrao` (compatível com `/tag`) e espelhado no scoreboard `faccao` (1 = policial, 2 = ladrão).
+
+### Tela de escolha de lado
+
+Ao entrar no mundo sem facção, o script abre um formulário (`ActionFormData`) com o layout do card de referência: título **ESCOLHA SEU LADO**, subtítulo *LEI OU LIBERDADE?* e dois botões-imagem de 256x256 — metade azul **POLICIAL** (escudo, *PROTEJA A CIDADE / MANTENHA A ORDEM*) e metade vermelha **LADRÃO** (máscara, *FAÇA SEU DINHEIRO / DESAFIE A LEI*).
+
+| Arquivo | Papel |
+|---|---|
+| `out/TacGuns(R)/textures/ui/policial.png` | card azul do botão POLICIAL |
+| `out/TacGuns(R)/textures/ui/ladrao.png` | card vermelho do botão LADRÃO |
+| `out/TacGuns(B)/scripts/events/factions.js` | tela, economia, loja, abates |
+| `tools/tacgen/templates/factions.js` | fonte do script (tabelas geradas no build) |
+| `docs/faccao_tela.png` | mock da tela (gerado por `tools/tacgen/render_faction_screen.py`) |
+
+![Tela de escolha de lado](faccao_tela.png)
+
+Ao confirmar, o jogador recebe o título do lado (azul ou vermelho), som próprio, kit inicial (pistola + 60 munições, uma vez por lado) e o placar lateral *FACÇÃO BRASIL* com dinheiro, abates, reputação, lado e contagem de jogadores.
+
+### Arsenais separados
+
+Cada arma pertence a um lado. **Usar arma do lado oposto é bloqueado** (`beforeEvents.itemUse` cancelado, som de erro e aviso na action bar). As armas do pacote original (AK-47, MK18, AWP, M870, Glock 17, Colt Python, Desert Eagle, DB, DP-28, M134) ficam **neutras** — as duas facções podem usar.
+
+- **POLICIAL** — 26 armas de dotação/forças especiais: IA2 5.56 e 7.62, MD97L/LM, M964 FAL, MD2, T4/T4 CQC, SAF 9mm, Mini-SAF, MT9 G2, SMT9, Uru, MT12, PT92, PT24/7, TS9, TH9, G3c, GX4, RT85, RT608, Raging Bull, AGLC, ST12 e CBC Military.
+- **LADRÃO** — as 20 armas de facção (abas 7 e 8), com os acessórios improvisados (`att_tape_optic`, `att_dualmag`) que a polícia **não** pode usar.
+
+### Recompensas, recuo e apreensão
+
+| Ação | POLICIAL | LADRÃO |
+|---|---|---|
+| Abater jogador do lado oposto | +R$ 400, +1 abate, +1 reputação | idem |
+| Abater monstro | +R$ 40 | +R$ 25 |
+| Matar aldeão | -R$ 100 (conduta imprópria) | +R$ 120 (assalto) |
+| Recuo da câmera por disparo | 0,022 (treinamento) | 0,058 (arma sem manutenção) |
+| Arma do lado oposto | não dispara | não dispara |
+| Dano de arma própria | x1,05 | x1,10 |
+| Dano de arma alheia | x0,75 | x0,70 |
+
+**Apreensão:** ao abater um jogador do lado oposto, a arma na mão dele cai no chão (o pente é zerado) e o matador recebe o dinheiro. **Reputação** sobe com abates e define a patente mostrada no `/scriptevent tac_guns:info` (*Recruta → Coronel* na polícia, *Verme → Dono* na facção).
+
+### Loja de campanha
+
+`/scriptevent tac_guns:loja` abre a loja do lado com 6 itens (pistola, escopeta, dois fuzis, revólver e precisão), preço calculado a partir do dano real da arma e munição inclusa:
+
+**POLICIAL**
+
+| Item | Preço | Munição inclusa |
+|---|---|---|
+| Taurus TH9 (`tac_guns:th9_emp`) | R$ 160 | 60x `tac_guns:9x19mm` |
+| Taurus ST12 (`tac_guns:st12_emp`) | R$ 290 | 24x `tac_guns:12gauge` |
+| Imbel M964 FAL (`tac_guns:m964_fal_emp`) | R$ 710 | 90x `tac_guns:308winchester` |
+| Taurus Raging Bull .454 (`tac_guns:raging_bull_emp`) | R$ 860 | 40x `tac_guns:50ae` |
+| Imbel AGLC (`tac_guns:aglc_emp`) | R$ 2880 | 20x `tac_guns:308winchester` |
+| Imbel IA2 7.62 (`tac_guns:ia2_762_emp`) | R$ 670 | 90x `tac_guns:308winchester` |
+
+**LADRÃO**
+
+| Item | Preço | Munição inclusa |
+|---|---|---|
+| Glock 18 (rajada) (`tac_guns:glock18_crime_emp`) | R$ 170 | 60x `tac_guns:9x19mm` |
+| Espingarda serrada (`tac_guns:sawed_shotgun_emp`) | R$ 330 | 24x `tac_guns:12gauge` |
+| FAL internacional (`tac_guns:fal_crime_emp`) | R$ 730 | 90x `tac_guns:308winchester` |
+| G3A3 (contrabando) (`tac_guns:g3_crime_emp`) | R$ 700 | 90x `tac_guns:308winchester` |
+| Mosin-Nagant serrado (`tac_guns:mosin_crime_emp`) | R$ 2700 | 20x `tac_guns:762x54mmr` |
+| AKM (facção) (`tac_guns:akm_crime_emp`) | R$ 650 | 90x `tac_guns:762x39mm` |
+
+A tabela completa é gerada em `factions.js` e validada por `tools/validate.py` (garante que a loja da polícia nunca vende arma de facção).
+
+### Comandos
+
+| Comando | Efeito |
+|---|---|
+| `/scriptevent tac_guns:faccao` | abre a tela de escolha (troca de lado) |
+| `/scriptevent tac_guns:loja` | abre a loja do lado atual |
+| `/scriptevent tac_guns:info` | lado, dinheiro, abates, patente e atalhos |
+| `/tag @s add policia` / `add ladrao` | define o lado por comando |
+| `/scoreboard players set <jogador> dinheiro 5000` | define o dinheiro |
+
+Trocar de lado zera dinheiro, abates e reputação (o kit inicial de cada lado é entregue uma única vez, controlado pelas tags `kit_policia` / `kit_ladrao`).
+
 ## Cobertura da lista solicitada
 
 | Categoria | Armas implementadas |
