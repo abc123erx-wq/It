@@ -709,6 +709,58 @@ class Build:
         write_text(main, text)
 
 
+
+    def faction_items(self):
+        """Algemas (equipamento policial) + receita + ícone."""
+        item = {
+            "format_version": "1.20.30",
+            "minecraft:item": {
+                "description": {"identifier": "tac_guns:algemas",
+                                "menu_category": {"category": "equipment"}},
+                "components": {
+                    "minecraft:max_stack_size": 1,
+                    "minecraft:icon": {"texture": "algemas"},
+                    "minecraft:display_name": {"value": "Algemas"},
+                    "minecraft:creative_category": {"parent": "equipment"},
+                    "minecraft:hand_equipped": True,
+                },
+            },
+        }
+        dump(os.path.join(OUT_BP, "items", "algemas", "base.json"), item, indent=2)
+
+        recipe = {
+            "format_version": "1.20.10",
+            "minecraft:recipe_shaped": {
+                "description": {"identifier": "tac_guns:algemas_craft"},
+                "tags": ["crafting_table"],
+                "pattern": ["i i", "ici", "i i"],
+                "key": {"i": {"item": "minecraft:iron_ingot"},
+                        "c": {"item": "minecraft:chain"}},
+                "result": {"item": "tac_guns:algemas", "count": 1},
+            },
+        }
+        dump(os.path.join(OUT_BP, "recipes", "algemas.json"), recipe, indent=2)
+
+        img = Image.new("RGBA", (64, 64), (0, 0, 0, 0))
+        d = ImageDraw.Draw(img)
+        aço = (150, 156, 168)
+        escuro = (78, 84, 96)
+        d.ellipse([6, 20, 26, 46], outline=aço, width=5)
+        d.ellipse([36, 20, 56, 46], outline=aço, width=5)
+        d.rectangle([24, 30, 38, 36], fill=escuro)
+        for x in (27, 31, 35):
+            d.line([x, 30, x, 36], fill=aço)
+        d.rectangle([6, 28, 12, 38], fill=escuro)
+        d.rectangle([50, 28, 56, 38], fill=escuro)
+        img.save(os.path.join(OUT_RP, "textures", "items", "algemas.png"))
+
+    def structures(self):
+        """Bases construídas por /function (polícia e favela)."""
+        from tacgen import structures
+        relatorio = structures.escrever(OUT_BP)
+        for nome, partes, comandos in relatorio:
+            print(f"  /function {nome}: {partes} arquivos, {comandos} comandos")
+
     # ---------------------------------------------------------------- facções
     def faction_icons(self):
         """Ícones-botão da tela de escolha de lado: metades do card (azul/vermelho)."""
@@ -839,8 +891,9 @@ class Build:
         path = os.path.join(OUT_RP, "textures", "item_texture.json")
         text = read(path)
         marker = "  //////////ammo"
+        extras = [{"id": "algemas"}]
         add = "".join(f'    "{s["id"]}": {{\n      "textures": "textures/items/{s["id"]}"\n    }},\n'
-                      for s in SPECS + ATTACHMENTS)
+                      for s in SPECS + ATTACHMENTS + extras)
         if marker not in text:
             text = text.replace('  "texture_data": {\n',
                                 '  "texture_data": {\n' + add)
@@ -868,6 +921,7 @@ class Build:
         for att in ATTACHMENTS:
             lines.append(f"item.tac_guns:{att['id']}.name={att['name']}")
             lines.append(f"item.tac_guns:{att['id']}_emp.name={att['name']}")
+        lines.append("item.tac_guns:algemas.name=Algemas")
         write_text(path, "\n".join(lines) + "\n")
         pt = os.path.join(OUT_RP, "texts", "pt_BR.lang")
         existing = read(pt) if os.path.exists(pt) else ""
@@ -875,6 +929,7 @@ class Build:
         for spec in SPECS:
             keep.append(f"item.tac_guns:{spec['id']}.name={spec['name']}")
             keep.append(f"item.tac_guns:{spec['id']}_emp.name={spec['name']} (vazio)")
+        keep.append("item.tac_guns:algemas.name=Algemas")
         write_text(pt, "\n".join(keep) + "\n")
 
     def manifests(self):
@@ -924,7 +979,9 @@ def build():
     b.attach_properties()
     b.attach_script()
     b.faction_icons()
+    b.faction_items()
     b.faction_script()
+    b.structures()
     b.scripts()
     b.item_texture()
     b.sounds()

@@ -319,6 +319,68 @@ def check_reload_band():
                 warn(f"bases de {name} muito proximas: {a} ({bases[a]}) e {b} ({bases[b]})")
 
 
+def check_structures():
+    """Funções /function policial e /function favela (bases de facção)."""
+    from tacgen import structures as st
+
+    blocos = {v for k, v in vars(st).items() if k.isupper() and isinstance(v, str)}
+    blocos |= {"air", "water"}
+    funcoes = os.path.join(BP, "functions")
+    for nome in ("policial", "favela", "faccao"):
+        path = os.path.join(funcoes, nome + ".mcfunction")
+        if not os.path.exists(path):
+            fail(f"functions/{nome}.mcfunction ausente")
+
+    for nome in ("policial", "favela"):
+        master = os.path.join(funcoes, nome + ".mcfunction")
+        if not os.path.exists(master):
+            continue
+        linhas = open(master, encoding="utf-8").read().splitlines()
+        chamadas = [l.split(" ", 1)[1] for l in linhas if l.startswith("function ")]
+        if not chamadas:
+            fail(f"functions/{nome}.mcfunction nao chama nenhuma parte")
+        for alvo in chamadas:
+            if not os.path.exists(os.path.join(funcoes, alvo + ".mcfunction")):
+                fail(f"functions/{nome}.mcfunction chama {alvo} inexistente")
+
+    total = 0
+    for raiz, _, arquivos in os.walk(funcoes):
+        for arq in arquivos:
+            if not arq.endswith(".mcfunction"):
+                continue
+            if arq == "testis.mcfunction" or "quantity" in arq or "reload" in arq:
+                continue
+            path = os.path.join(raiz, arq)
+            for n, linha in enumerate(open(path, encoding="utf-8"), 1):
+                linha = linha.strip()
+                if not linha or linha.startswith("//"):
+                    continue
+                total += 1
+                campos = linha.split(" ")
+                cmd = campos[0]
+                if cmd == "fill":
+                    if len(campos) not in (8, 9):
+                        fail(f"{arq}:{n}: fill mal formado: {linha}")
+                        continue
+                    bloco = campos[7]
+                    modo = campos[8] if len(campos) == 9 else ""
+                    if bloco not in blocos:
+                        fail(f"{arq}:{n}: bloco desconhecido {bloco}")
+                    if modo not in ("", "replace", "hollow", "outline", "keep", "destroy"):
+                        fail(f"{arq}:{n}: modo de fill invalido {modo}")
+                elif cmd == "setblock":
+                    if len(campos) != 5:
+                        fail(f"{arq}:{n}: setblock mal formado: {linha}")
+                    elif campos[4] not in blocos:
+                        fail(f"{arq}:{n}: bloco desconhecido {campos[4]}")
+                elif cmd in ("tellraw", "function"):
+                    pass
+                else:
+                    fail(f"{arq}:{n}: comando nao previsto {cmd}")
+    if total < 300:
+        fail(f"estruturas com poucos comandos ({total})")
+
+
 def check_factions():
     """Camada de facções: tabelas geradas, ícones da tela e script ligado."""
     script = os.path.join(BP, "scripts", "events", "factions.js")
@@ -335,7 +397,8 @@ def check_factions():
         path = os.path.join(RP, "textures", "ui", icone + ".png")
         if not os.path.exists(path):
             fail(f"textures/ui/{icone}.png ausente")
-    for linha in ("tac_guns:faccao", "tac_guns:loja", "tac_guns:info"):
+    for linha in ("tac_guns:faccao", "tac_guns:loja", "tac_guns:info",
+                  "tac_guns:marcar_cela", "tac_guns:soltar"):
         if linha not in text:
             fail(f"factions.js: comando {linha} ausente")
     main = open(os.path.join(BP, "scripts", "main.js"), encoding="utf-8").read()
@@ -345,6 +408,14 @@ def check_factions():
                encoding="utf-8").read()
     if "multiplicador" not in hit:
         fail("projectileHitEntity.js sem modificador de faccao")
+    if not os.path.exists(os.path.join(BP, "items", "algemas", "base.json")):
+        fail("item tac_guns:algemas ausente")
+    if not os.path.exists(os.path.join(BP, "recipes", "algemas.json")):
+        fail("receita de tac_guns:algemas ausente")
+    if not os.path.exists(os.path.join(RP, "textures", "items", "algemas.png")):
+        fail("icone de tac_guns:algemas ausente")
+    if "playerInteractWithEntity" not in text:
+        fail("factions.js: prisao (playerInteractWithEntity) ausente")
     # loja so deve vender coisa do proprio lado
     for bloco, marca in (("policia", "crime"), ("ladrao", None)):
         trecho = text.split(f"    {bloco}: [", 1)[-1].split("],", 1)[0]
@@ -369,6 +440,7 @@ def main():
     check_assets()
     check_reload_band()
     check_factions()
+    check_structures()
     for w in warns:
         print("AVISO:", w)
     for e in errors:

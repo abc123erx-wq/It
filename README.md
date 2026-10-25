@@ -23,7 +23,8 @@ foregrip e carregador estendido em qualquer arma; e os improvisados
 Todos com peça 3D própria em bone dedicado e propriedade sincronizada.
 
 - Documentação técnica completa: [`docs/ARSENAL_BRASIL.md`](docs/ARSENAL_BRASIL.md)
-- Pacote pronto para instalar: `out/TacGuns_Brasil.mcaddon`
+- **Pacote pronto para instalar: [`release/TacGuns_Brasil.mcaddon`](release/TacGuns_Brasil.mcaddon)**
+  (é o `.mcaddon` com os dois packs; clique em *Download* na pré-visualização do arquivo)
 
 ## Facções: escolha de lado (policial x ladrão)
 
@@ -47,6 +48,29 @@ arma dele no chão (apreensão). Comandos: `/scriptevent tac_guns:faccao` (troca
 lado), `tac_guns:loja` (loja com dinheiro), `tac_guns:info` (ficha do jogador), e
 `/tag @s add policia|ladrao` para definir por comando.
 
+### Prisão e procurado
+
+- **Algemas** (`tac_guns:algemas`, 4 ferro + 1 corrente): item policial; usar em um jogador
+  do lado oposto prende — lentidão, sem armas e teleporte para a cela marcada com
+  `/scriptevent tac_guns:marcar_cela`. Solta com novo clique, `/scriptevent tac_guns:soltar`
+  ou em 60 s.
+- **Nível de procurado** sobe com assaltos (+2) e abates entre facções (+4) e cai 1 ponto a
+  cada 20 s; em 3 o ladrão vira **PROCURADO** (brilho + alerta com coordenadas para a polícia).
+
+## Bases prontas por `/function`
+
+Cheats ligados, área aberta e carregada, e:
+
+| Comando | O que constrói |
+|---|---|
+| `/function policial` | base da PM: pátio com viatura, muro e portão, prédio de 2 andares, 2 celas, arsenal, heliponto com "H", torre e iluminação |
+| `/function favela` | favela inteira: morro de 3 patamares, 26 casas com laje/puxadinho/caixa d'água, becos, escadarias, varais, **boca de fumo** e mirador |
+| `/function faccao` | ajuda com todos os comandos de facção |
+
+Cada estrutura é dividida em partes chamáveis (ex.: `/function favela/04_boca`). Mapas:
+[`docs/estrutura_policial.png`](docs/estrutura_policial.png) e
+[`docs/estrutura_favela.png`](docs/estrutura_favela.png).
+
 ## Como regenerar
 
 ```bash
@@ -54,7 +78,9 @@ pip install --break-system-packages pillow numpy
 python3 tools/tacgen/build.py      # gera out/TacGuns(B) e out/TacGuns(R)
 python3 tools/validate.py          # checagem estática (JSON, referências, sons, bones)
 python3 tools/tacgen/docs.py       # gera docs/ARSENAL_BRASIL.md
+python3 tools/tacgen/render_structures.py   # mapas das bases em docs/
 cd out && zip -qr TacGuns_Brasil.mcaddon "TacGuns(B)" "TacGuns(R)"
+mkdir -p ../release && cp TacGuns_Brasil.mcaddon ../release/
 ```
 
 ## Estrutura do gerador
@@ -68,7 +94,9 @@ cd out && zip -qr TacGuns_Brasil.mcaddon "TacGuns(B)" "TacGuns(R)"
 | `tools/tacgen/texture.py` | atlas 128×128 (grade 8×8 de células de 16 px) |
 | `tools/tacgen/build.py` | clona itens, entidades, controladores, animações, eventos, funções, sons, ícones e lang |
 | `tools/validate.py` | garante que todo id, animação, som, locator e bone referenciado existe |
-| `tools/tacgen/templates/factions.js` | script da camada de facção (tela de escolha, loja, economia, apreensão) |
+| `tools/tacgen/templates/factions.js` | script da camada de facção (tela de escolha, loja, economia, prisão, procurado) |
+| `tools/tacgen/structures.py` | gera as bases de `/function` (polícia e favela) em `.mcfunction` |
+| `tools/tacgen/render_structures.py` | desenha os mapas das estruturas para a documentação |
 | `tools/tacgen/docs.py` | gera a documentação a partir do modelo realmente produzido |
 
 ## Adicionar uma arma nova

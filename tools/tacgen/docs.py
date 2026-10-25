@@ -334,12 +334,65 @@ def render():
     add("|---|---|")
     add("| `/scriptevent tac_guns:faccao` | abre a tela de escolha (troca de lado) |")
     add("| `/scriptevent tac_guns:loja` | abre a loja do lado atual |")
-    add("| `/scriptevent tac_guns:info` | lado, dinheiro, abates, patente e atalhos |")
+    add("| `/scriptevent tac_guns:info` | lado, dinheiro, abates, patente, procurado |")
+    add("| `/scriptevent tac_guns:marcar_cela` | polícia marca a cela onde está (usada na prisão) |")
+    add("| `/scriptevent tac_guns:soltar` | libera um jogador algemado |")
     add("| `/tag @s add policia` / `add ladrao` | define o lado por comando |")
     add("| `/scoreboard players set <jogador> dinheiro 5000` | define o dinheiro |")
     add("")
     add("Trocar de lado zera dinheiro, abates e reputação (o kit inicial de cada lado é "
         "entregue uma única vez, controlado pelas tags `kit_policia` / `kit_ladrao`).")
+    add("")
+
+    # ------------------------------------------------ bases e prisão
+    add("### Bases construídas por `/function`")
+    add("")
+    add("Duas estruturas completas são geradas como funções de comando (sem `.mcstructure`), "
+        "montadas **ao redor do jogador** e relativas à sua posição — funcionam em qualquer "
+        "mundo e não dependem de pack de estrutura:")
+    add("")
+    add("| Comando | Conteúdo | Arquivos |")
+    add("|---|---|---|")
+    add("| `/function policial` | pátio asfaltado com faixas e viatura, muro com portão e "
+        "grades, prédio de 2 andares com recepção e escada, 2 celas com cama e banheiro, "
+        "arsenal com bancada/rebolo/forno, heliponto com \"H\", torre de vigilância, postes "
+        "e mastro com bandeira | `functions/policial.mcfunction` + 8 partes |")
+    add("| `/function favela` | morro em três patamares com paredões de contenção, "
+        "escadarias, 26 casas com laje, puxadinho, caixa d'água, antena e pichação, becos "
+        "iluminados, varais, barracas de lona, postes de energia, **boca de fumo** com "
+        "balcão, estoque, mesa de dinheiro, som, fogueira e sacos de areia, e **mirador** "
+        "de 16 blocos | `functions/favela.mcfunction` + 7 partes |")
+    add("| `/function faccao` | ajuda no chat com todos os comandos | — |")
+    add("")
+    add("![Base policial](estrutura_policial.png)")
+    add("")
+    add("![Favela](estrutura_favela.png)")
+    add("")
+    add("Imagens geradas por `tools/tacgen/render_structures.py`, que aplica os próprios "
+        "`.mcfunction` gerados e desenha a vista de cima + um corte vertical.")
+    add("")
+    add("**Como usar:** ative cheats no mundo, fique em área aberta e carregada (a "
+        "estrutura ocupa ~3 chunks de raio) e rode `/function policial` ou `/function favela` "
+        "no ponto onde quer a construção. O master só encadeia as partes; cada parte pode ser "
+        "chamada sozinha (ex.: `/function favela/04_boca`).")
+    add("")
+    add("### Prisão, algemas e nível de procurado")
+    add("")
+    add("| Item/efeito | Como funciona |")
+    add("|---|---|")
+    add("| `tac_guns:algemas` | receita 3x3: 4 `iron_ingot` nos cantos + 1 `chain` no centro. "
+        "Só a **polícia** pode usar; clicar com elas em um jogador do lado oposto prende |")
+    add("| Prisão | vítima recebe a tag `algemado`, lentidão III + fadiga, perde o direito de "
+        "usar armas e é teleportada para a cela marcada; o policial ganha +R$ 250 e +1 de "
+        "reputação |")
+    add("| Cela | a polícia marca o ponto com `/scriptevent tac_guns:marcar_cela` (fica salvo "
+        "no mundo, funciona em qualquer dimensão) |")
+    add("| Soltura | clicar de novo com as algemas, `/scriptevent tac_guns:soltar` ou 60 s de "
+        "prazo automático |")
+    add("| Nível de procurado | sobe +2 por assalto a aldeão e +4 por abate entre facções; "
+        "cai 1 ponto a cada 20 s |")
+    add("| Alerta policial | ao chegar em 3, o procurado recebe o título **PROCURADO**, ganha "
+        "brilho e a polícia recebe no chat o nome e as coordenadas dele |")
     add("")
     add("## Cobertura da lista solicitada")
     add("")

@@ -17,6 +17,9 @@ const OBJ_KILLS = "abates";
 const OBJ_REP = "reputacao";
 const OBJ_SIDE = "faccao";
 const OBJ_HUD = "faccao_hud";
+const OBJ_WANTED = "procurado";
+const ALGEMAS = "tac_guns:algemas";
+const PROP_CELA = "tac_guns:cela";
 
 const POLICIA = {
     id: "policia",
@@ -236,12 +239,120 @@ function abrirLoja(player) {
     }).catch(() => {});
 }
 
+// ------------------------------------------------------- prisão e procurado
+function celaSalva() {
+    const bruto = world.getDynamicProperty(PROP_CELA);
+    if (!bruto) return undefined;
+    try {
+        return JSON.parse(bruto);
+    } catch (e) {
+        return undefined;
+    }
+}
+
+function levarParaCela(player) {
+    const cela = celaSalva();
+    if (!cela) {
+        aviso(player, "§7Nenhuma cela marcada (§f/scriptevent tac_guns:marcar_cela§7).");
+        return false;
+    }
+    try {
+        const dim = world.getDimension(cela.dim || "overworld");
+        player.teleport({ x: cela.x, y: cela.y, z: cela.z }, { dimension: dim });
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+function prender(policial, alvo) {
+    if (alvo.hasTag("algemado")) {
+        soltar(alvo);
+        aviso(policial, `§a${alvo.name} liberado.`);
+        return;
+    }
+    alvo.addTag("algemado");
+    alvo.runCommand("effect @s slowness 60 3 true");
+    alvo.runCommand("effect @s mining_fatigue 60 2 true");
+    const foiPraCela = levarParaCela(alvo);
+    obj(OBJ_WANTED, OBJ_WANTED).setScore(alvo, 0);
+    pagar(policial, 250);
+    addPontos(OBJ_REP, policial, 1);
+
+    alvo.onScreenDisplay.setTitle("§4§lPRESO", {
+        subtitle: "§7Você foi algemado pela polícia",
+        fadeInDuration: 5,
+        stayDuration: 40,
+        fadeOutDuration: 10,
+    });
+    alvo.playSound("random.anvil_land", { volume: 0.5 });
+    aviso(alvo, foiPraCela
+        ? "§cVocê foi levado para a cela. §7Aguarde ou peça para ser liberado."
+        : "§cVocê está algemado. §7Aguarde ser liberado pela polícia.");
+    world.sendMessage(`§8[§6Facção§8] §9${policial.name}§f prendeu §4${alvo.name}§f.`);
+    system.runTimeout(() => soltar(alvo, true), 20 * 60);
+}
+
+function soltar(player, automatico = false) {
+    try {
+        if (!player || !player.hasTag("algemado")) return;
+    } catch (e) {
+        return;
+    }
+    player.removeTag("algemado");
+    try {
+        player.runCommand("effect @s clear");
+    } catch (e) { }
+    if (automatico) aviso(player, "§aPrazo da prisão acabou — você está livre.");
+}
+
+world.beforeEvents.playerInteractWithEntity.subscribe((event) => {
+    const policial = event.player ?? event.source;
+    const alvo = event.target;
+    const item = event.itemStack;
+    if (!policial || !alvo || !item || item.typeId !== ALGEMAS) return;
+    if (alvo.typeId !== "minecraft:player") return;
+    if (!policial.hasTag(POLICIA.tag)) return;
+    event.cancel = true;
+    system.run(() => {
+        prender(policial, alvo);
+        try {
+            const equip = policial.getComponent("minecraft:equippable");
+            if (equip) equip.setEquipment(EquipmentSlot.Mainhand, undefined);
+        } catch (e) { }
+    });
+});
+
+// nível de procurado: sobe com crimes, decai com o tempo e brilha o procurado
+function addProcurado(player, valor) {
+    if (!player.hasTag(LADRAO.tag)) return;
+    const o = obj(OBJ_WANTED, OBJ_WANTED);
+    o.addScore(player, valor);
+    const nivel = pontos(OBJ_WANTED, player);
+    if (nivel >= 3 && !player.hasTag("procurado_ativo")) {
+        player.addTag("procurado_ativo");
+        player.onScreenDisplay.setTitle("§4§lPROCURADO", {
+            subtitle: `§7Nível ${nivel} — a polícia sabe onde você está`,
+            fadeInDuration: 5,
+            stayDuration: 40,
+            fadeOutDuration: 10,
+        });
+        const p = player.location;
+        world.getAllPlayers().filter((pl) => pl.hasTag(POLICIA.tag)).forEach((pl) => {
+            pl.sendMessage(`§8[§9Polícia§8] §fProcurado: §4${player.name}§f — ` +
+                `§7${Math.round(p.x)} ${Math.round(p.y)} ${Math.round(p.z)} §8(${player.dimension.id})`);
+            pl.playSound("note.pling", { pitch: 1.6, volume: 0.6 });
+        });
+    }
+}
+
 // ------------------------------------------------------------------------- HUD
 let hudLigado = false;
 
 function atualizarHud(player) {
     const o = obj(OBJ_HUD, "§6§lFACÇÃO BRASIL");
-    ["§aDinheiro", "§cAbates", "§eReputação", "§9Lado", "§9Policiais", "§4Ladrões"].forEach((linha) => {
+    ["§aDinheiro", "§cAbates", "§eReputação", "§cProcurado", "§9Lado",
+     "§9Policiais", "§4Ladrões"].forEach((linha) => {
         if (!o.hasParticipant(linha)) o.setScore(linha, 0);
     });
     if (!hudLigado) {
@@ -265,6 +376,7 @@ function refreshHud() {
         o.setScore("§aDinheiro", dinheiro(alvo));
         o.setScore("§cAbates", pontos(OBJ_KILLS, alvo));
         o.setScore("§eReputação", pontos(OBJ_REP, alvo));
+        o.setScore("§cProcurado", pontos(OBJ_WANTED, alvo));
     }
 }
 
@@ -273,6 +385,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
     obj(OBJ_MONEY, OBJ_MONEY);
     obj(OBJ_KILLS, OBJ_KILLS);
     obj(OBJ_REP, OBJ_REP);
+    obj(OBJ_WANTED, OBJ_WANTED);
     obj(OBJ_SIDE, "faccao");
     atualizarHud(player);
 
@@ -299,6 +412,20 @@ world.beforeEvents.itemUse.subscribe((event) => {
         (item.typeId === "tac_guns:att_tape_optic" || item.typeId === "tac_guns:att_dualmag")) {
         event.cancel = true;
         aviso(player, "§cKit improvisado é material de facção.");
+        return;
+    }
+
+    if (player.hasTag("algemado") && (ehArma(item.typeId) || item.typeId === ALGEMAS)) {
+        event.cancel = true;
+        aviso(player, "§cVocê está algemado — sem armas até ser liberado.");
+        return;
+    }
+
+    if (item.typeId === ALGEMAS) {
+        if (!player.hasTag(POLICIA.tag)) {
+            event.cancel = true;
+            aviso(player, "§cAlgemas são equipamento policial.");
+        }
         return;
     }
 
@@ -360,6 +487,7 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
         pagar(killer, 400);
         addPontos(OBJ_KILLS, killer, 1);
         addPontos(OBJ_REP, killer, 1);
+        addProcurado(killer, 4);
         apreender(alvo, killer);
         world.sendMessage(`§8[§6Facção§8] ${ladoKiller.cor}${killer.name}§f abateu ` +
             `${ladoAlvo.cor}${alvo.name}§f e apreendeu o armamento.`);
@@ -380,7 +508,8 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
     if (alvo.typeId === "minecraft:villager" || alvo.typeId === "minecraft:villager_v2") {
         if (ladoKiller.id === "ladrao") {
             pagar(killer, 120);
-            aviso(killer, "§aAssalto concluído §7+ R$ 120");
+            addProcurado(killer, 2);
+            aviso(killer, "§aAssalto concluído §7+ R$ 120 §8· procurado +2");
         } else {
             pagar(killer, -100);
             aviso(killer, "§cConduta imprópria §7- R$ 100");
@@ -415,6 +544,24 @@ system.afterEvents.scriptEventReceive.subscribe((ev) => {
         case "tac_guns:loja":
             abrirLoja(player);
             break;
+        case "tac_guns:marcar_cela": {
+            if (!player.hasTag(POLICIA.tag)) {
+                aviso(player, "§cSó a polícia marca a cela.");
+                break;
+            }
+            const loc = player.location;
+            world.setDynamicProperty(PROP_CELA, JSON.stringify({
+                x: loc.x, y: loc.y, z: loc.z, dim: player.dimension.id,
+            }));
+            player.sendMessage(`§aCela marcada em §f${Math.round(loc.x)} ${Math.round(loc.y)} ` +
+                `${Math.round(loc.z)} §7(${player.dimension.id}).`);
+            break;
+        }
+        case "tac_guns:soltar": {
+            soltar(player);
+            aviso(player, "§aLiberado.");
+            break;
+        }
         case "tac_guns:info": {
             const lado = ladoDe(player);
             player.sendMessage(
@@ -422,6 +569,8 @@ system.afterEvents.scriptEventReceive.subscribe((ev) => {
                 `§7Lado: ${lado ? lado.cor + lado.nome : "§8nenhum"}\n` +
                 `§7Dinheiro: §aR$ ${dinheiro(player)}\n` +
                 `§7Abates: §c${pontos(OBJ_KILLS, player)}§7  ·  Patente: §e${patente(player)}\n` +
+                `§7Procurado: §c${pontos(OBJ_WANTED, player)}§7  ·  Algemado: ` +
+                `${player.hasTag("algemado") ? "§csim" : "§anao"}\n` +
                 "§8/scriptevent tac_guns:faccao  §8/scriptevent tac_guns:loja"
             );
             break;
@@ -430,6 +579,25 @@ system.afterEvents.scriptEventReceive.subscribe((ev) => {
             break;
     }
 });
+
+// decadência do nível de procurado e brilho em quem está na lista
+system.runInterval(() => {
+    const o = world.scoreboard.getObjective(OBJ_WANTED);
+    if (!o) return;
+    world.getAllPlayers().forEach((player) => {
+        const nivel = pontos(OBJ_WANTED, player);
+        if (nivel > 0) {
+            o.setScore(player, Math.max(0, nivel - 1));
+        }
+        if (nivel >= 3) {
+            try {
+                player.runCommand("effect @s glowing 8 0 true");
+            } catch (e) { }
+        } else if (player.hasTag("procurado_ativo")) {
+            player.removeTag("procurado_ativo");
+        }
+    });
+}, 20 * 20);
 
 system.runInterval(refreshHud, 100);
 refreshHud();
