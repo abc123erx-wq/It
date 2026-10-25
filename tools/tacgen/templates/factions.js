@@ -67,6 +67,16 @@ const RECUO = {
 };
 
 // ---------------------------------------------------------------- utilidades
+function valido(entidade) {
+    try {
+        if (!entidade) return false;
+        const v = entidade.isValid;
+        return typeof v === "function" ? v.call(entidade) : v !== false;
+    } catch (e) {
+        return false;
+    }
+}
+
 function obj(nome, display) {
     let o = world.scoreboard.getObjective(nome);
     if (!o) o = world.scoreboard.addObjective(nome, display);
@@ -146,7 +156,8 @@ function telaDeEscolha(player, primeiraVez = true) {
             "§8Cada lado tem arsenal, economia e táticas próprias.\n" +
             "§8Armas do lado oposto não disparam nas suas mãos.\n\n" +
             (primeiraVez
-                ? "§eEscolha com cuidado: dá para trocar depois, mas o dinheiro zera."
+                ? "§eEscolha com cuidado: dá para trocar depois, mas o dinheiro zera.\n" +
+                  "§8Sem menu? /function lado_policial ou /function lado_ladrao"
                 : `§7Seu dinheiro atual: §aR$ ${dinheiroAtual} §8(trocar de lado zera)`)
         )
         .button(`§9§lPOLICIAL\n§r§7${POLICIA.lema}`, POLICIA.icone)
@@ -159,7 +170,12 @@ function telaDeEscolha(player, primeiraVez = true) {
         }
         const lado = res.selection === 0 ? POLICIA : LADRAO;
         system.run(() => escolher(player, lado, !primeiraVez));
-    }).catch(() => {});
+    }).catch(() => {
+        try {
+            player.sendMessage("§6Escolha seu lado sem menu: §f/function lado_policial " +
+                "§6ou §f/function lado_ladrao");
+        } catch (e) { }
+    });
 }
 
 function escolher(player, lado, limpando) {
@@ -306,22 +322,23 @@ function soltar(player, automatico = false) {
     if (automatico) aviso(player, "§aPrazo da prisão acabou — você está livre.");
 }
 
-world.beforeEvents.playerInteractWithEntity.subscribe((event) => {
-    const policial = event.player ?? event.source;
-    const alvo = event.target;
-    const item = event.itemStack;
-    if (!policial || !alvo || !item || item.typeId !== ALGEMAS) return;
-    if (alvo.typeId !== "minecraft:player") return;
-    if (!policial.hasTag(POLICIA.tag)) return;
-    event.cancel = true;
-    system.run(() => {
-        prender(policial, alvo);
-        try {
-            const equip = policial.getComponent("minecraft:equippable");
-            if (equip) equip.setEquipment(EquipmentSlot.Mainhand, undefined);
-        } catch (e) { }
+function jogadorMaisProximo(policial) {
+    let melhor;
+    let menor = 4.0;
+    world.getAllPlayers().forEach((outro) => {
+        if (outro.id === policial.id) return;
+        if (outro.dimension.id !== policial.dimension.id) return;
+        const dx = outro.location.x - policial.location.x;
+        const dy = outro.location.y - policial.location.y;
+        const dz = outro.location.z - policial.location.z;
+        const d = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        if (d < menor && !outro.hasTag(POLICIA.tag)) {
+            menor = d;
+            melhor = outro;
+        }
     });
-});
+    return melhor;
+}
 
 // nível de procurado: sobe com crimes, decai com o tempo e brilha o procurado
 function addProcurado(player, valor) {
@@ -381,64 +398,101 @@ function refreshHud() {
 }
 
 // --------------------------------------------------------------- inicializacao
-world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
-    obj(OBJ_MONEY, OBJ_MONEY);
-    obj(OBJ_KILLS, OBJ_KILLS);
-    obj(OBJ_REP, OBJ_REP);
-    obj(OBJ_WANTED, OBJ_WANTED);
-    obj(OBJ_SIDE, "faccao");
-    atualizarHud(player);
-
-    if (!ladoDe(player)) {
-        system.runTimeout(() => {
-            if (player.isValid()) telaDeEscolha(player, true);
-        }, initialSpawn ? 60 : 40);
-    } else {
-        system.runTimeout(() => {
-            if (!player.isValid()) return;
+function iniciarJogador(player, inicial = true) {
+    try {
+        if (!valido(player)) return;
+        obj(OBJ_MONEY, OBJ_MONEY);
+        obj(OBJ_KILLS, OBJ_KILLS);
+        obj(OBJ_REP, OBJ_REP);
+        obj(OBJ_WANTED, OBJ_WANTED);
+        obj(OBJ_SIDE, "faccao");
+        atualizarHud(player);
+        if (!ladoDe(player)) {
+            telaDeEscolha(player, inicial);
+        } else {
             const lado = ladoDe(player);
-            aviso(player, `${lado.cor}${lado.nome}§f · ${patente(player)} §8| §aR$ ${dinheiro(player)} §8| §eloja: §f/scriptevent tac_guns:loja`);
-        }, 40);
-    }
+            aviso(player, `${lado.cor}${lado.nome}§f · ${patente(player)} §8| §aR$ ` +
+                `${dinheiro(player)} §8| §eloja: §f/scriptevent tac_guns:loja`);
+        }
+    } catch (e) { }
+}
+
+world.afterEvents.playerSpawn.subscribe((evento) => {
+    try {
+        const player = evento.player;
+        system.runTimeout(() => iniciarJogador(player, evento.initialSpawn !== false), 40);
+    } catch (e) { }
 });
 
+// rede de seguranca: se o evento de spawn passar batido (ou o form falhar), a tela
+// aparece assim mesmo quando o jogador ainda nao tem lado
+const ultimaTela = new Map();
+system.runInterval(() => {
+    try {
+        world.getAllPlayers().forEach((player) => {
+            if (!valido(player) || ladoDe(player)) return;
+            const agora = Date.now();
+            if (agora - (ultimaTela.get(player.id) ?? 0) < 20000) return;
+            ultimaTela.set(player.id, agora);
+            telaDeEscolha(player, true);
+        });
+    } catch (e) { }
+}, 20 * 6);
+
 world.beforeEvents.itemUse.subscribe((event) => {
+    // dentro de beforeEvents o jogo está em modo somente-leitura: aqui só decidimos,
+    // qualquer efeito (som, mensagem, comando) é agendado com system.run
     const player = event.source;
     const item = event.itemStack;
-    if (!player || !item) return;
+    if (!player || !item || !item.typeId) return;
+    const id = item.typeId;
 
-    // acessorio improvisado é material de facção
+    const ehArmaUsada = ehArma(id);
+    if (!ehArmaUsada && id !== ALGEMAS) return;
+
+    if (player.hasTag("algemado")) {
+        event.cancel = true;
+        system.run(() => aviso(player, "§cVocê está algemado — sem armas até ser liberado."));
+        return;
+    }
+
+    if (id === ALGEMAS) {
+        event.cancel = true;
+        system.run(() => {
+            if (!player.hasTag(POLICIA.tag)) {
+                aviso(player, "§cAlgemas são equipamento policial.");
+                return;
+            }
+            const alvo = jogadorMaisProximo(player);
+            if (!alvo) {
+                aviso(player, "§7Chegue mais perto de um suspeito (4 blocos).");
+                return;
+            }
+            prender(player, alvo);
+        });
+        return;
+    }
+
+    // arma de facção na mão da polícia (ou vice-versa): não dispara
     if (player.hasTag(POLICIA.tag) &&
-        (item.typeId === "tac_guns:att_tape_optic" || item.typeId === "tac_guns:att_dualmag")) {
+        (id === "tac_guns:att_tape_optic" || id === "tac_guns:att_dualmag")) {
         event.cancel = true;
-        aviso(player, "§cKit improvisado é material de facção.");
+        system.run(() => aviso(player, "§cKit improvisado é material de facção."));
         return;
     }
 
-    if (player.hasTag("algemado") && (ehArma(item.typeId) || item.typeId === ALGEMAS)) {
-        event.cancel = true;
-        aviso(player, "§cVocê está algemado — sem armas até ser liberado.");
-        return;
-    }
-
-    if (item.typeId === ALGEMAS) {
-        if (!player.hasTag(POLICIA.tag)) {
-            event.cancel = true;
-            aviso(player, "§cAlgemas são equipamento policial.");
-        }
-        return;
-    }
-
-    if (!ehArma(item.typeId)) return;
     const lado = ladoDe(player);
     if (!lado) return;
-
-    const dono = donoDaArma(item.typeId);
+    const dono = donoDaArma(id);
     if (dono && dono !== lado.id) {
         event.cancel = true;
-        const nome = item.typeId.split(":")[1];
-        aviso(player, `§c${nome} §7não é do seu lado — arma apreendida.`);
-        player.playSound("note.bass", { pitch: 0.6, volume: 0.4 });
+        system.run(() => {
+            const nome = id.split(":")[1];
+            aviso(player, `§c${nome} §7não é do seu lado — arma apreendida.`);
+            try {
+                player.playSound("note.bass", { pitch: 0.6, volume: 0.4 });
+            } catch (e) { }
+        });
     }
 });
 

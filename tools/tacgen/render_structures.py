@@ -55,6 +55,7 @@ CORES = {
     "scaffolding": (188, 166, 96), "oak_fence": (166, 130, 78),
     "spruce_fence": (108, 78, 48), "campfire": (176, 106, 48),
     "jukebox": (128, 88, 56), "noteblock": (140, 104, 68), "magma": (156, 84, 36),
+    "brown_terracotta": (76, 50, 36), "yellow_wool": (250, 200, 62),
 }
 
 VAZIO = (12, 14, 18)

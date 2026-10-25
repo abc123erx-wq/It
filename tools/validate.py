@@ -326,7 +326,7 @@ def check_structures():
     blocos = {v for k, v in vars(st).items() if k.isupper() and isinstance(v, str)}
     blocos |= {"air", "water"}
     funcoes = os.path.join(BP, "functions")
-    for nome in ("policial", "favela", "faccao"):
+    for nome in ("policial", "favela", "faccao", "lado_policial", "lado_ladrao"):
         path = os.path.join(funcoes, nome + ".mcfunction")
         if not os.path.exists(path):
             fail(f"functions/{nome}.mcfunction ausente")
@@ -375,10 +375,99 @@ def check_structures():
                         fail(f"{arq}:{n}: bloco desconhecido {campos[4]}")
                 elif cmd in ("tellraw", "function"):
                     pass
+                elif cmd in ("tag", "scoreboard", "give", "effect", "clear") and (
+                        arq.startswith("lado_") or arq == "faccao.mcfunction"):
+                    pass
                 else:
                     fail(f"{arq}:{n}: comando nao previsto {cmd}")
     if total < 300:
         fail(f"estruturas com poucos comandos ({total})")
+
+
+def _lenient(path):
+    """JSON do pack com comentários // (o pack original usa)."""
+    text = open(path, encoding="utf-8-sig").read()
+    return json.loads(re.sub(r"//[^\n]*", "", text))
+
+
+def _geometry_ids(doc):
+    ids = []
+    geo = doc.get("minecraft:geometry")
+    if isinstance(geo, list):
+        ids += [g["description"]["identifier"] for g in geo]
+    elif isinstance(geo, dict):
+        ids.append(geo["description"]["identifier"])
+    ids += [k for k, v in doc.items() if k.startswith("geometry.") and isinstance(v, dict)]
+    return ids
+
+
+VANILLA_GEOMETRIES = {"geometry.humanoid.custom", "geometry.humanoid.customSlim",
+                       "geometry.cape", "geometry.player_head", "geometry.item_scale",
+                       "geometry.player_armor", "geometry.arrow", "geometry.bullet"}
+
+
+def check_models():
+    """Modelos 3D: identificadores, duplicatas, attachables e controllers."""
+    problems = []
+    player_path = os.path.join(RP, "entity", "player.entity.json")
+    geos = {}
+    pasta = os.path.join(RP, "models", "entity")
+    for raiz, _, arquivos in os.walk(pasta):
+        for arq in arquivos:
+            if not arq.endswith(".json"):
+                continue
+            path = os.path.join(raiz, arq)
+            try:
+                doc = _lenient(path)
+            except Exception as exc:
+                fail(f"modelo ilegivel {arq}: {exc}")
+                continue
+            for ident in _geometry_ids(doc):
+                geos.setdefault(ident, []).append(arq)
+    for ident, arquivos in geos.items():
+        if len(arquivos) > 1:
+            fail(f"geometria duplicada {ident} em {sorted(set(arquivos))}")
+    for spec in SPECS:
+        gid = spec["id"]
+        for sufixo in ("", "root"):
+            ident = f"geometry.{gid}{sufixo}"
+            if ident not in geos:
+                fail(f"{gid}: geometria {ident} ausente")
+        for sufixo in ("", "emp"):
+            gp = os.path.join(RP, "attachables", "guns", f"{gid}{sufixo}.json")
+            if not os.path.exists(gp):
+                fail(f"{gid}: attachable {gid}{sufixo} ausente (item fica 2D)")
+    # variaveis de equipamento e animacoes de primeira pessoa por arma
+    if os.path.exists(player_path):
+        desc = _lenient(player_path)["minecraft:client_entity"]["description"]
+        blob = json.dumps(desc)
+        anims = set(desc.get("animations", {}))
+        for spec in SPECS:
+            gid = spec["id"]
+            if f"variable.{gid} =" not in blob:
+                fail(f"{gid}: variavel variable.{gid} ausente no player.entity.json")
+            if f"{gid}_fp" not in anims:
+                fail(f"{gid}: animacao {gid}_fp ausente")
+
+    # controllers apontando para geometria/aliases inexistentes
+    RP_ALIAS = {}
+    if os.path.exists(player_path):
+        pe = _lenient(player_path)["minecraft:client_entity"]["description"]
+        RP_ALIAS = pe.get("geometry", {})
+    for arq in sorted(os.listdir(os.path.join(RP, "render_controllers"))):
+        if not arq.endswith(".json"):
+            continue
+        doc = _lenient(os.path.join(RP, "render_controllers", arq))
+        for nome, corpo in doc.get("render_controllers", {}).items():
+            geo = corpo.get("geometry")
+            if not isinstance(geo, str):
+                continue
+            real = RP_ALIAS.get(geo.split(".", 1)[1], geo) if geo.startswith("Geometry.") else geo
+            if real in VANILLA_GEOMETRIES or real in geos:
+                continue
+            problems.append(f"{arq}: {nome} usa geometria inexistente ({geo} -> {real})")
+    for p in problems:
+        fail(p)
 
 
 def check_factions():
@@ -414,8 +503,11 @@ def check_factions():
         fail("receita de tac_guns:algemas ausente")
     if not os.path.exists(os.path.join(RP, "textures", "items", "algemas.png")):
         fail("icone de tac_guns:algemas ausente")
-    if "playerInteractWithEntity" not in text:
-        fail("factions.js: prisao (playerInteractWithEntity) ausente")
+    if "function prender" not in text or "jogadorMaisProximo" not in text:
+        fail("factions.js: logica de prisao ausente")
+    if "lado_policial" not in text and not os.path.exists(
+            os.path.join(BP, "functions", "lado_policial.mcfunction")):
+        fail("fallback /function lado_policial ausente")
     # loja so deve vender coisa do proprio lado
     for bloco, marca in (("policia", "crime"), ("ladrao", None)):
         trecho = text.split(f"    {bloco}: [", 1)[-1].split("],", 1)[0]
@@ -440,6 +532,7 @@ def main():
     check_assets()
     check_reload_band()
     check_factions()
+    check_models()
     check_structures()
     for w in warns:
         print("AVISO:", w)

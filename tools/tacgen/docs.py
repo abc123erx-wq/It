@@ -328,6 +328,14 @@ def render():
     add("A tabela completa é gerada em `factions.js` e validada por `tools/validate.py` "
         "(garante que a loja da polícia nunca vende arma de facção).")
     add("")
+    add("### Requisitos e compatibilidade")
+    add("")
+    add("Os scripts declaram `@minecraft/server` **1.11.0** e `@minecraft/server-ui` "
+        "**1.2.0** no `manifest.json` (compatível de 1.20.60 em diante e carregável nas "
+        "versões novas). Se a API de script não estiver disponível no seu jogo, a camada de "
+        "facção continua utilizável por comando: `/function lado_policial` e "
+        "`/function lado_ladrao` fazem tag, placar e kit sem depender de script.")
+    add("")
     add("### Comandos")
     add("")
     add("| Comando | Efeito |")
@@ -357,12 +365,16 @@ def render():
         "grades, prédio de 2 andares com recepção e escada, 2 celas com cama e banheiro, "
         "arsenal com bancada/rebolo/forno, heliponto com \"H\", torre de vigilância, postes "
         "e mastro com bandeira | `functions/policial.mcfunction` + 8 partes |")
-    add("| `/function favela` | morro em três patamares com paredões de contenção, "
-        "escadarias, 26 casas com laje, puxadinho, caixa d'água, antena e pichação, becos "
-        "iluminados, varais, barracas de lona, postes de energia, **boca de fumo** com "
-        "balcão, estoque, mesa de dinheiro, som, fogueira e sacos de areia, e **mirador** "
-        "de 16 blocos | `functions/favela.mcfunction` + 7 partes |")
+    add("| `/function favela` | morro em **quatro patamares** (0/2/4/6) com 52 barracos "
+        "colados, becos de 1 bloco e escadões, telhado de telha vermelha / laje com "
+        "parapeito / lona, puxadinho, caixa d'água, antena, pichação, varais e fios, "
+        "galpão de laje, quadra de alambrado, **boca de fumo** (telheiro, balcão, estoque, "
+        "mesa de dinheiro, som, fogueira, sacos de areia) e **mirador** | "
+        "`functions/favela.mcfunction` + 8 partes |")
     add("| `/function faccao` | ajuda no chat com todos os comandos | — |")
+    add("| `/function lado_policial` | entra/troca para a Polícia **sem depender do menu** "
+        "(tag, scoreboard, kit com pistola, munição e algemas) | — |")
+    add("| `/function lado_ladrao` | entra/troca para o Ladrão sem o menu | — |")
     add("")
     add("![Base policial](estrutura_policial.png)")
     add("")
@@ -381,14 +393,14 @@ def render():
     add("| Item/efeito | Como funciona |")
     add("|---|---|")
     add("| `tac_guns:algemas` | receita 3x3: 4 `iron_ingot` nos cantos + 1 `chain` no centro. "
-        "Só a **polícia** pode usar; clicar com elas em um jogador do lado oposto prende |")
+        "Só a **polícia** pode usar; usar as algemas a até 4 blocos de um suspeito prende |")
     add("| Prisão | vítima recebe a tag `algemado`, lentidão III + fadiga, perde o direito de "
         "usar armas e é teleportada para a cela marcada; o policial ganha +R$ 250 e +1 de "
         "reputação |")
     add("| Cela | a polícia marca o ponto com `/scriptevent tac_guns:marcar_cela` (fica salvo "
         "no mundo, funciona em qualquer dimensão) |")
-    add("| Soltura | clicar de novo com as algemas, `/scriptevent tac_guns:soltar` ou 60 s de "
-        "prazo automático |")
+    add("| Soltura | usar as algemas de novo no preso, `/scriptevent tac_guns:soltar` ou 60 s "
+        "de prazo automático |")
     add("| Nível de procurado | sobe +2 por assalto a aldeão e +4 por abate entre facções; "
         "cai 1 ponto a cada 20 s |")
     add("| Alerta policial | ao chegar em 3, o procurado recebe o título **PROCURADO**, ganha "

@@ -35,6 +35,7 @@ TERRACOTA_BRANCA = "white_terracotta"
 TERRACOTA_LARANJA = "orange_terracotta"
 TERRACOTA_VERMELHA = "red_terracotta"
 TERRACOTA_CINZA = "gray_terracotta"
+TERRACOTA_MARROM = "brown_terracotta"
 MADEIRA = "oak_planks"
 MADEIRA_ESCURA = "dark_oak_planks"
 MADEIRA_JUNGLE = "jungle_planks"
@@ -54,6 +55,7 @@ CONCRETO_VERDE = "lime_concrete"
 CONCRETO_AMARELO = "yellow_concrete"
 CONCRETO_LARANJA = "orange_concrete"
 CONCRETO_MARROM = "brown_concrete"
+CONCRETO_VERDE = "lime_concrete"
 CONCRETO_ROXO = "purple_concrete"
 CONCRETO_CIANO = "cyan_concrete"
 LA_ROSA = "pink_wool"
@@ -63,6 +65,7 @@ LA_AZUL = "blue_wool"
 LA_VERDE = "green_wool"
 LA_PRETA = "black_wool"
 LA_CINZA = "light_gray_wool"
+LA_AMARELA = "yellow_wool"
 BARRIL = "barrel"
 BAU = "chest"
 BANCADA = "crafting_table"
@@ -357,21 +360,19 @@ def base_policial():
 
 # ===================================================================== FAVELA
 PALETAS = [
-    (TIJOLO, TERRACOTA_VERMELHA),
-    (TIJOLO_BARRO, TERRACOTA),
-    (TERRACOTA_BRANCA, TERRACOTA_LARANJA),
-    (TERRACOTA_CINZA, TIJOLO),
-    (CONCRETO_BRANCO, TERRACOTA),
-    (TIJOLO, TERRACOTA_BRANCA),
-    (TERRACOTA_LARANJA, TIJOLO_BARRO),
+    TIJOLO, TIJOLO, TIJOLO, TIJOLO_BARRO, TIJOLO_BARRO,
+    TERRACOTA_LARANJA, TERRACOTA_LARANJA, TERRACOTA_VERMELHA, TERRACOTA,
 ]
-TOLDOS = [LA_VERMELHA, LA_AZUL, LA_VERDE, LA_PRETA, LA_CINZA]
+ESTILOS = ["telha"] * 70 + ["laje"] * 25 + ["lona"] * 5
+TELHAS = (["red_terracotta"] * 7 + ["orange_terracotta"] * 2 + ["bricks"] * 1)
+TOLDOS = [LA_VERMELHA, LA_AZUL, LA_VERDE, LA_PRETA, LA_CINZA, LA_AMARELA]
 GRAFFITI = [CONCRETO_ROXO, CONCRETO_CIANO, CONCRETO_VERDE, CONCRETO_AMARELO,
             CONCRETO_LARANJA, CONCRETO_VERMELHO, CONCRETO_MARROM]
 
 
-def casa(c, rnd, x, z, y, w, d, h, parede, teto, porta_lado):
-    """Uma casa de favela: laje, paredes, telhado, porta, janela e interior."""
+def casa(c, rnd, x, z, y, w, d, h, parede, estilo, porta_lado):
+    """Barraco de favela: laje de concreto, paredes de tijolo, telhado de telha,
+    laje com parapeito ou lona, caixa d'água, antena, puxadinho e pichação."""
     c.fill(x, y - 1, z, x + w, y - 1, z + d, PEDRA_LAVADA)
     c.caixa(x, y, z, x + w, y + h, z + d, parede)
     c.fill(x + 1, y, z + 1, x + w - 1, y, z + d - 1, MADEIRA)
@@ -384,45 +385,59 @@ def casa(c, rnd, x, z, y, w, d, h, parede, teto, porta_lado):
         c.ar(x + 1, y, z + d, x + 2, y + 2, z + d)
     else:
         c.ar(x, y, z + 1, x, y + 2, z + 2)
-    # janelas
+    # janelas pequenas e grades (cara de favela)
     for i in range(2):
-        if rnd.random() < 0.75:
+        if rnd.random() < 0.8:
             c.set(x + 1 + i * 2, y + 2, z, VIDRO_FINO)
-        if rnd.random() < 0.5:
+        if rnd.random() < 0.65:
             c.set(x + w, y + 2, z + 1 + i * 2, VIDRO_FINO)
+        if rnd.random() < 0.35:
+            c.set(x + 1 + i * 2, y + 1, z, GRADE)
     # telhado
-    if teto in TOLDOS:
-        c.fill(x, y + h, z, x + w, y + h, z + d, teto)
-        c.fill(x, y + h + 1, z, x + w, y + h + 1, z + d // 2, teto)
-        c.fill(x, y + h + 1, z + d // 2, x + w, y + h + 1, z + d // 2, LA_PRETA)
+    telha = rnd.choice(TELHAS)
+    if estilo == "telha":
+        c.fill(x, y + h, z, x + w, y + h, z + d, telha)
+        if rnd.random() < 0.55:
+            c.fill(x, y + h + 1, z, x + w, y + h + 1, z + d // 2, telha)
+            c.fill(x, y + h + 1, z + d // 2, x + w, y + h + 1, z + d // 2, LA_PRETA)
+    elif estilo == "laje":
+        c.fill(x, y + h, z, x + w, y + h, z + d, PEDRA_LISA)
+        c.fill(x, y + h + 1, z, x + w, y + h + 1, z, parede)
+        c.fill(x, y + h + 1, z + d, x + w, y + h + 1, z + d, parede)
+        c.fill(x, y + h + 1, z, x, y + h + 1, z + d, parede)
+        c.fill(x + w, y + h + 1, z, x + w, y + h + 1, z + d, parede)
     else:
-        c.fill(x, y + h, z, x + w, y + h, z + d, teto)
-        if rnd.random() < 0.6:
-            c.fill(x, y + h + 1, z, x + w, y + h + 1, z + d, teto)
-    # barraco de laje (puxadinho em cima da casa)
-    if rnd.random() < 0.4 and w >= 5:
-        t = rnd.choice(TOLDOS)
+        cor = rnd.choice(TOLDOS)
+        c.fill(x, y + h, z, x + w, y + h, z + d, cor)
+        c.fill(x, y + h + 1, z, x + w, y + h + 1, z + 1, cor)
+        c.set(x + w, y + h + 1, z + 1, LA_PRETA)
+    # puxadinho em cima da laje
+    if rnd.random() < 0.45:
+        cor = rnd.choice(TOLDOS)
         c.caixa(x + 1, y + h + 1, z + 1, x + 3, y + h + 2, z + 3, TIJOLO)
-        c.fill(x + 1, y + h + 3, z + 1, x + 3, y + h + 3, z + 3, t)
+        c.fill(x + 1, y + h + 3, z + 1, x + 3, y + h + 3, z + 3, cor)
         c.ar(x + 2, y + h + 1, z + 1, x + 2, y + h + 2, z + 1)
         c.set(x + 3, y + h + 2, z + 2, VIDRO_FINO)
-    # caixa d'água / antena na laje
-    if rnd.random() < 0.7:
-        c.set(x + w - 1, y + h + 1, z + 1, CALDEIRAO)
+    # caixa d'água / antena de TV
+    if rnd.random() < 0.75:
+        c.set(x + w - 1, y + h + (2 if estilo == "laje" else 1), z + 1, CALDEIRAO)
         if rnd.random() < 0.5:
-            c.set(x + w - 1, y + h + 2, z + 1, CALDEIRAO)
-    if rnd.random() < 0.6:
-        c.fill(x + 1, y + h + 1, z + d - 1, x + 1, y + h + 2, z + d - 1, CERCA)
-        c.set(x + 1, y + h + 3, z + d - 1, GRADE)
-    # interior
+            c.set(x + w - 1, y + h + (3 if estilo == "laje" else 2), z + 1, CALDEIRAO)
+    if rnd.random() < 0.7:
+        base = y + h + (2 if estilo == "laje" else 1)
+        c.fill(x + 1, base, z + d - 1, x + 1, base + 1, z + d - 1, CERCA)
+        c.set(x + 1, base + 2, z + d - 1, GRADE)
+    # interior simples
     c.fill(x + w - 1, y, z + d - 1, x + w - 1, y, z + d - 2, LA_BRANCA)
     c.set(x + w - 1, y + 1, z + d - 1, LA_BRANCA)
     c.set(x + 1, y, z + d - 1, BANCADA)
     c.set(x + w - 1, y, z + 1, FORNALHA)
     if rnd.random() < 0.6:
         c.set(x + 1, y, z + 1, BARRIL)
-    c.set(x + 2, y + h, z + d // 2, TOCHA)
-    # pichação na fachada
+    c.set(x + 2, y + h - 1, z + d // 2, TOCHA)
+    # pichação na fachada (só em parte dos barracos)
+    if rnd.random() < 0.3:
+        return
     cor = rnd.choice(GRAFFITI)
     if porta_lado in (0, 2):
         zz = z if porta_lado == 0 else z + d
@@ -435,165 +450,191 @@ def casa(c, rnd, x, z, y, w, d, h, parede, teto, porta_lado):
 
 
 def favela():
-    """Favela em três patamares (0, 3 e 6): becos, 26 casas, escadarias,
-    varais, caixas d'água, a boca de fumo e o mirador."""
+    """Favela densa em quatro patamares, 50 barracos colados, becos de 1 bloco,
+    escadões, lajes com parapeito, telhados de telha, varais, fios, quadra e
+    galpão de laje embaixo, boca de fumo no meio e mirador no alto."""
     rnd = random.Random(20240607)
     partes = {}
-    niveis = (0, 3, 6)
+    # 4 patamares: cada coluna sobe 2 blocos (0, 2, 4, 6)
+    NIVEIS = (0, 0, 2, 2, 4, 4, 6, 6)
+    XS = [-26, -19, -12, -5, 2, 9, 16, 23]
+    ZS = [-26, -19, -12, -5, 2, 9, 16, 23]
 
     # ---------------------------------------------------------- terreno
     t = partes["00_terreno"] = Cmds()
-    t.fill(-24, -2, -24, 24, -2, 24, TERRA)
-    # patamar baixo (oeste)
-    t.fill(-24, -1, -22, -9, -1, 22, SAIBRO)
-    t.fill(-24, -1, -22, -24, -1, 22, PEDRA_LAVADA)
-    t.fill(-24, 0, -24, -9, 0, -23, PEDRA_LAVADA)
-    # patamar médio
-    t.fill(-8, -1, -22, 9, 2, 22, SAIBRO)
-    t.fill(-9, -1, -22, -8, 3, 22, PEDRA_LAVADA)
-    t.fill(-8, 3, -22, 9, 3, 22, CAMINHO)
-    # patamar alto (leste)
-    t.fill(10, -1, -22, 24, 5, 22, SAIBRO)
-    t.fill(9, -1, -22, 10, 6, 22, PEDRA_LAVADA)
-    t.fill(10, 6, -22, 24, 6, 22, CAMINHO)
-    # paredões de contenção com cara de favela
-    for z in (-22, -6, 12):
-        t.fill(-9, 0, z, -9, 2, z, PEDRA_LAVADA)
-        t.fill(9, 3, z, 9, 5, z, PEDRA_LAVADA)
-    t.tell("§6Favela: §7morro em três patamares pronto")
+    t.fill(-30, -2, -30, 30, -2, 30, TERRA)
+    for i, x in enumerate(XS):
+        nivel = NIVEIS[i]
+        prox = NIVEIS[i + 1] if i + 1 < len(NIVEIS) else nivel
+        topo = max(nivel, prox)
+        t.fill(x - 1, -1, -28, x + 6, topo - 1, 28, SAIBRO)
+        t.fill(x - 1, topo - 1, -28, x + 6, topo - 1, 28, CAMINHO)
+        if nivel > 0:
+            t.fill(x - 1, -1, -28, x - 1, nivel, 28, PEDRA_LAVADA)
+    t.fill(XS[-1] + 6, -1, -28, XS[-1] + 6, 6, 28, PEDRA_LAVADA)
+    t.fill(XS[0] - 2, -1, -28, XS[0] - 2, 0, 28, PEDRA_LAVADA)
+    t.tell("§6Favela: §7morro em 4 patamares pronto")
 
-    # ---------------------------------------------------------- becos
+    # ---------------------------------------------------------- becos e escadões
     b = partes["01_becos"] = Cmds()
-    b.fill(-24, -1, 0, -9, -1, 2, CAMINHO)
-    b.fill(-24, -1, -11, -9, -1, -9, BRITA)
-    # escadarias entre patamares (largura 4)
-    for i, z0, z1 in ((0, -20, -12), (1, -8, 20)):
-        for nivel in range(3):
-            b.fill(-9, nivel - 1 + 1, z0, -8, nivel, z1, PEDRA)
-    for i, z0, z1 in ((0, -20, -14), (1, -6, 20)):
-        for nivel in range(3, 6):
-            b.fill(8, nivel - 1, z0, 9, nivel - 1, z1, PEDRA)
-    # passagens laterais nos três níveis
-    b.fill(-24, -1, 12, -9, -1, 13, CAMINHO)
-    b.fill(-8, 3, 12, 9, 3, 13, CAMINHO)
-    b.fill(10, 6, 12, 24, 6, 13, CAMINHO)
-    b.fill(-24, -1, -22, -9, -1, -21, CAMINHO)
-    b.fill(-8, 3, -22, 9, 3, -21, CAMINHO)
-    b.fill(10, 6, -22, 24, 6, -21, CAMINHO)
-    # bueiro e poça
-    b.set(-14, -1, 1, AGUA)
-    b.set(-3, 3, 6, AGUA)
-    b.tell("§6Favela: §7becos e escadarias prontos")
+    for i, x in enumerate(XS):
+        nivel = NIVEIS[i]
+        b.fill(x, nivel - 1, -28, x, nivel - 1, 28, CAMINHO)
+    # escadões nas divisas de patamar (3 larguras diferentes)
+    for i in range(1, len(XS)):
+        nivel_novo, nivel_velho = NIVEIS[i], NIVEIS[i - 1]
+        if nivel_novo == nivel_velho:
+            continue
+        for z0 in (-24, -10, 4, 18):
+            for passo in range(nivel_novo - nivel_velho):
+                altura = nivel_velho + passo
+                b.fill(XS[i] - 1, altura - 1, z0, XS[i] - 1, altura - 1, z0 + 2, PEDRA)
+    # vielas transversais
+    for z in (-27, -13, 1, 15):
+        for i, x in enumerate(XS):
+            b.fill(x, NIVEIS[i] - 1, z, x + 6, NIVEIS[i] - 1, z, CAMINHO)
+    b.set(-15, 1, -3, AGUA)
+    b.set(6, 5, 9, AGUA)
+    b.tell("§6Favela: §7becos e escadões prontos")
 
     # ---------------------------------------------------------- casas
-    c = partes["02_casas"] = Cmds()
-    xs = [-23, -15, -5, 3, 12, 20]
-    zs = [-18, -9, 2, 9, 17]
+    casas = partes["02_casas"] = Cmds()
     total = 0
-    for coluna, x in enumerate(xs):
-        for z in zs:
-            if coluna < 2 and z in (2, -9):
-                continue               # praça da boca de fumo
-            if coluna >= 4 and z == 17:
-                continue               # mirador
-            if coluna < 2:
-                y = niveis[0]
-            elif coluna < 4:
-                y = niveis[1]
-            else:
-                y = niveis[2]
-            w = 5 if rnd.random() < 0.6 else 6
-            d = 5 if rnd.random() < 0.6 else 6
-            h = 3 if rnd.random() < 0.55 else 4
-            parede, telhado = rnd.choice(PALETAS)
-            if rnd.random() < 0.3:
-                telhado = rnd.choice(TOLDOS)
-            casa(c, rnd, x, z, y, w, d, h, parede, telhado, rnd.randrange(4))
+    for ci, x in enumerate(XS):
+        for ri, z in enumerate(ZS):
+            # praça da boca de fumo (centro-baixo) e mirador (canto alto)
+            if ci in (1, 2) and ri in (3, 4):
+                continue
+            if ci >= 6 and ri >= 6:
+                continue
+            # galpão/quadra no pé do morro
+            if ci <= 1 and ri >= 6:
+                continue
+            y = NIVEIS[ci]
+            w = 6 if rnd.random() < 0.7 else 5
+            d = 6 if rnd.random() < 0.7 else 5
+            h = 2 if rnd.random() < 0.25 else (3 if rnd.random() < 0.6 else 4)
+            parede = rnd.choice(PALETAS)
+            estilo = rnd.choice(ESTILOS)
+            casa(casas, rnd, x, z, y, w, d, h, parede, estilo, rnd.randrange(4))
             total += 1
-    c.tell(f"§6Favela: §7{total} casas construídas")
+    casas.tell(f"§6Favela: §7{total} barracos construídos")
 
     # ---------------------------------------------------------- detalhes
     d = partes["03_detalhes"] = Cmds()
-    for x, z, y in ((-19, -18, 3), (-6, -9, 6), (4, 9, 6), (15, 16, 9),
-                    (-22, 17, 3), (1, 2, 6)):
-        d.fill(x, y, z, x + 6, y, z, CERCA)
-        d.fill(x + 1, y - 1, z, x + 5, y - 1, z, LA_BRANCA)
-    for x, z, y in ((-22, 1, 0), (-12, 1, 0), (-3, 3, 3), (6, 3, 3),
-                    (13, 6, 6), (22, 6, 6), (-16, 12, 3), (2, 13, 6), (18, 13, 9)):
-        d.fill(x, y, z, x, y + 2, z, MADEIRA_ESCURA)
-        d.set(x, y + 3, z, LANTERNA)
-    for x, z, y, cor in ((-18, -8, 1, LA_AZUL), (0, 3, 4, LA_VERMELHA),
-                         (16, -3, 7, LA_VERDE)):
+    # varais e fios entre os barracos
+    for x, z, y in ((-22, -20, 4), (-9, -6, 6), (4, 3, 8), (17, 10, 10),
+                    (-23, 12, 4), (11, -22, 8)):
+        d.fill(x, y, z, x + 8, y, z, CERCA)
+        d.fill(x + 1, y - 1, z, x + 4, y - 1, z, LA_BRANCA)
+        d.fill(x + 5, y - 1, z, x + 7, y - 1, z, LA_VERMELHA)
+    # postes de luz e fios nos becos
+    for x, z, y in ((-26, 1, 0), (-12, 1, 2), (-5, 3, 2), (2, 5, 4), (9, 7, 6),
+                    (16, 9, 6), (23, 11, 8), (-19, 15, 2), (5, -13, 4)):
+        d.fill(x, y, z, x, y + 3, z, MADEIRA_ESCURA)
+        d.set(x, y + 4, z, LANTERNA)
+    # barracas de lona e bancas
+    for x, z, y, cor in ((-24, -6, 1, LA_AZUL), (-3, 4, 3, LA_VERMELHA),
+                         (13, -4, 5, LA_VERDE), (-17, 9, 1, LA_AMARELA)):
         d.fill(x, y, z, x + 3, y, z + 3, cor)
         d.fill(x, y + 1, z, x + 3, y + 1, z, cor)
         d.set(x + 1, y, z + 1, BANCADA)
-    for x, y, z in ((-9, 1, -6), (-9, 2, 6), (9, 4, -4), (9, 5, 8)):
+        d.set(x + 2, y, z + 1, BARRIL)
+    # pichações no arrimo
+    for x, y, z in ((-13, 1, -8), (-6, 3, 6), (3, 5, -6), (10, 7, 8), (17, 9, -10)):
         d.fill(x, y, z, x, y + 1, z + 2, rnd.choice(GRAFFITI))
-    # postes de energia e fios
-    d.fill(-10, 4, 18, -10, 11, 18, MADEIRA_ESCURA)
-    d.fill(-10, 11, 18, 9, 11, 18, CERCA)
-    d.fill(9, 11, 18, 9, 7, 18, MADEIRA_ESCURA)
-    d.tell("§6Favela: §7varais, barracas, luz e pichações prontos")
+    d.tell("§6Favela: §7fios, varais e barracas prontos")
 
-    # ---------------------------------------------------------- boca
+    # ---------------------------------------------------------- boca de fumo
     o = partes["04_boca"] = Cmds()
-    o.fill(-24, -1, -9, -13, -1, 3, CAMINHO)
-    o.fill(-24, -1, -9, -13, -1, -9, PEDRA_LAVADA)
-    o.fill(-24, -1, 3, -13, -1, 3, PEDRA_LAVADA)
-    o.fill(-23, 2, -8, -14, 2, 2, CONCRETO_CINZA)
-    o.fill(-23, 3, -8, -14, 3, 2, LA_VERMELHA)
-    o.fill(-23, 3, -3, -14, 3, -2, LA_PRETA)
-    for x in (-23, -19, -14):
-        o.fill(x, 0, -8, x, 2, -8, CONCRETO_BRANCO)
-        o.fill(x, 0, 2, x, 2, 2, CONCRETO_BRANCO)
-    o.fill(-21, 0, -3, -16, 0, -2, PEDRA_LISA)
-    o.fill(-21, 1, -3, -16, 1, -2, PEDRA_LISA)
-    o.set(-22, 0, -4, BARRIL)
-    o.set(-22, 0, -5, BARRIL)
-    o.set(-22, 1, -4, BARRIL)
-    o.set(-22, 0, -6, BAU)
-    o.set(-22, 0, -7, BAU)
-    o.fill(-19, 0, -6, -17, 0, -6, MADEIRA)
-    o.set(-18, 1, -6, OURO)
-    o.set(-21, 0, 0, JUKEBOX)
-    o.set(-15, 0, 0, NOTA)
-    o.set(-15, 0, 1, NOTA)
-    o.fill(-14, 0, -1, -14, 1, 0, GRADE)
-    o.set(-18, 0, 1, FOGUEIRA)
-    o.fill(-20, 0, 2, -16, 0, 2, MADEIRA)
-    for x in (-20, -18, -16):
-        o.fill(x, 0, -9, x, 1, -9, LA_BRANCA)
-    o.fill(-23, 1, -10, -23, 2, -7, CONCRETO_VERMELHO)
-    o.fill(-22, 1, -10, -19, 1, -10, CONCRETO_AMARELO)
-    o.set(-20, 2, -10, CONCRETO_AMARELO)
-    o.set(-19, 2, -10, CONCRETO_ROXO)
+    o.fill(-18, 1, -4, -6, 1, 8, CAMINHO)
+    o.fill(-18, 1, -4, -6, 1, -4, PEDRA_LAVADA)
+    o.fill(-18, 1, 8, -6, 1, 8, PEDRA_LAVADA)
+    o.fill(-17, 4, -3, -7, 4, 7, CONCRETO_CINZA)
+    o.fill(-17, 5, -3, -7, 5, 7, LA_VERMELHA)
+    o.fill(-17, 5, 1, -7, 5, 2, LA_PRETA)
+    for x in (-17, -12, -7):
+        o.fill(x, 2, -3, x, 4, -3, CONCRETO_BRANCO)
+        o.fill(x, 2, 7, x, 4, 7, CONCRETO_BRANCO)
+    o.fill(-15, 2, 1, -9, 2, 2, PEDRA_LISA)
+    o.fill(-15, 3, 1, -9, 3, 2, PEDRA_LISA)
+    o.set(-16, 2, 0, BARRIL)
+    o.set(-16, 2, -1, BARRIL)
+    o.set(-16, 3, 0, BARRIL)
+    o.set(-16, 2, 3, BAU)
+    o.set(-16, 2, 4, BAU)
+    o.fill(-13, 2, -2, -11, 2, -2, MADEIRA)
+    o.set(-12, 3, -2, OURO)
+    o.set(-15, 2, 5, JUKEBOX)
+    o.set(-9, 2, 5, NOTA)
+    o.set(-9, 2, 6, NOTA)
+    o.set(-12, 2, 6, FOGUEIRA)
+    o.fill(-14, 2, 7, -10, 2, 7, MADEIRA)
+    for x in (-16, -14, -12, -10):
+        o.fill(x, 2, 8, x, 3, 8, LA_BRANCA)
+    o.fill(-18, 3, -6, -18, 4, -2, CONCRETO_VERMELHO)
+    o.fill(-17, 3, -6, -14, 3, -6, CONCRETO_AMARELO)
+    o.set(-15, 4, -6, CONCRETO_ROXO)
+    o.set(-13, 4, -6, CONCRETO_AMARELO)
     o.tell("§4Boca de fumo pronta")
 
     # ---------------------------------------------------------- mirador
     mi = partes["05_mirador"] = Cmds()
-    mi.fill(18, 6, 17, 23, 6, 22, PEDRA_LAVADA)
-    mi.fill(18, 7, 17, 23, 7, 17, PEDRA_LAVADA)
-    mi.fill(18, 7, 22, 23, 7, 22, PEDRA_LAVADA)
-    mi.fill(18, 7, 17, 18, 7, 22, PEDRA_LAVADA)
-    mi.fill(23, 7, 17, 23, 7, 22, PEDRA_LAVADA)
-    mi.fill(20, 7, 19, 20, 13, 19, ANDAIME)
-    mi.fill(19, 14, 18, 21, 14, 20, CONCRETO_CINZA)
-    mi.fill(19, 15, 18, 19, 15, 20, GRADE)
-    mi.fill(21, 15, 18, 21, 15, 20, GRADE)
-    mi.fill(19, 15, 18, 21, 15, 18, GRADE)
-    mi.fill(19, 15, 20, 21, 15, 20, GRADE)
-    mi.set(20, 16, 19, LA_VERMELHA)
-    mi.set(20, 15, 19, LUZ)
+    mi.fill(21, 6, 20, 28, 6, 27, PEDRA_LAVADA)
+    mi.fill(21, 7, 20, 28, 7, 20, PEDRA_LAVADA)
+    mi.fill(21, 7, 27, 28, 7, 27, PEDRA_LAVADA)
+    mi.fill(21, 7, 20, 21, 7, 27, PEDRA_LAVADA)
+    mi.fill(28, 7, 20, 28, 7, 27, PEDRA_LAVADA)
+    mi.fill(24, 7, 23, 24, 14, 23, ANDAIME)
+    mi.fill(22, 15, 21, 26, 15, 25, CONCRETO_CINZA)
+    mi.fill(22, 16, 21, 22, 16, 25, GRADE)
+    mi.fill(26, 16, 21, 26, 16, 25, GRADE)
+    mi.fill(22, 16, 21, 26, 16, 21, GRADE)
+    mi.fill(22, 16, 25, 26, 16, 25, GRADE)
+    mi.set(24, 17, 23, LA_VERMELHA)
+    mi.set(24, 16, 23, LUZ)
     mi.tell("§4Mirador da favela pronto")
 
-    # ---------------------------------------------------------- saida
-    s = partes["06_saida"] = Cmds()
-    s.fill(-24, -1, 4, -22, -1, 22, CAMINHO)
-    s.fill(-24, 0, 4, -24, 2, 4, CONCRETO_PRETO)
-    s.set(-24, 1, 4, CONCRETO_AMARELO)
-    s.fill(24, 6, -22, 24, 6, 24, CAMINHO)
-    s.fill(13, 6, 24, 24, 6, 24, CAMINHO)
-    s.tell("§6Favela completa! §7Use /scriptevent tac_guns:loja para o arsenal da facção")
+    # ---------------------------------------------------------- quadra e galpão
+    q = partes["06_quadra"] = Cmds()
+    # galpão de laje (o bloco de concreto da frente da foto)
+    q.fill(-28, -1, 18, -14, -1, 28, PEDRA_LISA)
+    q.fill(-28, 0, 18, -28, 2, 28, CONCRETO_BRANCO)
+    q.fill(-14, 0, 18, -14, 2, 28, CONCRETO_BRANCO)
+    q.fill(-28, 0, 28, -14, 2, 28, CONCRETO_BRANCO)
+    q.fill(-28, 3, 17, -14, 3, 29, CONCRETO_CINZA)
+    q.fill(-28, 4, 17, -14, 4, 17, CONCRETO_BRANCO)
+    q.fill(-28, 4, 29, -14, 4, 29, CONCRETO_BRANCO)
+    q.fill(-28, 4, 17, -28, 4, 29, CONCRETO_BRANCO)
+    q.fill(-14, 4, 17, -14, 4, 29, CONCRETO_BRANCO)
+    q.ar(-24, 0, 28, -18, 2, 28)
+    q.fill(-26, 0, 20, -25, 1, 26, LA_BRANCA)
+    q.fill(-23, 0, 20, -22, 1, 26, LA_BRANCA)
+    q.set(-27, 0, 27, BAU)
+    q.set(-15, 0, 27, BARRIL)
+    q.fill(-25, 2, 23, -24, 2, 23, LUZ)
+    # quadra descoberta com alambrado
+    q.fill(-12, -1, 18, 2, -1, 28, CONCRETO_VERDE)
+    q.fill(-12, -1, 18, 2, -1, 18, FAIXA)
+    q.fill(-12, -1, 28, 2, -1, 28, FAIXA)
+    for x in (-12, 2):
+        q.fill(x, 0, 18, x, 2, 18, GRADE)
+        q.fill(x, 0, 28, x, 2, 28, GRADE)
+        q.fill(x, 0, 18, x, 2, 28, GRADE)
+    q.fill(-12, 0, 18, 2, 2, 18, GRADE)
+    q.fill(-12, 0, 28, 2, 2, 28, GRADE)
+    q.fill(-6, 0, 22, -4, 2, 24, GRADE)
+    q.set(-11, 0, 27, LANTERNA)
+    q.set(1, 0, 27, LANTERNA)
+    q.tell("§6Favela completa! §7Galpão e quadra prontos")
+
+    # ---------------------------------------------------------- saída
+    s = partes["07_saida"] = Cmds()
+    s.fill(-30, -1, 29, 30, -1, 30, CAMINHO)
+    s.fill(3, -1, 18, 20, -1, 18, CAMINHO)
+    s.fill(-30, 0, 29, -30, 2, 29, CONCRETO_PRETO)
+    s.set(-30, 1, 29, CONCRETO_AMARELO)
+    s.tell("§6Use /scriptevent tac_guns:loja para o arsenal da facção")
     return partes
 
 
@@ -609,10 +650,41 @@ def ajuda():
     c.tell("§6§l=== TACGUNS: FACÇÕES E BASES ===")
     c.tell("§e/function policial §7- constrói a base da Polícia ao seu redor")
     c.tell("§e/function favela §7- constrói a favela inteira com a boca de fumo")
-    c.tell("§e/function faccao §7- mostra esta ajuda")
-    c.tell("§e/scriptevent tac_guns:faccao §7- escolher/trocar de lado")
+    c.tell("§e/function lado_policial §7- entrar/trocar para a Polícia (sem menu)")
+    c.tell("§e/function lado_ladrao §7- entrar/trocar para o Ladrão (sem menu)")
+    c.tell("§e/scriptevent tac_guns:faccao §7- abrir a tela de escolha de lado")
     c.tell("§e/scriptevent tac_guns:loja §7- comprar armas do seu lado")
+    c.tell("§e/scriptevent tac_guns:info §7- sua ficha (dinheiro, patente, procurado)")
     c.tell("§e/scriptevent tac_guns:marcar_cela §7- marcar a cela (polícia, dentro dela)")
+    return c
+
+
+KITS = {
+    "policial": ("POLICIAL", "§9", "1", "policia", "ladrao", "tac_guns:pt92_emp",
+                 "tac_guns:9x19mm", "tac_guns:algemas"),
+    "ladrao": ("LADRÃO", "§4", "2", "ladrao", "policia", "tac_guns:tec9_emp",
+               "tac_guns:9x19mm", ""),
+}
+
+
+def lado(nome):
+    """Escolha de lado por comando: funciona mesmo sem os scripts."""
+    rotulo, cor, valor, tag, outra, arma, municao, extra = KITS[nome]
+    c = Cmds()
+    c.tell(f"{cor}§l{rotulo}§r §7- entrando no lado...")
+    for obj in ("dinheiro", "abates", "reputacao", "procurado", "faccao"):
+        c.lines.append(f"scoreboard objectives add {obj} dummy {obj}")
+    c.lines.append(f"tag @s remove {outra}")
+    c.lines.append(f"tag @s add {tag}")
+    c.lines.append(f"scoreboard players set @s faccao {valor}")
+    c.lines.append(f"scoreboard players add @s dinheiro 0")
+    c.lines.append(f"give @s {arma} 1")
+    c.lines.append(f"give @s {municao} 60")
+    if extra:
+        c.lines.append(f"give @s {extra} 1")
+    c.lines.append(f"tag @s add kit_{tag}")
+    c.tell(f"§aVocê agora é {cor}{rotulo}§a. Kit entregue (pistola + 60 munições).")
+    c.tell("§7Loja: §f/scriptevent tac_guns:loja §7· Ficha: §f/scriptevent tac_guns:info")
     return c
 
 
@@ -634,4 +706,7 @@ def escrever(bp_dir):
             comandos += len(c.lines)
         rel_.append((nome_mestre, len(partes) + 1, comandos))
     _write_part(os.path.join(bp_dir, "functions", "faccao.mcfunction"), ajuda())
+    for nome in ("policial", "ladrao"):
+        _write_part(os.path.join(bp_dir, "functions", f"lado_{nome}.mcfunction"),
+                    lado(nome))
     return rel_

@@ -64,12 +64,37 @@ Cheats ligados, área aberta e carregada, e:
 | Comando | O que constrói |
 |---|---|
 | `/function policial` | base da PM: pátio com viatura, muro e portão, prédio de 2 andares, 2 celas, arsenal, heliponto com "H", torre e iluminação |
-| `/function favela` | favela inteira: morro de 3 patamares, 26 casas com laje/puxadinho/caixa d'água, becos, escadarias, varais, **boca de fumo** e mirador |
+| `/function favela` | favela inteira: morro de 4 patamares, **52 barracos** colados com telha/laje/lona, becos de 1 bloco, escadões, varais, fios, galpão, quadra, **boca de fumo** e mirador |
+| `/function lado_policial` | entrar/trocar para a Polícia sem depender do menu (tag + scoreboard + kit) |
+| `/function lado_ladrao` | entrar/trocar para o Ladrão sem depender do menu |
 | `/function faccao` | ajuda com todos os comandos de facção |
 
 Cada estrutura é dividida em partes chamáveis (ex.: `/function favela/04_boca`). Mapas:
 [`docs/estrutura_policial.png`](docs/estrutura_policial.png) e
 [`docs/estrutura_favela.png`](docs/estrutura_favela.png).
+
+
+## Instalação e solução de problemas
+
+1. **Importe `release/TacGuns_Brasil.mcaddon`** (clique no arquivo → *Abrir com Minecraft*).
+   Ele traz **dois packs**: `TacGuns(B)` (comportamento) e `TacGuns(R)` (recursos).
+2. No mundo, ative **os dois** em *Conjuntos de comportamento* e *Pacotes de recursos*;
+   a ordem do pacote de recursos não importa, mas o de comportamento precisa estar ativo
+   para as armas atirarem.
+3. Ligue **Cheats/Ativar trapaças** para usar `/function` e `/scriptevent`.
+4. Versões antigas do addon com o **mesmo UUID** podem continuar sendo usadas pelo jogo:
+   esta versão é **1.2.0** nas duas pontas — se você já tinha importado a 1.1.0, apague a
+   cópia antiga em *Configurações → Armazenamento → Pacotes* antes de testar.
+
+| Sintoma | Causa provável | Solução |
+|---|---|---|
+| Arma na mão sem modelo 3D / jogador invisível em 1ª pessoa | pack de **recursos** desativado, ou cópia antiga (1.1.0) com as raízes de primeira pessoa quebradas (corrigido na 1.2.0) | ative `TacGuns(R)` e reinstale a 1.2.0 |
+| Menu de escolha de lado não abre | API de script indisponível na versão do jogo | use `/function lado_policial` ou `/function lado_ladrao` (funciona sem script) |
+| Armas não causam dano / sem HUD de munição | pack de **comportamento** desativado ou script desligado | ative `TacGuns(B)`; o dano vem de `scripts/events/projectileHitEntity.js` |
+| Nada acontece ao usar `/function` | cheats desligadas | ative *Ativar trapaças* no mundo |
+
+Os scripts declaram `@minecraft/server` **1.11.0** e `@minecraft/server-ui` **1.2.0**
+(funciona de 1.20.60 em diante e continua carregável nas versões novas).
 
 ## Como regenerar
 

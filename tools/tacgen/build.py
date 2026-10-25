@@ -76,6 +76,25 @@ ATTACHMENTS = [
 TEMPLATE_FULL = {"mk18": 31, "glock17": 18, "coltpython": 6, "awp": 6, "m870": 6}
 
 
+
+def rename_geometry(doc, ident):
+    """Renomeia o identificador da geometria nos dois formatos usados pelo pack.
+
+    Formato novo: {"minecraft:geometry": [{"description": {"identifier": ...}}]}
+    Formato antigo: {"geometry.nome": {"bones": [...]}}
+    """
+    geo = doc.get("minecraft:geometry")
+    if geo is not None:
+        items = geo if isinstance(geo, list) else [geo]
+        for g in items:
+            if isinstance(g, dict) and isinstance(g.get("description"), dict):
+                g["description"]["identifier"] = ident
+    for key in [k for k in doc if k.startswith("geometry.")]:
+        valor = doc.pop(key)
+        doc[ident] = valor
+    return doc
+
+
 def read(path):
     with open(path, encoding="utf-8-sig") as f:
         return f.read()
@@ -118,18 +137,14 @@ class Build:
                    part_bones=rig["part_bones"], locator_prefix=spec["id"],
                    scale=spec.get("scale", 1.0), faction=spec.get("faction"))
         doc = build_geometry(tpl, design, cfg)
-        doc["minecraft:geometry"][0]["description"]["identifier"] = f"geometry.{spec['id']}"
+        rename_geometry(doc, f"geometry.{spec['id']}")
         dump(os.path.join(OUT_RP, "models", "entity", "guns", f"{spec['id']}.json"), doc)
         self.geo[spec["id"]] = doc["minecraft:geometry"][0]
 
         # first person arms: same skeleton, own identifier
-        root_src = load(os.path.join(SRC_RP, "models", "entity", "guns", f"{fam['template']}root.json"))
-        root = {}
-        for key, value in root_src.items():
-            if key.startswith("geometry."):
-                root[f"geometry.{spec['id']}root"] = value
-            else:
-                root[key] = value
+        root = load(os.path.join(SRC_RP, "models", "entity", "guns",
+                                 f"{fam['template']}root.json"))
+        rename_geometry(root, f"geometry.{spec['id']}root")
         dump(os.path.join(OUT_RP, "models", "entity", "guns", f"{spec['id']}root.json"), root)
 
     # ---------------------------------------------------------------- texture
@@ -190,7 +205,13 @@ class Build:
         for suffix in ("", "emp"):
             src = os.path.join(SRC_RP, "attachables", "guns", f"{fam['template']}{suffix}.json")
             if not os.path.exists(src):
-                continue
+                # modelos sem variante "vazia" no pack original: reaproveita a cheia,
+                # senao o item _emp aparece como sprite 2D na mao
+                alt = os.path.join(SRC_RP, "attachables", "guns", f"{fam['template']}.json")
+                if suffix and os.path.exists(alt):
+                    src = alt
+                else:
+                    continue
             doc = load(src)
             desc = doc["minecraft:attachable"]["description"]
             desc["identifier"] = f"tac_guns:{spec['id']}{suffix}"
@@ -932,22 +953,30 @@ class Build:
         keep.append("item.tac_guns:algemas.name=Algemas")
         write_text(pt, "\n".join(keep) + "\n")
 
+    VERSION = [1, 2, 0]
+
     def manifests(self):
+        self.VERSION = getattr(Build, "VERSION", [1, 2, 0])
         note = ("\n+ 18 armas extras: MP5, MP5K, UMP45, Vector, P90, M4A1, SCAR-H, G36C, FAMAS, "
                 "M82A1, Intervention, M24, Nova, SPAS-12, AA-12, Five-seveN, Model 29, Judge")
         bp = load(os.path.join(OUT_BP, "manifest.json"))
         rp = load(os.path.join(OUT_RP, "manifest.json"))
         for doc, extra in ((bp, ""), (rp, "")):
-            doc["header"]["version"] = [1, 1, 0]
+            doc["header"]["version"] = list(self.VERSION)
             if note not in doc["header"].get("description", ""):
                 doc["header"]["description"] = doc["header"].get("description", "") + note
             for module in doc["modules"]:
-                module["version"] = [1, 1, 0]
-        rp["dependencies"] = [{"uuid": bp["header"]["uuid"], "version": [1, 1, 0]}]
-        if not bp.get("dependencies"):
-            bp["dependencies"] = [{"uuid": rp["header"]["uuid"], "version": [1, 1, 0]}]
-        else:
-            bp["dependencies"] = [{"uuid": rp["header"]["uuid"], "version": [1, 1, 0]}]
+                module["version"] = list(self.VERSION)
+        rp["dependencies"] = [{"uuid": bp["header"]["uuid"],
+                               "version": list(self.VERSION)}]
+        # versoes de modulo explicitas: 1.x do @minecraft/server existe desde 1.20.60
+        # e continua carregavel nas versoes novas (compatibilidade retroativa), o que
+        # evita o script morrer em mundos que nao tem a API 2.x disponivel.
+        bp["dependencies"] = [
+            {"module_name": "@minecraft/server", "version": "1.11.0"},
+            {"module_name": "@minecraft/server-ui", "version": "1.2.0"},
+            {"uuid": rp["header"]["uuid"], "version": list(self.VERSION)},
+        ]
         dump(os.path.join(OUT_BP, "manifest.json"), bp, indent=2)
         dump(os.path.join(OUT_RP, "manifest.json"), rp, indent=2)
 
