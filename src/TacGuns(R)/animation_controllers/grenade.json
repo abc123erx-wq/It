@@ -1,0 +1,71 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.use_animation": {
+			"initial_state": "idle",
+			"states": {
+				"idle": {
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true,
+					"animations": [
+						"first_person_hold"
+					],
+					"transitions": [
+						{
+							"use_animation": "q.is_using_item"
+						}
+					]
+				},
+                "use_animation": {
+					"animations": [
+						"use_animation"
+					],
+					"transitions": [
+						{
+							"use_animation2": "q.any_animation_finished"
+						},
+						{
+							"idle": "!q.is_using_item"
+						}
+					]
+				},
+                "use_animation2": {
+					"animations": [
+						"use_animation2"
+					],
+					"transitions": [
+						{
+							"idle": "!q.is_using_item"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.use_animation_tp": {
+			"initial_state": "idle",
+			"states": {
+				"idle": {
+					"animations": [
+						"third_person_hold"
+					],
+					"transitions": [
+						{
+							"use_animation": "q.is_using_item"
+						}
+					]
+				},
+                "use_animation": {
+					"animations": [
+						"third_person_hold",
+						"use_animation_tp"
+					],
+					"transitions": [
+						{
+							"idle": "!q.is_using_item"
+						}
+					]
+				}
+			}
+		}
+	}
+}

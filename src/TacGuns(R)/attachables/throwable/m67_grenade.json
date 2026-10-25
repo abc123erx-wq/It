@@ -1,0 +1,37 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:attachable": {
+		"description": {
+			"identifier": "tac_guns:m67_grenade",
+			"render_controllers": ["controller.render.item_default"],
+			"materials": {
+				"default": "entity_alphatest",
+				"enchanted": "entity_alphatest_glint"
+			},
+			"textures": {
+				"default": "textures/throwables/m67_grenade",
+				"enchanted": "textures/misc/enchanted_item_glint"
+			},
+			"geometry": {
+				"default": "geometry.m67_grenade"
+			},
+			"animations": {
+				"first_person_hold": "animation.grenade.first_person_hold",
+				"third_person_hold": "animation.grenade.third_person_hold",
+				"use_animation":"animation.grenade.use_animation",
+				"use_animation2":"animation.grenade.use_animation2",
+				"m67_grenade":"controller.animation.use_animation"
+			},
+			"scripts": {
+				"animate": [
+					{
+						"m67_grenade": "c.is_first_person"
+					},
+					{
+						"third_person_hold": "!c.is_first_person"
+					}
+				]
+			}
+		}
+	}
+}

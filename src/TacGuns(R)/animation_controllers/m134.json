@@ -1,0 +1,39 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.m134.fp": {
+      "initial_state": "hold",
+      "states": {
+        "hold": {
+          "blend_transition": 0.275,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "m134_fp_hold": "v.m134"
+           }
+          ],
+          "transitions": [
+            {
+              "inspect": "v.m134 && q.mark_variant == 4 && !q.is_sneaking"
+            },
+            {
+              "hold": "v.m134 && q.is_using_item"
+            }
+          ]
+        },
+        "inspect": {
+          "animations": [
+            {
+              "m134_fp_inspect": "v.m134"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "(v.m134 && q.all_animations_finished) || (v.m134 && q.is_using_item) || (v.m134 && q.mark_variant != 4)"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

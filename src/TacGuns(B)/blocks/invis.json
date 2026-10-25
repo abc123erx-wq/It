@@ -1,0 +1,26 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:block": {
+    "description": {
+      "identifier": "tac_guns:invis_block",
+      "menu_category": {
+        "category": "none",
+        "is_hidden_in_commands": false
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.invis_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "invis",
+          "render_method": "alpha_test"
+        }
+      },
+      "minecraft:light_dampening": 0,
+      "minecraft:map_color": "#ffbe00",
+      "minecraft:collision_box": false,
+      "minecraft:destructible_by_mining": false,
+      "minecraft:destructible_by_explosion": false
+    }
+  }
+}

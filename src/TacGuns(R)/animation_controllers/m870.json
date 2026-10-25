@@ -1,0 +1,184 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.m870.fp": {
+      "initial_state": "hold",
+      "states": {
+        "hold": {
+          "blend_transition": 0.275,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "m870_fp_hold": "v.m870"
+           }
+          ],
+          "transitions": [
+            {
+              "reload": "v.m870b && q.mark_variant == 5"
+            },
+            {
+              "reloademp": "v.m870emp && q.mark_variant == 5"
+            },
+            {
+              "inspect": "v.m870 && q.mark_variant == 4 && !q.is_sneaking"
+            },
+            {
+              "sprint": "v.m870 && q.is_sprinting && !q.is_using_item"
+            },
+            {
+              "sight": "v.m870 && q.is_sneaking"
+            },
+            {
+              "hold": "v.m870 && q.is_using_item"
+            }
+          ]
+        },
+        "inspect": {
+          "animations": [
+            {
+              "m870_fp_inspect": "v.m870"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "(v.m870 && q.all_animations_finished) || (v.m870 && q.is_using_item) || (v.m870 && q.is_sneaking) || (v.m870 && q.mark_variant != 4)"
+            }
+          ]
+        },
+        "sprint": {
+          "blend_transition": 0.35,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "m870_fp_sprint": "v.m870"
+           }
+          ],
+          "transitions": [
+            {
+              "hold": "v.m870 && !q.is_sprinting"
+            },
+            {
+              "inspect": "v.m870 && q.mark_variant == 4 && !q.is_sneaking"
+            },
+            {
+              "hold": "v.m870 && q.is_using_item"
+            },
+            {
+              "reload": "v.m870b && q.mark_variant == 5"
+            },
+            {
+              "reloademp": "v.m870emp && q.mark_variant == 5"
+            },
+            {
+              "sight": "v.m870 && q.is_sneaking"
+            }
+          ]
+        },
+        "reloademp": {
+          "animations": [
+           {
+            "m870_fp_reload_start": "v.m870"
+            }
+          ],
+          "transitions": [
+            {
+              "reloadloopemp": "v.m870 && q.any_animation_finished"
+            }
+          ]
+        },
+        "reloadloopemp": {
+          "animations": [
+           {
+            "m870_fp_reload": "v.m870"
+            }
+          ],
+          "transitions": [
+            {
+              "reloadloopemp": "v.m870 && q.any_animation_finished && q.mark_variant == 5"
+            },
+            {
+              "reloadfinishemp": "v.m870 && q.any_animation_finished && q.mark_variant == 6"
+            },
+            {
+              "reloadfinishemp": "v.m870 && q.any_animation_finished && q.mark_variant == 0"
+            }
+          ]
+        },
+        "reloadfinishemp": {
+          "animations": [
+            {
+              "m870_fp_reload_empty_finish": "v.m870"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "v.m870 && q.any_animation_finished && q.mark_variant == 0"
+            }
+          ]
+        },
+        "reload": {
+          "animations": [
+           {
+            "m870_fp_reload_start": "v.m870"
+            }
+          ],
+          "transitions": [
+            {
+              "reloadloop": "v.m870 && q.any_animation_finished"
+            }
+          ]
+        },
+        "reloadloop": {
+          "animations": [
+           {
+            "m870_fp_reload": "v.m870"
+            }
+          ],
+          "transitions": [
+            {
+              "reloadloop": "v.m870 && q.any_animation_finished && q.mark_variant == 5"
+            },
+            {
+              "reloadfinish": "v.m870 && q.any_animation_finished && q.mark_variant == 6"
+            },
+            {
+              "reloadfinish": "v.m870 && q.any_animation_finished && q.mark_variant == 0"
+            }
+          ]
+        },
+        "reloadfinish": {
+          "animations": [
+            {
+              "m870_fp_reload_finish": "v.m870"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "v.m870 && q.any_animation_finished && q.mark_variant == 0"
+            }
+          ]
+        },
+        "sight": {
+          "blend_transition": 0.25,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "m870_fp_sight": "v.m870"
+           }
+          ],
+          "transitions": [
+            {
+              "hold": "v.m870 && !q.is_sneaking"
+            },
+            {
+              "reload": "v.m870b && q.mark_variant == 5"
+            },
+            {
+              "reloademp": "v.m870emp && q.mark_variant == 5"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

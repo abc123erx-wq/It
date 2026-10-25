@@ -1,0 +1,43 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.deagle": {
+      "initial_state": "setup1",
+      "states": {
+        "setup1": {
+          "transitions": [
+            {
+              "setup": "(query.get_equipped_item_name=='deagle' && q.is_using_item) || query.get_equipped_item_name=='deagle_emp'"
+            }
+          ],
+          "on_entry": [
+            "@s[hasitem={item=tac_guns:deagle, location=slot.weapon.mainhand}] tac_guns:noreload"
+          ]
+        },
+        "setup": {
+          "transitions": [
+            {
+              "deagle.30": "query.get_equipped_item_name=='deagle' && query.is_using_item && query.scoreboard('deagle') >= 1 && q.mark_variant == 0"
+            }
+          ]
+        },
+        "deagle.30": {
+          "animations": [
+            "deagleshoot"
+          ],
+          "transitions": [
+            {
+              "setup": "query.all_animations_finished && !q.is_using_item"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:deagle_fire",
+            "/scoreboard players remove @s[scores={deagle=1..8}] deagle 1",
+            "/playsound deagle.shoot @a ~~~",
+            "/replaceitem entity @s[scores={deagle=0}] slot.weapon.mainhand 1 tac_guns:deagle_emp 1 0"
+          ]
+        }
+      }
+    }
+  }
+}

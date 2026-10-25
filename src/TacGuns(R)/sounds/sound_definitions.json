@@ -1,0 +1,327 @@
+{
+  "flash_grenade.explosion": {
+    "category": "hostile",
+    "sounds": [
+      "sounds/flash_grenade/explosion"
+    ]
+  },
+  "flash_grenade.ring": {
+    "category": "ui",
+    "sounds": [
+      "sounds/flash_grenade/ring"
+    ]
+  },
+  "awp.shoot": {
+    "category": "hostile",
+    "sounds": [
+      "sounds/awp/aiawp_fire"
+    ]
+  },
+  "awp.draw": {
+    "category": "ui",
+    "sounds": [
+      "sounds/awp/awp_draw"
+    ]
+  },
+  "awp.reload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/awp/awp_reload_empty"
+    ]
+  },
+  "awp.tacreload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/awp/awp_reload_norm"
+    ]
+  },
+  "awp.inspect": {
+    "category": "ui",
+    "sounds": [
+      "sounds/awp/awp_inspect"
+    ]
+  },
+  "awp.bolt": {
+    "category": "ui",
+    "sounds": [
+      "sounds/awp/awp_bolt"
+    ]
+  },
+  "m134.shoot": {
+    "category": "hostile",
+    "sounds": [
+      "sounds/m134/shoot"
+    ]
+  },
+  "m134.draw": {
+    "category": "ui",
+    "sounds": [
+      "sounds/m134/draw"
+    ]
+  },
+  "m134.inspect": {
+    "category": "ui",
+    "sounds": [
+      "sounds/m134/inspect"
+    ]
+  },
+  "m134.overheat": {
+    "category": "ui",
+    "sounds": [
+      "sounds/m134/overheat"
+    ]
+  },
+  "m134.barrel": {
+    "category": "ui",
+    "sounds": [
+      "sounds/m134/barrel"
+    ],
+    "volume": 0.5
+  },
+  "coltpython.shoot": {
+    "category": "hostile",
+    "sounds": [
+      "sounds/coltpython/shoot"
+    ]
+  },
+  "coltpython.draw": {
+    "category": "ui",
+    "sounds": [
+      "sounds/coltpython/draw"
+    ]
+  },
+  "coltpython.inspect": {
+    "category": "ui",
+    "sounds": [
+      "sounds/coltpython/inspect"
+    ]
+  },
+  "coltpython.reload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/coltpython/reload"
+    ]
+  },
+  "deagle.shoot": {
+    "category": "hostile",
+    "sounds": [
+      "sounds/deagle/shoot"
+    ]
+  },
+  "deagle.draw": {
+    "category": "ui",
+    "sounds": [
+      "sounds/deagle/draw"
+    ]
+  },
+  "deagle.inspect": {
+    "category": "ui",
+    "sounds": [
+      "sounds/deagle/inspect"
+    ]
+  },
+  "deagle.reload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/deagle/reload"
+    ]
+  },
+  "deagle.tacreload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/deagle/tacreload"
+    ]
+  },
+  "glock17.shoot": {
+    "category": "hostile",
+    "sounds": [
+      "sounds/glock17/shoot"
+    ]
+  },
+  "glock17.draw": {
+    "category": "ui",
+    "sounds": [
+      "sounds/glock17/draw"
+    ]
+  },
+  "glock17.inspect": {
+    "category": "ui",
+    "sounds": [
+      "sounds/glock17/inspect"
+    ]
+  },
+  "glock17.reload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/glock17/reload"
+    ]
+  },
+  "glock17.tacreload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/glock17/tacreload"
+    ]
+  },
+  "ak47.shoot": {
+    "category": "hostile",
+    "sounds": [
+      "sounds/ak47/shoot"
+    ]
+  },
+  "ak47.draw": {
+    "category": "ui",
+    "sounds": [
+      "sounds/ak47/draw"
+    ]
+  },
+  "ak47.inspect": {
+    "category": "ui",
+    "sounds": [
+      "sounds/ak47/inspect"
+    ]
+  },
+  "ak47.reload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/ak47/reload"
+    ]
+  },
+  "ak47.tacreload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/ak47/tacreload"
+    ]
+  },
+  "dp28.shoot": {
+    "category": "hostile",
+    "sounds": [
+      "sounds/dp28/shoot"
+    ]
+  },
+  "dp28.draw": {
+    "category": "ui",
+    "sounds": [
+      "sounds/dp28/draw"
+    ]
+  },
+  "dp28.inspect": {
+    "category": "ui",
+    "sounds": [
+      "sounds/dp28/inspect"
+    ]
+  },
+  "dp28.reload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/dp28/reload"
+    ]
+  },
+  "dp28.tacreload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/dp28/tacreload"
+    ]
+  },
+    "mk18.shoot": {
+    "category": "hostile",
+    "sounds": [
+      "sounds/mk18/shoot"
+    ]
+  },
+  "mk18.draw": {
+    "category": "ui",
+    "sounds": [
+      "sounds/mk18/draw"
+    ]
+  },
+  "mk18.inspect": {
+    "category": "ui",
+    "sounds": [
+      "sounds/mk18/inspect"
+    ]
+  },
+  "mk18.reload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/mk18/reload"
+    ]
+  },
+  "mk18.tacreload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/mk18/tacreload"
+    ]
+  },
+  "m870.shoot": {
+    "category": "hostile",
+    "sounds": [
+      "sounds/m870/shoot"
+    ]
+  },
+  "m870.draw": {
+    "category": "ui",
+    "sounds": [
+      "sounds/m870/draw"
+    ]
+  },
+  "m870.inspect": {
+    "category": "ui",
+    "sounds": [
+      "sounds/m870/inspect"
+    ]
+  },
+  "m870.reload_start": {
+    "category": "ui",
+    "sounds": [
+      "sounds/m870/reload_intro"
+    ]
+  },
+  "m870.reload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/m870/reload"
+    ]
+  },
+  "m870.reload_empty_finish": {
+    "category": "ui",
+    "sounds": [
+      "sounds/m870/reload_empty_finish"
+    ]
+  },
+  "m870.reload_finish": {
+    "category": "ui",
+    "sounds": [
+      "sounds/m870/reload_finish"
+    ]
+  },
+  "db.shoot": {
+    "category": "hostile",
+    "sounds": [
+      "sounds/db/shoot"
+    ]
+  },
+  "db.draw": {
+    "category": "ui",
+    "sounds": [
+      "sounds/db/draw"
+    ]
+  },
+  "db.inspect": {
+    "category": "ui",
+    "sounds": [
+      "sounds/db/inspect"
+    ]
+  },
+  "db.reload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/db/reload"
+    ]
+  },
+  "db.tacreload": {
+    "category": "ui",
+    "sounds": [
+      "sounds/db/tacreload"
+    ]
+  }
+}

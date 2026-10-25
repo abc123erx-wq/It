@@ -1,0 +1,17 @@
+clear @s[scores={glock17=16}] tac_guns:9x19mm 0 1
+clear @s[scores={glock17=15}] tac_guns:9x19mm 0 2
+clear @s[scores={glock17=14}] tac_guns:9x19mm 0 3
+clear @s[scores={glock17=13}] tac_guns:9x19mm 0 4
+clear @s[scores={glock17=12}] tac_guns:9x19mm 0 5
+clear @s[scores={glock17=11}] tac_guns:9x19mm 0 6
+clear @s[scores={glock17=10}] tac_guns:9x19mm 0 7
+clear @s[scores={glock17=9}] tac_guns:9x19mm 0 8
+clear @s[scores={glock17=8}] tac_guns:9x19mm 0 9
+clear @s[scores={glock17=7}] tac_guns:9x19mm 0 10
+clear @s[scores={glock17=6}] tac_guns:9x19mm 0 11
+clear @s[scores={glock17=5}] tac_guns:9x19mm 0 12
+clear @s[scores={glock17=4}] tac_guns:9x19mm 0 13
+clear @s[scores={glock17=3}] tac_guns:9x19mm 0 14
+clear @s[scores={glock17=2}] tac_guns:9x19mm 0 15
+clear @s[scores={glock17=1}] tac_guns:9x19mm 0 16
+clear @s[scores={glock17=0}] tac_guns:9x19mm 0 17

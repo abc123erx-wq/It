@@ -1,0 +1,496 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.player.m134.first_person": {
+      "geometry": "Geometry.m134root",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.m134": {
+      "geometry": "geometry.m134",
+      "materials": [
+        {
+          "*": "material.guns"
+        },
+        {
+          "redreticle": "Material.glow"
+        },
+        {
+          "menyalaabangku": "Material.glow"
+        }
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "miniguntp": "v.is_third_person"
+        }
+      ],
+      "textures": [
+        "texture.m134"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    },
+    "controller.render.player.mk18.first_person": {
+      "geometry": "Geometry.mk18root",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.mk18": {
+      "geometry": "geometry.mk18",
+      "materials": [
+        {
+          "*": "material.guns"
+        }
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "mk18tp": "v.is_third_person"
+        }
+      ],
+      "textures": [
+        "texture.mk18"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    },
+    "controller.render.player.coltpython.first_person": {
+      "geometry": "Geometry.coltpythonroot",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.coltpython": {
+      "geometry": "geometry.coltpython",
+      "materials": [
+        {
+          "*": "material.guns"
+        }
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "coltpythontp": "v.is_third_person"
+        }
+      ],
+      "textures": [
+        "texture.coltpython"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    },
+    "controller.render.player.deagle.first_person": {
+      "geometry": "Geometry.deagleroot",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.deagle": {
+      "geometry": "geometry.deagle",
+      "materials": [
+        {
+          "*": "material.guns"
+        }
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "deagletp": "v.is_third_person"
+        }
+      ],
+      "textures": [
+        "texture.deagle"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    },
+    "controller.render.player.db.first_person": {
+      "geometry": "Geometry.dbroot",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.db": {
+      "geometry": "geometry.db",
+      "materials": [
+        {
+          "*": "material.guns"
+        }
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "dbtp": "v.is_third_person"
+        }
+      ],
+      "textures": [
+        "texture.db"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    },
+    "controller.render.player.glock17.first_person": {
+      "geometry": "Geometry.glock17root",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.glock17": {
+      "geometry": "geometry.glock17",
+      "materials": [
+        {
+          "*": "material.guns"
+        },
+        {
+          "sight_glow": "material.glow"
+        }
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "glock17tp": "v.is_third_person"
+        }
+      ],
+      "textures": [
+        "texture.glock17"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    },
+    "controller.render.player.ak47.first_person": {
+      "geometry": "Geometry.ak47root",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.ak47": {
+      "geometry": "geometry.ak47",
+      "materials": [
+        {
+          "*": "material.guns"
+        }
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "ak47tp": "v.is_third_person"
+        }
+      ],
+      "textures": [
+        "texture.ak47"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    },
+    "controller.render.player.dp28.first_person": {
+      "geometry": "Geometry.dp28root",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.dp28": {
+      "geometry": "geometry.dp28",
+      "materials": [
+        {
+          "*": "material.guns"
+        }
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "dp28tp": "v.is_third_person"
+        }
+      ],
+      "textures": [
+        "texture.dp28"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    },
+    "controller.render.player.awp.first_person": {
+      "geometry": "Geometry.awproot",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.awp": {
+      "geometry": "geometry.awp",
+      "materials": [
+        {
+          "*": "material.guns"
+        }
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "awptp": "v.is_third_person"
+        }
+      ],
+      "textures": [
+        "texture.awp"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    },
+    "controller.render.player.m870.first_person": {
+      "geometry": "Geometry.m870root",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.m870": {
+      "geometry": "geometry.m870",
+      "materials": [
+        {
+          "*": "material.guns"
+        },
+        {
+          "m870tp": "v.is_third_person"
+        }
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ],
+      "textures": [
+        "texture.m870"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    }
+  }
+}

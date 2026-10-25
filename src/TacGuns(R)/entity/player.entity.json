@@ -1,0 +1,602 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "minecraft:player",
+      "materials": {
+        "default": "entity_alphatest",
+        "cape": "entity_alphatest",
+        "semi": "entity_alphablend",
+        "guns": "entity_alphatest",
+        "glow": "entity_emissive_alpha"
+      },
+      "textures": {
+        "default": "textures/entity/steve",
+        "cape": "textures/entity/cape_invisible",
+        "workbench_ui": "textures/ui/workbench",
+        "workbench_ak47": "textures/ui/ak47",
+        "workbench_dp28": "textures/ui/dp28",
+        "workbench_mk18": "textures/ui/mk18",
+        "workbench_m134": "textures/ui/m134",
+        "workbench_db": "textures/ui/db",
+        "workbench_m870": "textures/ui/m870",
+        "workbench_deagle": "textures/ui/deagle",
+        "workbench_glock17": "textures/ui/glock17",
+        "workbench_coltpython": "textures/ui/coltpython",
+        "workbench_awp": "textures/ui/awp",
+        "workbench_12gauge": "textures/ui/12gauge",
+        "workbench_9x19mm": "textures/ui/9x19mm",
+        "workbench_762x54mmr": "textures/ui/762x54mmr",
+        "workbench_50ae": "textures/ui/50ae",
+        "workbench_308winchester": "textures/ui/308winchester",
+        "workbench_338lapua": "textures/ui/338lapua",
+        "workbench_357magnum": "textures/ui/357magnum",
+        "workbench_556x45mm": "textures/ui/556x45mm",
+        "workbench_762x39mm": "textures/ui/762x39mm",
+        "m134": "textures/gun/m134",
+        "coltpython": "textures/gun/coltpython",
+        "deagle": "textures/gun/deagle",
+        "db": "textures/gun/db",
+        "glock17": "textures/gun/glock17",
+        "ak47": "textures/gun/ak47",
+        "dp28": "textures/gun/dp28",
+        "awp": "textures/gun/awp",
+        "mk18": "textures/gun/mk18",
+        "m870": "textures/gun/m870"
+      },
+      "geometry": {
+        "default": "geometry.humanoid.custom",
+        "cape": "geometry.cape",
+        "workbench_ui": "geometry.workbench_ui",
+        "workbench_item": "geometry.workbench_item",
+        "workbench_ak47": "geometry.workbench_ak47",
+        "workbench_dp28": "geometry.workbench_dp28",
+        "workbench_mk18": "geometry.workbench_mk18",
+        "workbench_m134": "geometry.workbench_m134",
+        "workbench_db": "geometry.workbench_db",
+        "workbench_m870": "geometry.workbench_m870",
+        "workbench_deagle": "geometry.workbench_deagle",
+        "workbench_glock17": "geometry.workbench_glock17",
+        "workbench_coltpython": "geometry.workbench_coltpython",
+        "workbench_awp": "geometry.workbench_awp",
+        "m134": "geometry.m134",
+        "m134root": "geometry.m134root",
+        "mk18": "geometry.mk18",
+        "mk18root": "geometry.mk18root",
+        "coltpython": "geometry.coltpython",
+        "coltpythonroot": "geometry.coltpythonroot",
+        "deagle": "geometry.deagle",
+        "deagleroot": "geometry.deagleroot",
+        "db": "geometry.db",
+        "dbroot": "geometry.dbroot",
+        "glock17": "geometry.glock17",
+        "glock17root": "geometry.glock17root",
+        "ak47": "geometry.ak47",
+        "ak47root": "geometry.ak47root",
+        "dp28": "geometry.dp28",
+        "dp28root": "geometry.dp28root",
+        "awp": "geometry.awp",
+        "awproot": "geometry.awproot",
+        "m870": "geometry.m870",
+        "m870root": "geometry.m870root"
+      },
+      "scripts": {
+        "scale": "0.9375",
+        "initialize": [
+          "variable.is_holding_right = 0.0;",
+          "variable.is_blinking = 0.0;",
+          "variable.last_blink_time = 0.0;",
+          "variable.hand_bob = 0.0;"
+        ],
+        "pre_animation": [
+          "variable.is_third_person = !variable.is_first_person && !variable.map_face_icon;",
+          "variable.helmet_layer_visible = 1.0;",
+          "variable.leg_layer_visible = 1.0;",
+          "variable.boot_layer_visible = 1.0;",
+          "variable.chest_layer_visible = 1.0;",
+          "variable.attack_body_rot_y = Math.sin(360*Math.sqrt(variable.attack_time)) * 5.0;",
+          "variable.tcos0 = (math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;",
+          "variable.first_person_rotation_factor = math.sin((1 - variable.attack_time) * 180.0);",
+          "variable.hand_bob = query.life_time < 0.01 ? 0.0 : variable.hand_bob + ((query.is_on_ground && query.is_alive && !variable.holding_all_guns ? math.clamp(math.sqrt(math.pow(query.position_delta(0), 2.0) + math.pow(query.position_delta(2), 2.0)), 0.0, 0.1) : 0.0) - variable.hand_bob) * 0.02;",
+          "variable.holding_all_guns = query.get_equipped_item_name=='dp28' || query.get_equipped_item_name=='dp28_emp' || query.get_equipped_item_name=='db' || query.get_equipped_item_name=='db_emp' || query.get_equipped_item_name=='glock17' || query.get_equipped_item_name=='glock17_emp' || query.get_equipped_item_name=='m870' || query.get_equipped_item_name=='m870_emp' || query.get_equipped_item_name=='deagle' || query.get_equipped_item_name=='deagle_emp' || query.get_equipped_item_name=='m134' || query.get_equipped_item_name=='ak47' || query.get_equipped_item_name=='ak47_emp' || query.get_equipped_item_name=='coltpython' || query.get_equipped_item_name=='coltpython_emp' || query.get_equipped_item_name=='awp' || query.get_equipped_item_name=='awp_emp' || query.get_equipped_item_name=='mk18' || query.get_equipped_item_name=='mk18_emp';",
+          "variable.m134 = query.get_equipped_item_name=='m134';",
+          "variable.mk18 = query.get_equipped_item_name=='mk18' || query.get_equipped_item_name=='mk18_emp';",
+          "variable.mk18b = query.get_equipped_item_name=='mk18';",
+          "variable.mk18emp = query.get_equipped_item_name=='mk18_emp';",
+          "variable.coltpython = query.get_equipped_item_name=='coltpython' || query.get_equipped_item_name=='coltpython_emp';",
+          "variable.coltpythonb = query.get_equipped_item_name=='coltpython';",
+          "variable.coltpythonemp = query.get_equipped_item_name=='coltpython_emp';",
+          "variable.deagle = query.get_equipped_item_name=='deagle' || query.get_equipped_item_name=='deagle_emp';",
+          "variable.deagleb = query.get_equipped_item_name=='deagle';",
+          "variable.deagleemp = query.get_equipped_item_name=='deagle_emp';",
+          "variable.db = query.get_equipped_item_name=='db' || query.get_equipped_item_name=='db_emp';",
+          "variable.dbb = query.get_equipped_item_name=='db';",
+          "variable.dbemp = query.get_equipped_item_name=='db_emp';",
+          "variable.glock17 = query.get_equipped_item_name=='glock17' || query.get_equipped_item_name=='glock17_emp';",
+          "variable.glock17b = query.get_equipped_item_name=='glock17';",
+          "variable.glock17emp = query.get_equipped_item_name=='glock17_emp';",
+          "variable.m870 = query.get_equipped_item_name=='m870' || query.get_equipped_item_name=='m870_emp';",
+          "variable.m870b = query.get_equipped_item_name=='m870';",
+          "variable.m870emp = query.get_equipped_item_name=='m870_emp';",
+          "variable.ak47 = query.get_equipped_item_name=='ak47' || query.get_equipped_item_name=='ak47_emp';",
+          "variable.ak47b = query.get_equipped_item_name=='ak47';",
+          "variable.ak47emp = query.get_equipped_item_name=='ak47_emp';",
+          "variable.dp28 = query.get_equipped_item_name=='dp28' || query.get_equipped_item_name=='dp28_emp';",
+          "variable.dp28b = query.get_equipped_item_name=='dp28';",
+          "variable.dp28emp = query.get_equipped_item_name=='dp28_emp';",
+          "variable.awp = query.get_equipped_item_name=='awp' || query.get_equipped_item_name=='awp_emp';",
+          "variable.awpb = query.get_equipped_item_name=='awp';",
+          "variable.awpemp = query.get_equipped_item_name=='awp_emp';",
+          "variable.map_angle = math.clamp(1 - variable.player_x_rotation / 45.1, 0.0, 1.0);",
+          "variable.item_use_normalized = query.main_hand_item_use_duration / query.main_hand_item_max_duration;"
+        ],
+        "animate": [
+          "root",
+          {
+            "first_person_attack_rotation2": "q.get_equipped_item_name !='' && v.attack_time && v.is_first_person"
+          },
+          {
+            "look_at_target_default": "variable.holding_all_guns && variable.is_third_person"
+          },
+          {
+            "gun_recoil_fp": "variable.is_first_person && (v.ak47b||v.dp28b||v.mk18b||v.m134)"
+          },
+          {
+            "draw": "variable.is_first_person"
+          },
+          {
+            "workbench_rotate": "q.mark_variant == 100"
+          },
+          {
+            "m134_fp": "variable.is_first_person && v.m134"
+          },
+          {
+            "m134_fp_barrel": "variable.is_first_person && v.m134"
+          },
+          {
+            "m134_tp": "variable.m134 && variable.is_third_person && !q.is_crawling"
+          },
+          {
+            "m134_tp_crawl": "variable.m134 && variable.is_third_person && q.is_crawling"
+          },
+          {
+            "mk18_fp": "variable.is_first_person && v.mk18"
+          },
+          {
+            "mk18_tp": "variable.mk18 && variable.is_third_person && !q.is_crawling"
+          },
+          {
+            "mk18_tp_crawl": "variable.mk18 && variable.is_third_person && q.is_crawling"
+          },
+          {
+            "coltpython_fp": "variable.is_first_person && v.coltpython"
+          },
+          {
+            "deagle_fp": "variable.is_first_person && v.deagle"
+          },
+          {
+            "db_fp": "variable.is_first_person && v.db"
+          },
+          {
+            "glock17_fp": "variable.is_first_person && v.glock17"
+          },
+          {
+            "m870_fp": "variable.is_first_person && v.m870"
+          },
+          {
+            "walk_ac": "variable.is_first_person && v.holding_all_guns"
+          },
+          {
+            "weaponsway_ac": "variable.is_first_person && v.holding_all_guns"
+          },
+          {
+            "coltpython_tp": "variable.coltpython && variable.is_third_person && !q.is_crawling"
+          },
+          {
+            "coltpython_tp_crawl": "variable.coltpython && variable.is_third_person && q.is_crawling"
+          },
+          {
+            "deagle_tp": "variable.deagle && variable.is_third_person && !q.is_crawling"
+          },
+          {
+            "deagle_tp_crawl": "variable.deagle && variable.is_third_person && q.is_crawling"
+          },
+          {
+            "db_tp": "variable.db && variable.is_third_person && !q.is_crawling"
+          },
+          {
+            "db_tp_crawl": "variable.db && variable.is_third_person && q.is_crawling"
+          },
+          {
+            "glock17_tp": "variable.glock17 && variable.is_third_person && !q.is_crawling"
+          },
+          {
+            "glock17_tp_crawl": "variable.glock17 && variable.is_third_person && q.is_crawling"
+          },
+          {
+            "m870_tp": "variable.m870 && variable.is_third_person && !q.is_crawling"
+          },
+          {
+            "m870_tp_crawl": "variable.m870 && variable.is_third_person && q.is_crawling"
+          },
+          {
+            "ak47_fp": "variable.is_first_person"
+          },
+          {
+            "ak47_tp": "variable.ak47 && variable.is_third_person && !q.is_crawling"
+          },
+          {
+            "ak47_tp_crawl": "variable.ak47 && variable.is_third_person && q.is_crawling"
+          },
+          {
+            "dp28_fp": "variable.is_first_person"
+          },
+          {
+            "dp28_tp": "variable.dp28 && variable.is_third_person && !q.is_crawling"
+          },
+          {
+            "dp28_tp_crawl": "variable.dp28 && variable.is_third_person && q.is_crawling"
+          },
+          {
+            "awp_fp": "variable.is_first_person && variable.awp"
+          },
+          {
+            "awp_tp": "variable.awp && variable.is_third_person && !q.is_crawling"
+          },
+          {
+            "awp_tp_crawl": "variable.awp && variable.is_third_person && q.is_crawling"
+          },
+					{
+						"viewmodelup": "v.holding_all_guns&&v.is_first_person"
+					},
+					{
+						"viewmodeldown": "v.holding_all_guns&&v.is_first_person"
+					},
+					{
+						"viewmodelland": "v.holding_all_guns&&v.is_first_person"
+					}
+        ]
+      },
+      "animations": {
+        "root": "controller.animation.player.root",
+        "base_controller": "controller.animation.player.base",
+        "hudplayer": "controller.animation.player.hudplayer",
+        "humanoid_base_pose": "animation.humanoid.base_pose",
+        "look_at_target": "controller.animation.humanoid.look_at_target",
+        "look_at_target_ui": "animation.player.look_at_target.ui",
+        "look_at_target_default": "animation.humanoid.look_at_target.default",
+        "look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+        "look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+        "look_at_target_inverted": "animation.player.look_at_target.inverted",
+        "cape": "animation.player.cape",
+        "move.arms": "animation.player.move.arms",
+        "move.legs": "animation.player.move.legs",
+        "swimming": "animation.player.swim",
+        "swimming.legs": "animation.player.swim.legs",
+        "riding.arms": "animation.player.riding.arms",
+        "riding.legs": "animation.player.riding.legs",
+        "holding": "animation.player.holding",
+        "brandish_spear": "animation.humanoid.brandish_spear",
+        "charging": "animation.humanoid.charging",
+        "attack.positions": "animation.player.attack.positions",
+        "attack.rotations": "animation.player.attack.rotations",
+        "sneaking": "animation.player.sneaking",
+        "bob": "animation.player.bob",
+        "damage_nearby_mobs": "animation.humanoid.damage_nearby_mobs",
+        "bow_and_arrow": "animation.humanoid.bow_and_arrow",
+        "use_item_progress": "animation.humanoid.use_item_progress",
+        "skeleton_attack": "animation.skeleton.attack",
+        "sleeping": "animation.player.sleeping",
+        "first_person_base_pose": "animation.player.first_person.base_pose",
+        "first_person_empty_hand": "animation.player.first_person.empty_hand",
+        "first_person_swap_item": "animation.player.first_person.swap_item",
+        "first_person_attack_controller": "controller.animation.player.first_person_attack",
+        "first_person_attack_rotation": "animation.player.first_person.attack_rotation",
+        "first_person_attack_rotation2": "animation.player.first_person.attack_rotation2",
+        "first_person_vr_attack_rotation": "animation.player.first_person.vr_attack_rotation",
+        "first_person_walk": "animation.player.first_person.walk",
+        "first_person_map_controller": "controller.animation.player.first_person_map",
+        "first_person_map_hold": "animation.player.first_person.map_hold",
+        "first_person_map_hold_attack": "animation.player.first_person.map_hold_attack",
+        "first_person_map_hold_off_hand": "animation.player.first_person.map_hold_off_hand",
+        "first_person_map_hold_main_hand": "animation.player.first_person.map_hold_main_hand",
+        "first_person_crossbow_equipped": "animation.player.first_person.crossbow_equipped",
+        "third_person_crossbow_equipped": "animation.player.crossbow_equipped",
+        "third_person_bow_equipped": "animation.player.bow_equipped",
+        "crossbow_hold": "animation.player.crossbow_hold",
+        "crossbow_controller": "controller.animation.player.crossbow",
+        "shield_block_main_hand": "animation.player.shield_block_main_hand",
+        "shield_block_off_hand": "animation.player.shield_block_off_hand",
+        "blink": "controller.animation.persona.blink",
+
+        "workbench_rotate": "animation.workbench.item_rotate",
+        "fp_walk": "animation.default.fp.walk",
+        "walk_delay": "animation.walk.delay.1",
+        "walk_delay_2": "animation.walk.delay.2",
+        "walk_ac": "controller.animation.walk",
+
+        "right_sway": "animation.weapons.rightsway",
+        "forward_to_right": "animation.weapons.forwardtoright",
+        "right_to_forward": "animation.weapons.righttoforward",
+        "left_sway": "animation.weapons.leftsway",
+        "forward_to_left": "animation.weapons.forwardtoleft",
+        "left_to_forward": "animation.weapons.lefttoforward",
+        "no_sway": "animation.weapons.nosway",
+        "weaponsway_ac": "controller.animation.weaponsway",
+
+				"viewmodelup": "controller.animation.viewmodel.up",
+				"viewmodeldown": "controller.animation.viewmodel.down",
+				"viewmodelland": "controller.animation.viewmodel.land",
+				"gun_up": "animation.default.fp.up",
+				"gun_down": "animation.default.fp.down",
+				"gun_normal": "animation.default.fp.normal",
+
+        "delay_shoot": "animation.delay.shoot",
+        "shootdelay": "animation.shootdelay",
+        "draw": "controller.animation.draw",
+        "recoil_hip": "animation.recoil.hip",
+        "gun_recoil": "animation.gun.fp.recoil",
+        "recoil_sight": "animation.recoil.sight",
+        "gun_recoil_fp": "controller.animation.gun.recoil",
+        "m134_fp": "controller.animation.m134.fp",
+        "m134_fp_draw": "animation.m134.fp.draw",
+        "m134_fp_barrel": "animation.m134.fp.barrel",
+        "m134_fp_hold": "animation.m134.fp.hold",
+        "m134_fp_inspect": "animation.m134.fp.inspect",
+        "m134_fp_sight": "animation.m134.fp.sight",
+        "m134_tp": "animation.m134.tp.hold",
+        "m134_tp_crawl": "animation.m134.tp.crawl",
+        "mk18_fp": "controller.animation.mk18.fp",
+        "mk18_fp_draw": "animation.mk18.fp.draw",
+        "mk18_fp_hold": "animation.mk18.fp.hold",
+        "mk18_fp_inspect": "animation.mk18.fp.inspect",
+        "mk18_fp_sprint": "animation.mk18.fp.sprint",
+        "mk18_fp_reload": "animation.mk18.fp.reload",
+        "mk18_fp_reload_tac": "animation.mk18.fp.tac",
+        "mk18_fp_sight": "animation.mk18.fp.sight",
+        "mk18_tp": "animation.mk18.tp.hold",
+        "mk18_tp_crawl": "animation.mk18.tp.crawl",
+        "coltpython_fp": "controller.animation.coltpython.fp",
+        "coltpython_fp_draw": "animation.coltpython.fp.draw",
+        "coltpython_fp_hold": "animation.coltpython.fp.hold",
+        "coltpython_fp_inspect": "animation.coltpython.fp.inspect",
+        "coltpython_fp_sprint": "animation.coltpython.fp.sprint",
+        "coltpython_fp_reload": "animation.coltpython.fp.reload",
+        "coltpython_fp_reload_tac": "animation.coltpython.fp.tac",
+        "coltpython_fp_sight": "animation.coltpython.fp.sight",
+        "coltpython_tp": "animation.coltpython.tp.hold",
+        "coltpython_tp_crawl": "animation.coltpython.tp.crawl",
+        "deagle_fp": "controller.animation.deagle.fp",
+        "deagle_fp_draw": "animation.deagle.fp.draw",
+        "deagle_fp_hold": "animation.deagle.fp.hold",
+        "deagle_fp_inspect": "animation.deagle.fp.inspect",
+        "deagle_fp_sprint": "animation.deagle.fp.sprint",
+        "deagle_fp_reload": "animation.deagle.fp.reload",
+        "deagle_fp_reload_tac": "animation.deagle.fp.tac",
+        "deagle_fp_sight": "animation.deagle.fp.sight",
+        "deagle_tp": "animation.deagle.tp.hold",
+        "deagle_tp_crawl": "animation.deagle.tp.crawl",
+        "db_fp": "controller.animation.db.fp",
+        "db_fp_draw": "animation.db.fp.draw",
+        "db_fp_hold": "animation.db.fp.hold",
+        "db_fp_inspect": "animation.db.fp.inspect",
+        "db_fp_sprint": "animation.db.fp.sprint",
+        "db_fp_reload": "animation.db.fp.reload",
+        "db_fp_reload_tac": "animation.db.fp.tac",
+        "db_fp_sight": "animation.db.fp.sight",
+        "db_tp": "animation.db.tp.hold",
+        "db_tp_crawl": "animation.db.tp.crawl",
+        "glock17_fp": "controller.animation.glock17.fp",
+        "glock17_fp_draw": "animation.glock17.fp.draw",
+        "glock17_fp_hold": "animation.glock17.fp.hold",
+        "glock17_fp_inspect": "animation.glock17.fp.inspect",
+        "glock17_fp_sprint": "animation.glock17.fp.sprint",
+        "glock17_fp_reload": "animation.glock17.fp.reload",
+        "glock17_fp_reload_tac": "animation.glock17.fp.tac",
+        "glock17_fp_sight": "animation.glock17.fp.sight",
+        "glock17_tp": "animation.glock17.tp.hold",
+        "glock17_tp_crawl": "animation.glock17.tp.crawl",
+        "ak47_fp": "controller.animation.ak47.fp",
+        "ak47_fp_draw": "animation.ak47.fp.draw",
+        "ak47_fp_hold": "animation.ak47.fp.hold",
+        "ak47_fp_inspect": "animation.ak47.fp.inspect",
+        "ak47_fp_sprint": "animation.ak47.fp.sprint",
+        "ak47_fp_reload": "animation.ak47.fp.reload",
+        "ak47_fp_reload_tac": "animation.ak47.fp.tac",
+        "ak47_fp_sight": "animation.ak47.fp.sight",
+        "ak47_tp": "animation.ak47.tp.hold",
+        "ak47_tp_crawl": "animation.ak47.tp.crawl",
+        "dp28_fp": "controller.animation.dp28.fp",
+        "dp28_fp_draw": "animation.dp28.fp.draw",
+        "dp28_fp_hold": "animation.dp28.fp.hold",
+        "dp28_fp_inspect": "animation.dp28.fp.inspect",
+        "dp28_fp_sprint": "animation.dp28.fp.sprint",
+        "dp28_fp_reload": "animation.dp28.fp.reload",
+        "dp28_fp_reload_tac": "animation.dp28.fp.tac",
+        "dp28_fp_sight": "animation.dp28.fp.sight",
+        "dp28_tp": "animation.dp28.tp.hold",
+        "dp28_tp_crawl": "animation.dp28.tp.crawl",
+        "awp_fp": "controller.animation.awp.fp",
+        "awp_fp_draw": "animation.awp.fp.draw",
+        "awp_fp_hold": "animation.awp.fp.hold",
+        "awp_fp_inspect": "animation.awp.fp.inspect",
+        "awp_fp_sprint": "animation.awp.fp.sprint",
+        "awp_fp_reload": "animation.awp.fp.reload",
+        "awp_fp_reload_tac": "animation.awp.fp.tac",
+        "awp_fp_sight": "animation.awp.fp.sight",
+        "awp_tp": "animation.awp.tp.hold",
+        "awp_tp_crawl": "animation.awp.tp.crawl",
+        "m870_fp": "controller.animation.m870.fp",
+        "m870_fp_draw": "animation.m870.fp.draw",
+        "m870_fp_hold": "animation.m870.fp.hold",
+        "m870_fp_inspect": "animation.m870.fp.inspect",
+        "m870_fp_sprint": "animation.m870.fp.sprint",
+        "m870_fp_reload_start": "animation.m870.fp.reload_start",
+        "m870_fp_reload": "animation.m870.fp.reload",
+        "m870_fp_reload_empty_finish": "animation.m870.fp.reload_empty_finish",
+        "m870_fp_reload_finish": "animation.m870.fp.reload_finish",
+        "m870_fp_sight": "animation.m870.fp.sight",
+        "m870_tp": "animation.m870.tp.hold",
+        "m870_tp_crawl": "animation.m870.tp.crawl"
+      },
+      "sound_effects": {
+        "ak47.draw": "ak47.draw",
+        "dp28.draw": "dp28.draw",
+        "mk18.draw": "mk18.draw",
+        "coltpython.draw": "coltpython.draw",
+        "deagle.draw": "deagle.draw",
+        "db.draw": "db.draw",
+        "glock17.draw": "glock17.draw",
+        "awp.bolt": "awp.bolt",
+        "awp.draw": "awp.draw",
+        "m134.draw": "m134.draw",
+        "m134.barrel": "m134.barrel",
+        "m870.draw": "m870.draw",
+        "m870.reload_start": "m870.reload_start",
+        "m870.reload": "m870.reload",
+        "m870.reload_finish": "m870.reload_finish",
+        "m870.reload_empty_finish": "m870.reload_empty_finish"
+      },
+      "particle_effects": {
+        "krep.muzzlesmoke": "tac_gunsmuzzlesmoke",
+        "krep.muzzleflash": "tac_gunsmuzzleflash",
+        "krep.556shell": "tac_guns556shell",
+        "krep.762shell": "tac_guns762shell",
+        "krep.pkmshell": "tac_gunspkmshell",
+        "krep.bullettrace": "tac_gunsbullettrace"
+      },
+      "render_controllers": [
+        {
+          "controller.render.player.first_person": "variable.is_first_person && !v.holding_all_guns"
+        },
+        {
+          "controller.render.player.third_person": "variable.is_third_person"
+        },
+        {
+          "controller.render.workbench_ui": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving"
+        },
+        {
+          "controller.render.workbench_ak47": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 0 && q.property('tac_guns:itemtab') == 1"
+        },
+        {
+          "controller.render.workbench_mk18": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 0 && q.property('tac_guns:itemtab') == 2"
+        },
+        {
+          "controller.render.workbench_dp28": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 1 && q.property('tac_guns:itemtab') == 1"
+        },
+        {
+          "controller.render.workbench_m134": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 1 && q.property('tac_guns:itemtab') == 2"
+        },
+        {
+          "controller.render.workbench_deagle": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 2 && q.property('tac_guns:itemtab') == 1"
+        },
+        {
+          "controller.render.workbench_glock17": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 2 && q.property('tac_guns:itemtab') == 2"
+        },
+        {
+          "controller.render.workbench_coltpython": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 2 && q.property('tac_guns:itemtab') == 3"
+        },
+        {
+          "controller.render.workbench_m870": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 3 && q.property('tac_guns:itemtab') == 1"
+        },
+        {
+          "controller.render.workbench_db": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 3 && q.property('tac_guns:itemtab') == 2"
+        },
+        {
+          "controller.render.workbench_awp": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 4 && q.property('tac_guns:itemtab') == 1"
+        },
+        {
+          "controller.render.workbench_12gauge": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 1"
+        },
+        {
+          "controller.render.workbench_762x54mmr": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 2"
+        },
+        {
+          "controller.render.workbench_556x45mm": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 3"
+        },
+        {
+          "controller.render.workbench_9x19mm": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 4"
+        },
+        {
+          "controller.render.workbench_308winchester": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 5"
+        },
+        {
+          "controller.render.workbench_338lapua": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 6"
+        },
+        {
+          "controller.render.workbench_357magnum": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 7"
+        },
+        {
+          "controller.render.workbench_50ae": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 8"
+        },
+        {
+          "controller.render.workbench_762x39mm": "variable.is_first_person && q.mark_variant == 100 && !q.is_moving && q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 9"
+        },
+        {
+          "controller.render.m134": "variable.m134"
+        },
+        {
+          "controller.render.player.m134.first_person": "variable.is_first_person && v.m134"
+        },
+        {
+          "controller.render.player.mk18.first_person": "variable.is_first_person && v.mk18"
+        },
+        {
+          "controller.render.mk18": "variable.mk18"
+        },
+        {
+          "controller.render.player.coltpython.first_person": "variable.is_first_person && v.coltpython"
+        },
+        {
+          "controller.render.coltpython": "variable.coltpython"
+        },
+        {
+          "controller.render.player.deagle.first_person": "variable.is_first_person && v.deagle"
+        },
+        {
+          "controller.render.deagle": "variable.deagle"
+        },
+        {
+          "controller.render.player.db.first_person": "variable.is_first_person && v.db"
+        },
+        {
+          "controller.render.db": "variable.db"
+        },
+        {
+          "controller.render.player.glock17.first_person": "variable.is_first_person && v.glock17"
+        },
+        {
+          "controller.render.glock17": "variable.glock17"
+        },
+        {
+          "controller.render.player.m870.first_person": "variable.is_first_person && v.m870"
+        },
+        {
+          "controller.render.m870": "variable.m870"
+        },
+        {
+          "controller.render.player.ak47.first_person": "variable.is_first_person && v.ak47"
+        },
+        {
+          "controller.render.ak47": "variable.ak47"
+        },
+        {
+          "controller.render.player.dp28.first_person": "variable.is_first_person && v.dp28"
+        },
+        {
+          "controller.render.dp28": "variable.dp28"
+        },
+        {
+          "controller.render.player.awp.first_person": "variable.is_first_person && v.awp"
+        },
+        {
+          "controller.render.awp": "variable.awp"
+        },
+        {
+          "controller.render.player.map": "variable.map_face_icon"
+        }
+      ],
+      "enable_attachables": true
+    }
+  }
+}

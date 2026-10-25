@@ -1,0 +1,640 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.workbench_ui": {
+      "geometry": "Geometry.workbench_ui",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_ui"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "forward": "q.variant == 1"
+        },
+        {
+          "back": "q.variant == 2"
+        },
+        {
+          "build": "q.variant == 3"
+        },
+        {
+          "cancraft": "q.property('tac_guns:item') == true"
+        },
+        {
+          "ak47recipe": "q.property('tac_guns:tab') == 0 && q.property('tac_guns:itemtab') == 1"
+        },
+        {
+          "mk18recipe": "q.property('tac_guns:tab') == 0 && q.property('tac_guns:itemtab') == 2"
+        },
+        {
+          "dp28recipe": "q.property('tac_guns:tab') == 1 && q.property('tac_guns:itemtab') == 1"
+        },
+        {
+          "m134recipe": "q.property('tac_guns:tab') == 1 && q.property('tac_guns:itemtab') == 2"
+        },
+        {
+          "deaglerecipe": "q.property('tac_guns:tab') == 2 && q.property('tac_guns:itemtab') == 1"
+        },
+        {
+          "glock17recipe": "q.property('tac_guns:tab') == 2 && q.property('tac_guns:itemtab') == 2"
+        },
+        {
+          "coltpythonrecipe": "q.property('tac_guns:tab') == 2 && q.property('tac_guns:itemtab') == 3"
+        },
+        {
+          "m870recipe": "q.property('tac_guns:tab') == 3 && q.property('tac_guns:itemtab') == 1"
+        },
+        {
+          "dbrecipe": "q.property('tac_guns:tab') == 3 && q.property('tac_guns:itemtab') == 2"
+        },
+        {
+          "awprecipe": "q.property('tac_guns:tab') == 4 && q.property('tac_guns:itemtab') == 1"
+        },
+        {
+          "12gaugerecipe": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 1"
+        },
+        {
+          "762x54mmrecipe": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 2"
+        },
+        {
+          "556x45mmrecipe": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 3"
+        },
+        {
+          "9x19mmrecipe": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 4"
+        },
+        {
+          "308winchesterrecipe": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 5"
+        },
+        {
+          "338lapuarecipe": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 6"
+        },
+        {
+          "357magnumrecipe": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 7"
+        },
+        {
+          "50aerecipe": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 8"
+        },
+        {
+          "762x39mmrecipe": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 9"
+        },
+        {
+          "m67grenaderecipe": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 10"
+        },
+        {
+          "f1grenaderecipe": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 11"
+        }
+      ]
+    },
+    "controller.render.workbench_ak47": {
+      "geometry": "Geometry.workbench_ak47",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_ak47"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_mk18": {
+      "geometry": "Geometry.workbench_mk18",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_mk18"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_dp28": {
+      "geometry": "Geometry.workbench_dp28",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_dp28"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_m134": {
+      "geometry": "Geometry.workbench_m134",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_m134"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_deagle": {
+      "geometry": "Geometry.workbench_deagle",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_deagle"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_glock17": {
+      "geometry": "Geometry.workbench_glock17",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_glock17"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_coltpython": {
+      "geometry": "Geometry.workbench_coltpython",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_coltpython"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_m870": {
+      "geometry": "Geometry.workbench_m870",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_m870"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_db": {
+      "geometry": "Geometry.workbench_db",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_db"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_awp": {
+      "geometry": "Geometry.workbench_awp",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_awp"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_12gauge": {
+      "geometry": "Geometry.workbench_item",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_12gauge"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_762x54mmr": {
+      "geometry": "Geometry.workbench_item",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_762x54mmr"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_9x19mm": {
+      "geometry": "Geometry.workbench_item",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_9x19mm"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_50ae": {
+      "geometry": "Geometry.workbench_item",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_50ae"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_308winchester": {
+      "geometry": "Geometry.workbench_item",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_308winchester"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+      "controller.render.workbench_338lapua": {
+      "geometry": "Geometry.workbench_item",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_338lapua"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_357magnum": {
+      "geometry": "Geometry.workbench_item",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_357magnum"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_556x45mm": {
+      "geometry": "Geometry.workbench_item",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_556x45mm"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    },
+    "controller.render.workbench_762x39mm": {
+      "geometry": "Geometry.workbench_item",
+      "materials": [
+        {
+          "*": "Material.glow"
+        }
+      ],
+      "textures": [
+        "Texture.workbench_762x39mm"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ]
+    }
+  }
+}

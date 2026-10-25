@@ -1,0 +1,182 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.walk": {
+      "initial_state": "setup",
+      "states": {
+        "setup": {
+          "blend_transition": 0.6,
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "walk": "v.holding_all_guns && q.is_moving && !q.is_sprinting && !q.is_sneaking"
+            }
+          ]
+        },
+        "walk": {
+          "blend_transition": 0.4,
+          "blend_via_shortest_path": true,
+          "animations": [
+            {
+              "fp_walk": "v.holding_all_guns"
+            },
+            {
+              "walk_delay_2": "v.holding_all_guns"
+            }
+          ],
+          "transitions": [
+            {
+              "delay": "v.holding_all_guns && q.is_sprinting"
+            },
+            {
+              "delay": "v.holding_all_guns && q.is_sneaking"
+            },
+            {
+              "delay": "v.holding_all_guns && !q.is_moving && !q.is_sprinting && q.any_animation_finished"
+            }
+          ]
+        },
+        "delay": {
+          "blend_transition": 0.4,
+          "blend_via_shortest_path": true,
+          "animations": [
+            {
+              "walk_delay": "v.holding_all_guns"
+            }
+          ],
+          "transitions": [
+            {
+              "setup": "v.holding_all_guns && q.any_animation_finished"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.coltpython.fp": {
+      "initial_state": "hold",
+      "states": {
+        "hold": {
+          "blend_transition": 0.275,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "coltpython_fp_hold": "v.coltpython"
+           }
+          ],
+          "transitions": [
+            {
+              "reload": "v.coltpythonemp && q.mark_variant == 1"
+            },
+            {
+              "inspect": "v.coltpython && q.mark_variant == 4 && !q.is_sneaking"
+            },
+            {
+              "reloadtac": "v.coltpython && q.mark_variant == 2"
+            },
+            {
+              "sprint": "v.coltpython && q.is_sprinting && !q.is_using_item"
+            },
+            {
+              "sight": "v.coltpython && q.is_sneaking"
+            },
+            {
+              "hold": "v.coltpython && q.is_using_item"
+            }
+          ]
+        },
+        "inspect": {
+          "animations": [
+            {
+              "coltpython_fp_inspect": "v.coltpython"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "(v.coltpython && q.all_animations_finished) || (v.coltpython && q.is_using_item) || (v.coltpython && q.is_sneaking) || (v.coltpython && q.mark_variant != 4)"
+            }
+          ]
+        },
+        "sprint": {
+          "blend_transition": 0.35,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "coltpython_fp_sprint": "v.coltpython"
+           }
+          ],
+          "transitions": [
+            {
+              "hold": "v.coltpython && !q.is_sprinting"
+            },
+            {
+              "inspect": "v.coltpython && q.mark_variant == 4 && !q.is_sneaking"
+            },
+            {
+              "hold": "v.coltpython && q.is_using_item"
+            },
+            {
+              "reload": "v.coltpythonemp && q.mark_variant == 1"
+            },
+            {
+              "reloadtac": "v.coltpython && q.mark_variant == 2"
+            },
+            {
+              "sight": "v.coltpython && q.is_sneaking"
+            }
+          ]
+        },
+        "reload": {
+          "blend_transition": 0.1,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "coltpython_fp_reload": "v.coltpython"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "v.coltpython && (q.any_animation_finished || q.mark_variant != 1)"
+            }
+          ]
+        },
+        "reloadtac": {
+          "blend_transition": 0.1,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "coltpython_fp_reload_tac": "v.coltpython"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "v.coltpython && q.any_animation_finished"
+            },
+            {
+              "hold": "v.coltpython && q.mark_variant != 2"
+            }
+          ]
+        },
+        "sight": {
+          "blend_transition": 0.25,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "coltpython_fp_sight": "v.coltpython"
+           }
+          ],
+          "transitions": [
+            {
+              "hold": "v.coltpython && !q.is_sneaking"
+            },
+            {
+              "reloadtac": "v.coltpython && q.mark_variant == 2"
+            },
+            {
+              "reload": "v.coltpythonemp && q.mark_variant == 1"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.ak47.fp": {
+      "initial_state": "hold",
+      "states": {
+        "hold": {
+          "blend_transition": 0.275,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "ak47_fp_hold": "v.ak47"
+           }
+          ],
+          "transitions": [
+            {
+              "reload": "v.ak47emp && q.mark_variant == 1"
+            },
+            {
+              "inspect": "v.ak47 && q.mark_variant == 4 && !q.is_sneaking"
+            },
+            {
+              "reloadtac": "v.ak47 && q.mark_variant == 2"
+            },
+            {
+              "sprint": "v.ak47 && q.is_sprinting && !q.is_using_item"
+            },
+            {
+              "sight": "v.ak47 && q.is_sneaking"
+            },
+            {
+              "hold": "v.ak47 && q.is_using_item"
+            }
+          ]
+        },
+        "inspect": {
+          "animations": [
+            {
+              "ak47_fp_inspect": "v.ak47"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "(v.ak47 && q.all_animations_finished) || (v.ak47 && q.is_using_item) || (v.ak47 && q.is_sneaking) || (v.ak47 && q.mark_variant != 4)"
+            }
+          ]
+        },
+        "sprint": {
+          "blend_transition": 0.35,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "ak47_fp_sprint": "v.ak47"
+           }
+          ],
+          "transitions": [
+            {
+              "hold": "v.ak47 && !q.is_sprinting"
+            },
+            {
+              "inspect": "v.ak47 && q.mark_variant == 4 && !q.is_sneaking"
+            },
+            {
+              "hold": "v.ak47 && q.is_using_item"
+            },
+            {
+              "reload": "v.ak47emp && q.mark_variant == 1"
+            },
+            {
+              "reloadtac": "v.ak47 && q.mark_variant == 2"
+            },
+            {
+              "sight": "v.ak47 && q.is_sneaking"
+            }
+          ]
+        },
+        "reload": {
+          "animations": [
+           {
+            "ak47_fp_reload": "v.ak47"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "v.ak47 && (q.all_animations_finished || q.mark_variant != 1)"
+            }
+          ]
+        },
+        "reloadtac": {
+          "animations": [
+           {
+            "ak47_fp_reload_tac": "v.ak47"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "v.ak47 && q.all_animations_finished"
+            },
+            {
+              "hold": "v.ak47b && q.mark_variant != 2"
+            }
+          ]
+        },
+        "sight": {
+          "blend_transition": 0.25,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "ak47_fp_sight": "v.ak47"
+           }
+          ],
+          "transitions": [
+            {
+              "hold": "v.ak47 && !q.is_sneaking"
+            },
+            {
+              "reloadtac": "v.ak47 && q.mark_variant == 2"
+            },
+            {
+              "reload": "v.ak47emp && q.mark_variant == 1"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

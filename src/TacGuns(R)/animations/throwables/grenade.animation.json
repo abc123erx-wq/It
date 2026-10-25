@@ -1,0 +1,90 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.grenade.first_person_hold": {
+			"loop": true,
+			"bones": {
+				"root_item": {
+					"rotation": [78.14481, 60.09257, -56.79864],
+					"position": [11.5, 20.5, 9],
+					"scale": 2
+				}
+			}
+		},
+		"animation.grenade.use_animation": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 1,
+			"bones": {
+				"root_item": {
+					"rotation": {
+						"0.0": [78.14481, 60.09257, -56.79864],
+						"0.1667": [113.95964, 61.92899, -26.09416],
+						"1.0": [113.95964, 61.92899, -26.09416]
+					},
+					"position": {
+						"0.0": [11.5, 20.5, 9],
+						"0.0833": [14, 29.13, 8],
+						"0.1667": [6.5, 22.5, 0],
+						"1.0": [6.5, 22.5, 0]
+					},
+					"scale": {
+						"0.0": [2, 2, 2],
+						"0.75": [2.4, 2, 2]
+					}
+				},
+				"baseball_grenade": {
+					"position": [0, "math.sin(query.anim_time * 900) * 0.1", 0]
+				},
+				"Flashbang": {
+					"position": [0, "math.sin(query.anim_time * 900) * 0.1", 0]
+				}
+			}
+		},
+		"animation.grenade.use_animation2": {
+			"loop": true,
+			"bones": {
+				"root_item": {
+					"rotation": [113.95964, 61.92899, -26.09416],
+					"position": [6.5, 22.5, 0],
+					"scale": [2.4, 2, 2]
+				},
+				"baseball_grenade": {
+					"position": [0, "math.sin(query.anim_time * 900) * 0.1", 0]
+				},
+				"Flashbang": {
+					"position": [0, "math.sin(query.anim_time * 900) * 0.1", 0]
+				}
+			}
+		},
+		"animation.grenade.third_person_hold": {
+			"loop": true,
+			"bones": {
+				"root_item": {
+					"rotation": [90, 0, 170],
+					"position": [0.8, 22.1, -0.5],
+					"scale": 0.8
+				},
+				"bone": {
+					"position": [0, -2, 0]
+				},
+				"Flashbang": {
+					"position": [0, 0.8, -2]
+				}
+			}
+		},
+		"animation.grenade.entity_roll": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.625,
+			"bones": {
+				"root_item": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.25": [124.23075, -4.15077, 104.11417],
+						"0.2917": [144.53379, -12.76721, 95.61247],
+						"0.625": [220.39772, 18.28942, 151.06101]
+					}
+				}
+			}
+		}
+	}
+}

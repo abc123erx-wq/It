@@ -1,0 +1,554 @@
+{
+	"format_version": "1.10.0",
+	"geometry.m134root": {
+		"texturewidth": 64,
+		"textureheight": 64,
+		"visible_bounds_width": 259,
+		"visible_bounds_height": 74,
+		"visible_bounds_offset": [0, -20, 0],
+		"bones": [
+			{
+				"name": "rootforweapons",
+				"pivot": [0, 0, 0]
+			},
+			{
+				"name": "fakewaist",
+				"parent": "rootforweapons",
+				"pivot": [0, 12, 0]
+			},
+			{
+				"name": "bodyforweapons",
+				"parent": "fakewaist",
+				"pivot": [0, 24, 0]
+			},
+			{
+				"name": "bone3",
+				"parent": "bodyforweapons",
+				"pivot": [16, 12, -32]
+			},
+			{
+				"name": "Node_9",
+				"parent": "bone3",
+				"pivot": [0, 0, 0]
+			},
+			{
+				"name": "bone4",
+				"parent": "Node_9",
+				"pivot": [0, 3, -9],
+				"rotation": [5, 0, -5]
+			},
+			{
+				"name": "bone2",
+				"parent": "bone4",
+				"pivot": [0, 4, -9]
+			},
+			{
+				"name": "gunandR",
+				"parent": "bone2",
+				"pivot": [0, 0, 0]
+			},
+			{
+				"name": "minigun",
+				"parent": "gunandR",
+				"pivot": [0, 0, 0]
+			},
+			{
+				"name": "main",
+				"parent": "minigun",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "1",
+				"parent": "main",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "hexadecagon",
+				"parent": "1",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "hexadecagon2",
+				"parent": "1",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "hexadecagon3",
+				"parent": "1",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "hexadecagon4",
+				"parent": "1",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "deco",
+				"parent": "main",
+				"pivot": [-8, 12.125, 19.625]
+			},
+			{
+				"name": "2",
+				"parent": "main",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon",
+				"parent": "2",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon2",
+				"parent": "2",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon3",
+				"parent": "2",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon4",
+				"parent": "2",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon5",
+				"parent": "2",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon6",
+				"parent": "2",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon7",
+				"parent": "2",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "4",
+				"parent": "main",
+				"pivot": [-8, 12.125, 21.625]
+			},
+			{
+				"name": "octagon8",
+				"parent": "4",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "5",
+				"parent": "main",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon9",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon10",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon11",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon12",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon13",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon14",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon15",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon16",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon17",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon18",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon19",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon20",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon21",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon22",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon23",
+				"parent": "5",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "6",
+				"parent": "main",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "group",
+				"parent": "6",
+				"pivot": [-5.25, 4.1875, 16.25]
+			},
+			{
+				"name": "group2",
+				"parent": "6",
+				"pivot": [-6, 10.1875, 16.5]
+			},
+			{
+				"name": "grip",
+				"parent": "main",
+				"pivot": [-8, 6.82731, 28.13112]
+			},
+			{
+				"name": "group3",
+				"parent": "grip",
+				"pivot": [-8, 7.24568, 30.09111]
+			},
+			{
+				"name": "group4",
+				"parent": "grip",
+				"pivot": [-8, 5.59489, 24.77295]
+			},
+			{
+				"name": "group5",
+				"parent": "grip",
+				"pivot": [-8, 7.56318, 26.72929]
+			},
+			{
+				"name": "foregrip",
+				"parent": "main",
+				"pivot": [-9.41161, 11.70267, 12.25]
+			},
+			{
+				"name": "spin",
+				"parent": "main",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "group6",
+				"parent": "spin",
+				"pivot": [-8, 12.125, 12.5]
+			},
+			{
+				"name": "octagon24",
+				"parent": "spin",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "group7",
+				"parent": "spin",
+				"pivot": [-8, 12.125, 12.5]
+			},
+			{
+				"name": "mount",
+				"parent": "main",
+				"pivot": [-8, 13.625, 25.8125]
+			},
+			{
+				"name": "group8",
+				"parent": "mount",
+				"pivot": [-7.5, -6, 0.4375]
+			},
+			{
+				"name": "group9",
+				"parent": "group8",
+				"pivot": [-11.75, 8.0625, 13.5]
+			},
+			{
+				"name": "group10",
+				"parent": "group8",
+				"pivot": [-4.25, 8.0625, 15.5]
+			},
+			{
+				"name": "hexadecagon5",
+				"parent": "mount",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "group11",
+				"parent": "main",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "mag",
+				"parent": "main",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "magazine",
+				"parent": "mag",
+				"pivot": [-10.62676, 4.4319, 18.25]
+			},
+			{
+				"name": "group12",
+				"parent": "magazine",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "mag-part-3",
+				"parent": "group12",
+				"pivot": [-8, 0.75, 13.75]
+			},
+			{
+				"name": "mag-part-2",
+				"parent": "group12",
+				"pivot": [-8, 0.75, 14.125]
+			},
+			{
+				"name": "mag-part-1",
+				"parent": "group12",
+				"pivot": [-8, 0.75, 22]
+			},
+			{
+				"name": "chain_group",
+				"parent": "mag",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "handle",
+				"parent": "chain_group",
+				"pivot": [-14.19503, 0, 21.31628]
+			},
+			{
+				"name": "chain",
+				"parent": "chain_group",
+				"pivot": [-10.49317, -1.30672, 13.34235]
+			},
+			{
+				"name": "group13",
+				"parent": "chain",
+				"pivot": [-18.68113, 0.53922, 21.08938]
+			},
+			{
+				"name": "barrel_1",
+				"parent": "main",
+				"pivot": [0, 2.45, 14]
+			},
+			{
+				"name": "rings",
+				"parent": "barrel_1",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon25",
+				"parent": "rings",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon26",
+				"parent": "rings",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon27",
+				"parent": "rings",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon28",
+				"parent": "rings",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "group14",
+				"parent": "rings",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon29",
+				"parent": "group14",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon30",
+				"parent": "group14",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon31",
+				"parent": "group14",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon32",
+				"parent": "group14",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon33",
+				"parent": "group14",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "octagon34",
+				"parent": "group14",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "hexadecagon6",
+				"parent": "group14",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "hexadecagon7",
+				"parent": "group14",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "muzzle",
+				"parent": "barrel_1",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "barrels",
+				"parent": "barrel_1",
+				"pivot": [-8, 8, 8]
+			},
+			{
+				"name": "3",
+				"parent": "barrels",
+				"pivot": [-8, 4.0625, 1]
+			},
+			{
+				"name": "7",
+				"parent": "barrels",
+				"pivot": [-8, 4.0625, 1]
+			},
+			{
+				"name": "8",
+				"parent": "barrels",
+				"pivot": [-8, 4.0625, 1]
+			},
+			{
+				"name": "9",
+				"parent": "barrels",
+				"pivot": [-8, 4.0625, 1]
+			},
+			{
+				"name": "10",
+				"parent": "barrels",
+				"pivot": [-8, 4.0625, 1]
+			},
+			{
+				"name": "11",
+				"parent": "barrels",
+				"pivot": [-8, 4.0625, 1]
+			},
+			{
+				"name": "R",
+				"parent": "gunandR",
+				"pivot": [0.5, 5.9, -19.7],
+				"rotation": [-68, 0, 162.5]
+			},
+			{
+				"name": "minigunrarm",
+				"parent": "R",
+				"pivot": [-5, 22, 0],
+				"cubes": [
+					{"origin": [-8, 12, -2], "size": [4, 12, 4], "uv": [40, 16]}
+				]
+			},
+			{
+				"name": "l",
+				"parent": "bone2",
+				"pivot": [-0.3, 11.3, -6.7],
+				"rotation": [-111.399, -7.671, -87.777]
+			},
+			{
+				"name": "minigunlarm",
+				"parent": "l",
+				"pivot": [5, 22, 0],
+				"cubes": [
+					{"origin": [4, 12, -2], "size": [4, 12, 4], "uv": [32, 48]}
+				]
+			},
+			{
+				"name": "root",
+				"pivot": [0, 0, 0]
+			},
+			{
+				"name": "waist",
+				"parent": "root",
+				"pivot": [0, 12, 0]
+			},
+			{
+				"name": "body",
+				"parent": "waist",
+				"pivot": [0, 24, 0]
+			},
+			{
+				"name": "head",
+				"parent": "body",
+				"pivot": [0, 24, 0]
+			},
+			{
+				"name": "leftArm",
+				"parent": "body",
+				"pivot": [5, 22, 0]
+			},
+			{
+				"name": "leftItem",
+				"parent": "leftArm",
+				"pivot": [6, 15, 1]
+			},
+			{
+				"name": "rightArm",
+				"parent": "body",
+				"pivot": [-5, 22, 0]
+			},
+			{
+				"name": "rightItem",
+				"parent": "rightArm",
+				"pivot": [-6, 15, 1]
+			},
+			{
+				"name": "leftLeg",
+				"parent": "root",
+				"pivot": [1.9, 12, 0]
+			},
+			{
+				"name": "rightLeg",
+				"parent": "root",
+				"pivot": [-1.9, 12, 0]
+			}
+		]
+	}
+}

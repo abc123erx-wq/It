@@ -1,0 +1,43 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.glock17": {
+      "initial_state": "setup1",
+      "states": {
+        "setup1": {
+          "transitions": [
+            {
+              "setup": "(query.get_equipped_item_name=='glock17' && q.is_using_item) || query.get_equipped_item_name=='glock17_emp'"
+            }
+          ],
+          "on_entry": [
+            "@s[hasitem={item=tac_guns:glock17, location=slot.weapon.mainhand}] tac_guns:noreload"
+          ]
+        },
+        "setup": {
+          "transitions": [
+            {
+              "glock17.30": "query.get_equipped_item_name=='glock17' && query.is_using_item && query.scoreboard('glock17') >= 1 && q.mark_variant == 0"
+            }
+          ]
+        },
+        "glock17.30": {
+          "animations": [
+            "glock17shoot"
+          ],
+          "transitions": [
+            {
+              "setup": "query.all_animations_finished && !q.is_using_item"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:glock17_fire",
+            "/scoreboard players remove @s[scores={glock17=1..18}] glock17 1",
+            "/playsound glock17.shoot @a ~~~",
+            "/replaceitem entity @s[scores={glock17=0}] slot.weapon.mainhand 1 tac_guns:glock17_emp 1 0"
+          ]
+        }
+      }
+    }
+  }
+}

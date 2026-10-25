@@ -1,0 +1,26 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:attachable": {
+		"description": {
+			"identifier": "tac_guns:m67_grenade_thrown",
+			"render_controllers": ["controller.render.default"],
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/throwables/m67_grenade"
+			},
+			"geometry": {
+				"default": "geometry.m67_grenade"
+			},
+			"animations": {
+				"throw": "animation.grenade.entity_roll"
+			},
+			"scripts": {
+				"animate": [
+					"throw"
+				]
+			}
+		}
+	}
+}

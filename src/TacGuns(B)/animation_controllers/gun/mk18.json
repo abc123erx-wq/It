@@ -1,0 +1,67 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.mk18": {
+      "initial_state": "setup1",
+      "states": {
+        "setup1": {
+          "transitions": [
+            {
+              "setup": "(query.get_equipped_item_name=='mk18' && q.is_using_item) || query.get_equipped_item_name=='mk18_emp'"
+            }
+          ],
+          "on_entry": [
+            "@s[hasitem={item=tac_guns:mk18, location=slot.weapon.mainhand}] tac_guns:noreload"
+          ]
+        },
+        "setup": {
+          "transitions": [
+            {
+              "mk18.30": "query.get_equipped_item_name=='mk18' && query.is_using_item && query.scoreboard('mk18') >= 1 && q.mark_variant == 0"
+            }
+          ]
+        },
+        "mk18.30": {
+          "animations": [
+            "mk18shoot"
+          ],
+          "transitions": [
+            {
+              "mk18.29": "query.all_animations_finished  && query.scoreboard('mk18') >= 1 && q.is_using_item && q.mark_variant == 0"
+            },
+            {
+              "setup": "!q.is_using_item"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:mk18_fire",
+            "@s tac_guns:bulletbait",
+            "/scoreboard players remove @s[scores={mk18=1..31}] mk18 1",
+            "/playsound mk18.shoot @a ~~~",
+            "/replaceitem entity @s[scores={mk18=0}] slot.weapon.mainhand 1 tac_guns:mk18_emp 1 0"
+          ]
+        },
+        "mk18.29": {
+          "animations": [
+            "mk18shoot"
+          ],
+          "transitions": [
+            {
+              "mk18.30": "query.all_animations_finished  && query.scoreboard('mk18') >= 1 && q.is_using_item && q.mark_variant == 0"
+            },
+            {
+              "setup": "!q.is_using_item"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:mk18_fire",
+            "@s tac_guns:bulletbait",
+            "/scoreboard players remove @s[scores={mk18=1..31}] mk18 1",
+            "/playsound mk18.shoot @a ~~~",
+            "/replaceitem entity @s[scores={mk18=0}] slot.weapon.mainhand 1 tac_guns:mk18_emp 1 0"
+          ]
+        }
+      }
+    }
+  }
+}

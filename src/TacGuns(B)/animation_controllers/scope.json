@@ -1,0 +1,31 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.scope": {
+      "initial_state": "setup",
+      "states": {
+        "setup": {
+          "on_entry": [
+            "@s tac_guns:normal",
+            "/hud @s reset crosshair"
+          ],
+          "transitions": [
+            {
+              "scope": "(q.get_equipped_item_name=='dp28' || q.get_equipped_item_name=='dp28_emp' || q.get_equipped_item_name=='ak47' || q.get_equipped_item_name=='ak47_emp' || q.get_equipped_item_name=='deagle' || q.get_equipped_item_name=='deagle_emp' || q.get_equipped_item_name=='glock17' || q.get_equipped_item_name=='glock17_emp' || q.get_equipped_item_name=='mk18' || q.get_equipped_item_name=='mk18_emp' || q.get_equipped_item_name=='awp' || q.get_equipped_item_name=='awp_emp' || q.get_equipped_item_name=='m870' || q.get_equipped_item_name=='m870_emp' || q.get_equipped_item_name=='db' || q.get_equipped_item_name=='db_emp' || q.get_equipped_item_name=='coltpython' || q.get_equipped_item_name=='coltpython_emp') && q.is_sneaking && q.mark_variant==0"
+            }
+          ]
+        },
+        "scope": {
+          "on_entry": [
+            "/hud @s hide crosshair"
+          ],
+          "transitions": [
+            {
+              "setup": "(!q.is_sneaking || q.get_equipped_item_name!='dp28') && (!q.is_sneaking || q.get_equipped_item_name!='dp28_emp') && (!q.is_sneaking || q.get_equipped_item_name!='ak47') && (!q.is_sneaking || q.get_equipped_item_name!='ak47_emp') && (!q.is_sneaking || q.get_equipped_item_name!='deagle') && (!q.is_sneaking || q.get_equipped_item_name!='deagle_emp') && (!q.is_sneaking || q.get_equipped_item_name!='glock17') && (!q.is_sneaking || q.get_equipped_item_name!='glock17_emp') && (!q.is_sneaking || q.get_equipped_item_name!='mk18') && (!q.is_sneaking || q.get_equipped_item_name!='mk18_emp') && (!q.is_sneaking || q.get_equipped_item_name!='awp') && (!q.is_sneaking || q.get_equipped_item_name!='awp_emp') && (!q.is_sneaking || q.get_equipped_item_name!='m870') && (!q.is_sneaking || q.get_equipped_item_name!='m870_emp') && (!q.is_sneaking || q.get_equipped_item_name!='db') && (!q.is_sneaking || q.get_equipped_item_name!='db_emp') && (!q.is_sneaking || q.get_equipped_item_name!='coltpython') && (!q.is_sneaking || q.get_equipped_item_name!='coltpython_emp')"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

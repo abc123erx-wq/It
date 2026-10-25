@@ -1,0 +1,537 @@
+{
+	"format_version": "1.21.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.coltpythonroot",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 231,
+				"visible_bounds_height": 88,
+				"visible_bounds_offset": [0, -31, 0]
+			},
+			"bones": [
+				{
+					"name": "rootforweapons",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "fakewaist",
+					"parent": "rootforweapons",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "bodyforweapons",
+					"parent": "fakewaist",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "bone3",
+					"parent": "bodyforweapons",
+					"pivot": [-5, 22, 0]
+				},
+				{
+					"name": "Node_15",
+					"parent": "bone3",
+					"pivot": [-4.571, -4, 7.429]
+				},
+				{
+					"name": "coltroot",
+					"parent": "Node_15",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "l",
+					"parent": "coltroot",
+					"pivot": [-1.129, -2.412, 0.75],
+					"rotation": [68.46, -169.258, 4.881]
+				},
+				{
+					"name": "LeftHand",
+					"parent": "l",
+					"pivot": [-7.123, -14.806, 0.75],
+					"rotation": [-0.133, 0.106, 0.581]
+				},
+				{
+					"name": "ColtPythonleftArm",
+					"parent": "LeftHand",
+					"pivot": [5, 22, 0],
+					"cubes": [
+						{"origin": [16, 12, -2], "size": [4, 12, 4], "pivot": [12, 0, 0], "rotation": [0, 180, 0], "uv": [32, 48]}
+					]
+				},
+				{
+					"name": "R2",
+					"parent": "coltroot",
+					"pivot": [0, 0.5, 0.571]
+				},
+				{
+					"name": "R1",
+					"parent": "R2",
+					"pivot": [0.857, -1.5, 0.571],
+					"rotation": [84.965, 176.087, -5.381]
+				},
+				{
+					"name": "RightHand",
+					"parent": "R1",
+					"pivot": [6.851, -14.062, 0.571],
+					"rotation": [-0.008, 0.002, -1.298]
+				},
+				{
+					"name": "ColtPythonrightArm",
+					"parent": "RightHand",
+					"pivot": [-5, 22, 0],
+					"cubes": [
+						{"origin": [-20, 12, -2], "size": [4, 12, 4], "pivot": [-12, 0, 0], "rotation": [0, 180, 0], "uv": [40, 16]}
+					]
+				},
+				{
+					"name": "colt_python",
+					"parent": "R2",
+					"pivot": [0, -1, 1.714]
+				},
+				{
+					"name": "cylinder_group",
+					"parent": "colt_python",
+					"pivot": [-0.129, -0.175, 2.857]
+				},
+				{
+					"name": "cylinder_bullets",
+					"parent": "cylinder_group",
+					"pivot": [0, 0, 2.857]
+				},
+				{
+					"name": "cylinder_bullets2",
+					"parent": "cylinder_bullets",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "b1",
+					"parent": "cylinder_bullets2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "shell",
+					"parent": "b1",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon",
+					"parent": "shell",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "b2",
+					"parent": "cylinder_bullets2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "shell2",
+					"parent": "b2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon2",
+					"parent": "shell2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "b3",
+					"parent": "cylinder_bullets2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "shell3",
+					"parent": "b3",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon3",
+					"parent": "shell3",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "b4",
+					"parent": "cylinder_bullets2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "shell4",
+					"parent": "b4",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon4",
+					"parent": "shell4",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "b5",
+					"parent": "cylinder_bullets2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "shell5",
+					"parent": "b5",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon5",
+					"parent": "shell5",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "b6",
+					"parent": "cylinder_bullets2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "shell6",
+					"parent": "b6",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon6",
+					"parent": "shell6",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "bone2",
+					"parent": "cylinder_group",
+					"pivot": [-0.003, 1.05, 1.054],
+					"rotation": [0, 0, -0.025]
+				},
+				{
+					"name": "bullets",
+					"parent": "bone2",
+					"pivot": [-0.003, 1.05, 1.625]
+				},
+				{
+					"name": "bullets2",
+					"parent": "bullets",
+					"pivot": [4, 10, 10]
+				},
+				{
+					"name": "b7",
+					"parent": "bullets2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "head2",
+					"parent": "b7",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "shell7",
+					"parent": "b7",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon7",
+					"parent": "shell7",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "b8",
+					"parent": "bullets2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "head3",
+					"parent": "b8",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "shell8",
+					"parent": "b8",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon8",
+					"parent": "shell8",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "b9",
+					"parent": "bullets2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "head4",
+					"parent": "b9",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "shell9",
+					"parent": "b9",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon9",
+					"parent": "shell9",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "b10",
+					"parent": "bullets2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "head5",
+					"parent": "b10",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "shell10",
+					"parent": "b10",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon10",
+					"parent": "shell10",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "b11",
+					"parent": "bullets2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "head6",
+					"parent": "b11",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "shell11",
+					"parent": "b11",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon11",
+					"parent": "shell11",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "b12",
+					"parent": "bullets2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "head7",
+					"parent": "b12",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "shell12",
+					"parent": "b12",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon12",
+					"parent": "shell12",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "loader3",
+					"parent": "bullets2",
+					"pivot": [4, 10, 10]
+				},
+				{
+					"name": "group4",
+					"parent": "loader3",
+					"pivot": [-8, 10.09375, 13.46875]
+				},
+				{
+					"name": "octagon23",
+					"parent": "group4",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "loader",
+					"parent": "bone2",
+					"pivot": [-1.608, -8.92, -5.626],
+					"rotation": [-107.514, 73.627, -58.954]
+				},
+				{
+					"name": "loader2",
+					"parent": "loader",
+					"pivot": [4, 10, 10]
+				},
+				{
+					"name": "group",
+					"parent": "loader2",
+					"pivot": [-8, 10.09375, 13.46875]
+				},
+				{
+					"name": "octagon13",
+					"parent": "group",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "cylinder_group2",
+					"parent": "cylinder_group",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "newcylinder",
+					"parent": "cylinder_group2",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon17",
+					"parent": "newcylinder",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon18",
+					"parent": "newcylinder",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon19",
+					"parent": "newcylinder",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon20",
+					"parent": "newcylinder",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon21",
+					"parent": "newcylinder",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "hexadecagon",
+					"parent": "newcylinder",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "hexadecagon2",
+					"parent": "newcylinder",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon22",
+					"parent": "newcylinder",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "group2",
+					"parent": "newcylinder",
+					"pivot": [-7, 8, 0]
+				},
+				{
+					"name": "group3",
+					"parent": "newcylinder",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "hexadecagon3",
+					"parent": "group3",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "hexadecagon4",
+					"parent": "group3",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "hammer",
+					"parent": "colt_python",
+					"pivot": [0, 3.271, -2.155]
+				},
+				{
+					"name": "defaultgun",
+					"parent": "colt_python",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "hammer2",
+					"parent": "defaultgun",
+					"pivot": [-8, 14.54293, 16.77145]
+				},
+				{
+					"name": "crane",
+					"parent": "defaultgun",
+					"pivot": [-7.8125, 11, 10.0625]
+				},
+				{
+					"name": "octagon14",
+					"parent": "crane",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon15",
+					"parent": "crane",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "octagon16",
+					"parent": "crane",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "glow",
+					"parent": "defaultgun",
+					"pivot": [-7.44678, -4.52851, -5.28227]
+				},
+				{
+					"name": "bone",
+					"parent": "Node_15",
+					"pivot": [-4.571, -4, 7.429]
+				},
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "waist",
+					"parent": "root",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "body",
+					"parent": "waist",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "head",
+					"parent": "body",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "leftArm",
+					"parent": "body",
+					"pivot": [5, 22, 0]
+				},
+				{
+					"name": "leftItem",
+					"parent": "leftArm",
+					"pivot": [6, 15, 1]
+				},
+				{
+					"name": "rightArm",
+					"parent": "body",
+					"pivot": [-5, 22, 0]
+				},
+				{
+					"name": "rightItem",
+					"parent": "rightArm",
+					"pivot": [-6, 15, 1]
+				},
+				{
+					"name": "leftLeg",
+					"parent": "root",
+					"pivot": [1.9, 12, 0]
+				},
+				{
+					"name": "rightLeg",
+					"parent": "root",
+					"pivot": [-1.9, 12, 0]
+				}
+			]
+		}
+	]
+}

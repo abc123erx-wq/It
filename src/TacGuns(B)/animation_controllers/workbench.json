@@ -1,0 +1,464 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.workbench": {
+      "initial_state": "tab0",
+      "states": {
+        "tab0": {
+          "on_entry": [
+            "v.time = q.life_time;"
+          ],
+          "transitions": [
+            {
+              "item2": "q.property('tac_guns:tab') == 0 && q.property('tac_guns:itemtab') == 1 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item2": "q.property('tac_guns:tab') == 0 && q.property('tac_guns:itemtab') == 1 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item1": "q.property('tac_guns:tab') == 0 && q.property('tac_guns:itemtab') == 2 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item1": "q.property('tac_guns:tab') == 0 && q.property('tac_guns:itemtab') == 2 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "tab1": {
+          "on_entry": [
+            "v.time = q.life_time;"
+          ],
+          "transitions": [
+            {
+              "item2": "q.property('tac_guns:tab') == 1 && q.property('tac_guns:itemtab') == 1 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item2": "q.property('tac_guns:tab') == 1 && q.property('tac_guns:itemtab') == 1 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item1": "q.property('tac_guns:tab') == 1 && q.property('tac_guns:itemtab') == 2 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item1": "q.property('tac_guns:tab') == 1 && q.property('tac_guns:itemtab') == 2 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "tab2": {
+          "on_entry": [
+            "v.time = q.life_time;"
+          ],
+          "transitions": [
+            {
+              "item3": "q.property('tac_guns:tab') == 2 && q.property('tac_guns:itemtab') == 1 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item2": "q.property('tac_guns:tab') == 2 && q.property('tac_guns:itemtab') == 1 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item3": "q.property('tac_guns:tab') == 2 && q.property('tac_guns:itemtab') == 2 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item2": "q.property('tac_guns:tab') == 2 && q.property('tac_guns:itemtab') == 3 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item1": "q.property('tac_guns:tab') == 2 && q.property('tac_guns:itemtab') == 2 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item1": "q.property('tac_guns:tab') == 2 && q.property('tac_guns:itemtab') == 3 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "tab3": {
+          "on_entry": [
+            "v.time = q.life_time;"
+          ],
+          "transitions": [
+            {
+              "item2": "q.property('tac_guns:tab') == 3 && q.property('tac_guns:itemtab') == 1 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item2": "q.property('tac_guns:tab') == 3 && q.property('tac_guns:itemtab') == 1 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item1": "q.property('tac_guns:tab') == 3 && q.property('tac_guns:itemtab') == 2 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item1": "q.property('tac_guns:tab') == 3 && q.property('tac_guns:itemtab') == 2 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "tab6": {
+          "on_entry": [
+            "v.time = q.life_time;"
+          ],
+          "transitions": [
+            {
+              "item10": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 1 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item2": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 1 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item3": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 2 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item4": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 3 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item5": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 4 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item6": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 5 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item7": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 6 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item8": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 7 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item9": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 8 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item10": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 9 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item9": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 10 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item8": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 9 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item7": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 8 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item6": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 7 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item5": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 6 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item4": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 5 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item3": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 4 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item2": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 3 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item1": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 2 && q.mark_variant == 100 && q.variant == 2 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "item1": "q.property('tac_guns:tab') == 6 && q.property('tac_guns:itemtab') == 10 && q.mark_variant == 100 && q.variant == 1 && (q.life_time - v.time) >= 0.15"
+            },
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "item1": {
+          "on_entry": [
+            "/playsound random.click @s",
+            "@s tac_guns:itemtab1"
+          ],
+          "transitions": [
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "item2": {
+          "on_entry": [
+            "/playsound random.click @s",
+            "@s tac_guns:itemtab2"
+          ],
+          "transitions": [
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "item3": {
+          "on_entry": [
+            "/playsound random.click @s",
+            "@s tac_guns:itemtab3"
+          ],
+          "transitions": [
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "item4": {
+          "on_entry": [
+            "/playsound random.click @s",
+            "@s tac_guns:itemtab4"
+          ],
+          "transitions": [
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "item5": {
+          "on_entry": [
+            "/playsound random.click @s",
+            "@s tac_guns:itemtab5"
+          ],
+          "transitions": [
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "item6": {
+          "on_entry": [
+            "/playsound random.click @s",
+            "@s tac_guns:itemtab6"
+          ],
+          "transitions": [
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "item7": {
+          "on_entry": [
+            "/playsound random.click @s",
+            "@s tac_guns:itemtab7"
+          ],
+          "transitions": [
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "item8": {
+          "on_entry": [
+            "/playsound random.click @s",
+            "@s tac_guns:itemtab8"
+          ],
+          "transitions": [
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "item9": {
+          "on_entry": [
+            "/playsound random.click @s",
+            "@s tac_guns:itemtab9"
+          ],
+          "transitions": [
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        },
+        "item10": {
+          "on_entry": [
+            "/playsound random.click @s",
+            "@s tac_guns:itemtab10"
+          ],
+          "transitions": [
+            {
+              "tab0": "q.property('tac_guns:tab') == 0"
+            },
+            {
+              "tab1": "q.property('tac_guns:tab') == 1"
+            },
+            {
+              "tab2": "q.property('tac_guns:tab') == 2"
+            },
+            {
+              "tab3": "q.property('tac_guns:tab') == 3"
+            },
+            {
+              "tab6": "q.property('tac_guns:tab') == 6"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

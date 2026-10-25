@@ -1,0 +1,5 @@
+entity.tac_guns:flash_grenade_thrown.name=Flash Grenade
+entity.tac_guns:impact_flash_grenade_thrown.name=Impact Flash Grenade
+entity.tac_guns:m67_grenade_thrown.name=M67 Grenade
+tile.tac_guns:workbench.name=Workbench
+tile.tac_guns:invis_block.name=Invisible Block

@@ -1,0 +1,174 @@
+{
+	"format_version": "1.10.0",
+	"geometry.ak47root": {
+		"texturewidth": 64,
+		"textureheight": 64,
+		"visible_bounds_width": 259,
+		"visible_bounds_height": 74,
+		"visible_bounds_offset": [0, -20, 0],
+		"bones": [
+			{
+				"name": "rootforweapons",
+				"pivot": [0, 0, 0]
+			},
+			{
+				"name": "fakewaist",
+				"parent": "rootforweapons",
+				"pivot": [0, 12, 0]
+			},
+			{
+				"name": "bodyforweapons",
+				"parent": "fakewaist",
+				"pivot": [0, 24, 0]
+			},
+			{
+				"name": "bone3",
+				"parent": "bodyforweapons",
+				"pivot": [16, 12, -32]
+			},
+			{
+				"name": "Node_10",
+				"parent": "bone3",
+				"pivot": [8, 6, -16]
+			},
+			{
+				"name": "bone",
+				"parent": "Node_10",
+				"pivot": [16, 12, -32]
+			},
+			{
+				"name": "bone2",
+				"parent": "bone",
+				"pivot": [16, 12, -32]
+			},
+			{
+				"name": "ak47",
+				"parent": "bone2",
+				"pivot": [16, 12, -32]
+			},
+			{
+				"name": "megazing_default",
+				"parent": "ak47",
+				"pivot": [16, 10, -24]
+			},
+			{
+				"name": "maga",
+				"parent": "megazing_default",
+				"pivot": [-7.99659, 7.29719, 7.24091]
+			},
+			{
+				"name": "megazing_default2",
+				"parent": "ak47",
+				"pivot": [12.31, -9.53, -26.62],
+				"rotation": [-18.57, -45.61, 137.56]
+			},
+			{
+				"name": "maga2",
+				"parent": "megazing_default2",
+				"pivot": [-7.99659, 7.29719, 7.24091]
+			},
+			{
+				"name": "bolt",
+				"parent": "ak47",
+				"pivot": [8, 6, -16]
+			},
+			{
+				"name": "donttrytounderstandconverting2",
+				"parent": "bolt",
+				"pivot": [-8.61533, 9.36719, 6.425]
+			},
+			{
+				"name": "donttrytounderstandconverting",
+				"parent": "ak47",
+				"pivot": [-7.99659, 7.29719, 7.24091]
+			},
+			{
+				"name": "R",
+				"parent": "bone2",
+				"pivot": [16.3, 10.8, -31.4],
+				"rotation": [79.963, 175.076, -0.87]
+			},
+			{
+				"name": "RightHand",
+				"parent": "R",
+				"pivot": [22.3, -5.7, -31.4]
+			},
+			{
+				"name": "AK47rightArm",
+				"parent": "RightHand",
+				"pivot": [-5, 22, 0],
+				"cubes": [
+					{"origin": [-8, 12, -2], "size": [4, 12, 4], "uv": [40, 16]}
+				]
+			},
+			{
+				"name": "l",
+				"parent": "bone",
+				"pivot": [14.6, 13.3, -15.5],
+				"rotation": [-90.45, -29.73, 129.57]
+			},
+			{
+				"name": "LeftHand",
+				"parent": "l",
+				"pivot": [8.6, -3.2, -15.5]
+			},
+			{
+				"name": "AK47leftArm",
+				"parent": "LeftHand",
+				"pivot": [5, 22, 0],
+				"cubes": [
+					{"origin": [4, 12, -2], "size": [4, 12, 4], "uv": [32, 48]}
+				]
+			},
+			{
+				"name": "root",
+				"pivot": [0, 0, 0]
+			},
+			{
+				"name": "waist",
+				"parent": "root",
+				"pivot": [0, 12, 0]
+			},
+			{
+				"name": "body",
+				"parent": "waist",
+				"pivot": [0, 24, 0]
+			},
+			{
+				"name": "head",
+				"parent": "body",
+				"pivot": [0, 24, 0]
+			},
+			{
+				"name": "leftArm",
+				"parent": "body",
+				"pivot": [5, 22, 0]
+			},
+			{
+				"name": "leftItem",
+				"parent": "leftArm",
+				"pivot": [6, 15, 1]
+			},
+			{
+				"name": "rightArm",
+				"parent": "body",
+				"pivot": [-5, 22, 0]
+			},
+			{
+				"name": "rightItem",
+				"parent": "rightArm",
+				"pivot": [-6, 15, 1]
+			},
+			{
+				"name": "leftLeg",
+				"parent": "root",
+				"pivot": [1.9, 12, 0]
+			},
+			{
+				"name": "rightLeg",
+				"parent": "root",
+				"pivot": [-1.9, 12, 0]
+			}
+		]
+	}
+}

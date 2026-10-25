@@ -1,0 +1,96 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.weapons.leftsway": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"rootforweapons": {
+					"rotation": [0, 0, -6],
+					"position": [1.5, 0, 0.5]
+				}
+			}
+		},
+		"animation.weapons.forwardtoleft": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.1875,
+			"bones": {
+				"rootforweapons": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.1875": [0, 0, -6]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.1875": [1.5, 0, 0.5]
+					}
+				}
+			}
+		},
+		"animation.weapons.lefttoforward": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.1875,
+			"bones": {
+				"rootforweapons": {
+					"rotation": {
+						"0.0": [0, 0, -6],
+						"0.1875": [0, 0, 0]
+					},
+					"position": {
+						"0.0": [1.5, 0, 0.5],
+						"0.1875": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.weapons.nosway": {
+			"loop": true,
+			"bones": {
+				"rootforweapons": {
+					"rotation": [0, 0, 0],
+					"position": [0, 0, 0]
+				}
+			}
+		},
+		"animation.weapons.rightsway": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"rootforweapons": {
+					"rotation": [0, 0, 10],
+					"position": [-3.8, 0.5, -0.5]
+				}
+			}
+		},
+		"animation.weapons.forwardtoright": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.1875,
+			"bones": {
+				"rootforweapons": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.1875": [0, 0, 10]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.1875": [-3.8, 0.5, -0.5]
+					}
+				}
+			}
+		},
+		"animation.weapons.righttoforward": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.1875,
+			"bones": {
+				"rootforweapons": {
+					"rotation": {
+						"0.0": [0, 0, 10],
+						"0.1875": [0, 0, 0]
+					},
+					"position": {
+						"0.0": [-3.8, 0.5, -0.5],
+						"0.1875": [0, 0, 0]
+					}
+				}
+			}
+		}
+	}
+}

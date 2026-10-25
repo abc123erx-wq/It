@@ -1,0 +1,202 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.inspect": {
+      "initial_state": "unequipped",
+      "states": {
+        "unequipped": {
+          "on_entry": [
+            "@s tac_guns:noreload",
+            "/stopsound @s ak47.inspect",
+            "/stopsound @s coltpython.inspect",
+            "/stopsound @s deagle.inspect",
+            "/stopsound @s db.inspect",
+            "/stopsound @s glock17.inspect",
+            "/stopsound @s m134.inspect",
+            "/stopsound @s awp.inspect",
+            "/stopsound @s mk18.inspect",
+            "/stopsound @s m870.inspect",
+            "/stopsound @s dp28.inspect"
+          ],
+          "transitions": [
+            {
+              "ak47": "!q.is_sneaking && q.get_equipped_item_name=='ak47' && q.scoreboard('ak47') == 31 && q.mark_variant == 0 && v.attack_time"
+            },
+            {
+              "coltpython": "!q.is_sneaking && q.get_equipped_item_name=='coltpython' && q.scoreboard('coltpython') == 6 && q.mark_variant == 0 && v.attack_time"
+            },
+            {
+              "awp": "!q.is_sneaking && q.get_equipped_item_name=='awp' && q.scoreboard('awp') == 6 && q.mark_variant == 0 && v.attack_time"
+            },
+            {
+              "deagle": "!q.is_sneaking && q.get_equipped_item_name=='deagle' && q.scoreboard('deagle') == 8 && q.mark_variant == 0 && v.attack_time"
+            },
+            {
+              "db": "!q.is_sneaking && q.get_equipped_item_name=='db' && q.scoreboard('db') == 2 && q.mark_variant == 0 && v.attack_time"
+            },
+            {
+              "mk18": "!q.is_sneaking && q.get_equipped_item_name=='mk18' && q.scoreboard('mk18') == 31 && q.mark_variant == 0 && v.attack_time"
+            },
+            {
+              "m134": "!q.is_sneaking && q.get_equipped_item_name=='m134' && q.mark_variant == 0 && v.attack_time"
+            },
+            {
+              "m870": "!q.is_sneaking && q.get_equipped_item_name=='m870' && q.scoreboard('m870') == 6 && q.mark_variant == 0 && v.attack_time"
+            },
+            {
+              "glock17": "!q.is_sneaking && q.get_equipped_item_name=='glock17' && q.scoreboard('glock17') == 18 && q.mark_variant == 0 && v.attack_time"
+            },
+            {
+              "dp28": "!q.is_sneaking && q.get_equipped_item_name=='dp28' && q.scoreboard('dp28') == 50 && q.mark_variant == 0 && v.attack_time"
+            }
+          ]
+        },
+        "ak47": {
+          "on_entry": [
+            "v.time = q.life_time;",
+            "@s tac_guns:inspect",
+            "/playsound ak47.inspect"
+          ],
+          "transitions": [
+            {
+              "unequipped": "q.get_equipped_item_name!='ak47' || (q.life_time - v.time) >= 5.46 || q.is_using_item"
+            }
+          ]
+        },
+        "coltpython": {
+          "on_entry": [
+            "v.time = q.life_time;",
+            "@s tac_guns:inspect",
+            "/playsound coltpython.inspect"
+          ],
+          "transitions": [
+            {
+              "unequipped": "q.get_equipped_item_name!='coltpython' || (q.life_time - v.time) >= 5.79 || q.is_using_item"
+            }
+          ]
+        },
+        "deagle": {
+          "on_entry": [
+            "v.time = q.life_time;",
+            "@s tac_guns:inspect",
+            "/playsound deagle.inspect"
+          ],
+          "transitions": [
+            {
+              "unequipped": "q.get_equipped_item_name!='deagle' || (q.life_time - v.time) >= 6.26 || q.is_using_item"
+            }
+          ]
+        },
+        "db": {
+          "on_entry": [
+            "v.time = q.life_time;",
+            "@s tac_guns:inspect",
+            "/playsound db.inspect"
+          ],
+          "transitions": [
+            {
+              "unequipped": "q.get_equipped_item_name!='db' || (q.life_time - v.time) >= 3.75 || q.is_using_item"
+            }
+          ]
+        },
+        "glock17": {
+          "on_entry": [
+            "v.time = q.life_time;",
+            "@s tac_guns:inspect",
+            "/playsound glock17.inspect"
+          ],
+          "transitions": [
+            {
+              "unequipped": "q.get_equipped_item_name!='glock17' || (q.life_time - v.time) >= 4.11 || q.is_using_item"
+            }
+          ]
+        },
+        "awp": {
+          "on_entry": [
+            "v.time = q.life_time;",
+            "@s tac_guns:inspect",
+            "/playsound awp.inspect"
+          ],
+          "transitions": [
+            {
+              "unequipped": "q.get_equipped_item_name!='awp' || (q.life_time - v.time) >= 4.96 || q.is_using_item"
+            }
+          ]
+        },
+        "m134": {
+          "on_entry": [
+            "v.time = q.life_time;",
+            "@s tac_guns:inspect",
+            "/playsound m134.inspect"
+          ],
+          "transitions": [
+            {
+              "unequipped": "q.get_equipped_item_name!='m134' || (q.life_time - v.time) >= 12.65 || q.is_using_item"
+            }
+          ]
+        },
+        "mk18": {
+          "on_entry": [
+            "v.time = q.life_time;",
+            "@s tac_guns:inspect",
+            "/playsound mk18.inspect"
+          ],
+          "transitions": [
+            {
+              "unequipped": "q.get_equipped_item_name!='mk18' || (q.life_time - v.time) >= 5.02 || q.is_using_item"
+            }
+          ]
+        },
+        "m870": {
+          "on_entry": [
+            "v.time = q.life_time;",
+            "@s tac_guns:inspect",
+            "/playsound m870.inspect"
+          ],
+          "transitions": [
+            {
+              "unequipped": "q.get_equipped_item_name!='m870' || (q.life_time - v.time) >= 4.46 || q.is_using_item"
+            }
+          ]
+        },
+        "dp28": {
+          "on_entry": [
+            "v.time = q.life_time;",
+            "@s tac_guns:inspect",
+            "/playsound dp28.inspect"
+          ],
+          "transitions": [
+            {
+              "unequipped": "q.get_equipped_item_name!='dp28' || (q.life_time - v.time) >= 6.6 || q.is_using_item"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.minigunbarrel": {
+      "initial_state": "unequipped",
+      "states": {
+        "unequipped": {
+          "on_entry": [
+            "/stopsound @s m134.barrel"
+          ],
+          "transitions": [
+            {
+              "m134": "q.get_equipped_item_name=='m134'"
+            }
+          ]
+        },
+        "m134": {
+          "on_entry": [
+            "/playsound m134.barrel"
+          ],
+          "transitions": [
+            {
+              "unequipped": "q.get_equipped_item_name!='m134'"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

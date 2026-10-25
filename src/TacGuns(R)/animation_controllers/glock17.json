@@ -1,0 +1,131 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.glock17.fp": {
+      "initial_state": "hold",
+      "states": {
+        "hold": {
+          "blend_transition": 0.275,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "glock17_fp_hold": "v.glock17"
+           }
+          ],
+          "transitions": [
+            {
+              "reload": "v.glock17emp && q.mark_variant == 1"
+            },
+            {
+              "inspect": "v.glock17 && q.mark_variant == 4 && !q.is_sneaking"
+            },
+            {
+              "reloadtac": "v.glock17 && q.mark_variant == 2"
+            },
+            {
+              "sprint": "v.glock17 && q.is_sprinting && !q.is_using_item"
+            },
+            {
+              "sight": "v.glock17 && q.is_sneaking"
+            },
+            {
+              "hold": "v.glock17 && q.is_using_item"
+            }
+          ]
+        },
+        "inspect": {
+          "animations": [
+            {
+              "glock17_fp_inspect": "v.glock17"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "(v.glock17 && q.all_animations_finished) || (v.glock17 && q.is_using_item) || (v.glock17 && q.is_sneaking) || (v.glock17 && q.mark_variant != 4)"
+            }
+          ]
+        },
+        "sprint": {
+          "blend_transition": 0.35,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "glock17_fp_sprint": "v.glock17"
+           }
+          ],
+          "transitions": [
+            {
+              "hold": "v.glock17 && !q.is_sprinting"
+            },
+            {
+              "inspect": "v.glock17 && q.mark_variant == 4 && !q.is_sneaking"
+            },
+            {
+              "hold": "v.glock17 && q.is_using_item"
+            },
+            {
+              "reload": "v.glock17emp && q.mark_variant == 1"
+            },
+            {
+              "reloadtac": "v.glock17 && q.mark_variant == 2"
+            },
+            {
+              "sight": "v.glock17 && q.is_sneaking"
+            }
+          ]
+        },
+        "reload": {
+          "blend_transition": 0.1,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "glock17_fp_reload": "v.glock17"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "v.glock17 && (q.any_animation_finished || q.mark_variant != 1)"
+            }
+          ]
+        },
+        "reloadtac": {
+          "blend_transition": 0.1,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "glock17_fp_reload_tac": "v.glock17"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "v.glock17 && q.any_animation_finished"
+            },
+            {
+              "hold": "v.glock17 && q.mark_variant != 2"
+            }
+          ]
+        },
+        "sight": {
+          "blend_transition": 0.25,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "glock17_fp_sight": "v.glock17"
+           }
+          ],
+          "transitions": [
+            {
+              "hold": "v.glock17 && !q.is_sneaking"
+            },
+            {
+              "reloadtac": "v.glock17 && q.mark_variant == 2"
+            },
+            {
+              "reload": "v.glock17emp && q.mark_variant == 1"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

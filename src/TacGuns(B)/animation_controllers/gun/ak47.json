@@ -1,0 +1,44 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.ak47": {
+      "initial_state": "setup1",
+      "states": {
+        "setup1": {
+          "transitions": [
+            {
+              "setup": "(query.get_equipped_item_name=='ak47' && q.is_using_item) || query.get_equipped_item_name=='ak47_emp'"
+            }
+          ],
+          "on_entry": [
+            "@s[hasitem={item=tac_guns:ak47, location=slot.weapon.mainhand}] tac_guns:noreload"
+          ]
+        },
+        "setup": {
+          "transitions": [
+            {
+              "ak47.30": "query.get_equipped_item_name=='ak47' && query.is_using_item && query.scoreboard('ak47') >= 1 && q.mark_variant == 0"
+            }
+          ]
+        },
+        "ak47.30": {
+          "animations": [
+            "ak47shoot"
+          ],
+          "transitions": [
+            {
+              "setup": "query.all_animations_finished"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:ak47_fire",
+            "@s tac_guns:bulletbait",
+            "/scoreboard players remove @s[scores={ak47=1..31}] ak47 1",
+            "/playsound ak47.shoot @a ~~~",
+            "/replaceitem entity @s[scores={ak47=0}] slot.weapon.mainhand 1 tac_guns:ak47_emp 1 0"
+          ]
+        }
+      }
+    }
+  }
+}

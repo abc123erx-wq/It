@@ -1,0 +1,57 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Timeless And Classics Guns BP",
+    "description": "Port By REIM,Middy,BlockPlayStudios",
+    "uuid": "a52f3487-c23d-488c-b2cf-46be56186b9e",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      20,
+      80
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "9de932f9-acc3-e9cb-c993-72a0cab6bf79",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "b7055392-4154-4aa8-813f-afa6291f1055",
+      "entry": "scripts/main.js",
+      "version": [1, 0, 0]
+    }
+  ],
+  "capabilities": [
+    "script_eval"
+  ],
+  "dependencies": [
+    {
+      "uuid": "1542b145-8331-481e-9efa-faff9786b22b",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.9.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.1.0"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+	"resource_pack_name": "tac_guns",
+	"texture_name": "atlas.terrain",
+	"padding": 8,
+	"num_mip_levels": 4,
+	"texture_data": {
+		"invis": {
+			"textures": [
+				"textures/blocks/invis"
+			]
+		},
+		"9mm": {
+			"textures": [
+				"textures/blocks/9mm"
+			]
+		},
+		"10gauge": {
+			"textures": [
+				"textures/blocks/10gauge"
+			]
+		},
+		"45acp": {
+			"textures": [
+				"textures/blocks/45acp"
+			]
+		},
+		"anvil": {
+			"textures": [
+				"textures/blocks/anvil"
+			]
+		},
+		"bottle_pattern": {
+			"textures": [
+				"textures/blocks/bottle_pattern"
+			]
+		},
+		"gray_concrete": {
+			"textures": [
+				"textures/blocks/gray_concrete"
+			]
+		},
+		"iron_block": {
+			"textures": [
+				"textures/blocks/iron_block"
+			]
+		},
+		"light_gray_concrete": {
+			"textures": [
+				"textures/blocks/light_gray_concrete"
+			]
+		},
+		"magnum": {
+			"textures": [
+				"textures/blocks/magnum"
+			]
+		},
+		"stripped_oak_log": {
+			"textures": [
+				"textures/blocks/stripped_oak_log"
+			]
+		},
+		"yellow_concrete": {
+			"textures": [
+				"textures/blocks/yellow_concrete"
+			]
+		}
+	}
+}

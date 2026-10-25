@@ -1,0 +1,180 @@
+{
+	"format_version": "1.21.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.deagleroot",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 231,
+				"visible_bounds_height": 88,
+				"visible_bounds_offset": [0, -31, 0]
+			},
+			"bones": [
+				{
+					"name": "rootforweapons",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "fakewaist",
+					"parent": "rootforweapons",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "bodyforweapons",
+					"parent": "fakewaist",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "bone3",
+					"parent": "bodyforweapons",
+					"pivot": [-5, 22, 0]
+				},
+				{
+					"name": "Node_10",
+					"parent": "bone3",
+					"pivot": [-4.571, -3, 12.571]
+				},
+				{
+					"name": "bone2",
+					"parent": "Node_10",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "group",
+					"parent": "bone2",
+					"pivot": [0, 0.5, 2.857]
+				},
+				{
+					"name": "bone",
+					"parent": "group",
+					"pivot": [0, 0.5, 2.857]
+				},
+				{
+					"name": "mb2",
+					"parent": "bone",
+					"pivot": [0, -1, 0]
+				},
+				{
+					"name": "magazine",
+					"parent": "mb2",
+					"pivot": [-8.02231, 1.39316, 19.31121]
+				},
+				{
+					"name": "mb",
+					"parent": "bone",
+					"pivot": [0, -1, 0]
+				},
+				{
+					"name": "magazine2",
+					"parent": "mb",
+					"pivot": [-8.02231, 1.39316, 19.31121]
+				},
+				{
+					"name": "Deagle",
+					"parent": "bone",
+					"pivot": [-8, 13.40526, 2.69707]
+				},
+				{
+					"name": "slide",
+					"parent": "Deagle",
+					"pivot": [-8, 8, 8]
+				},
+				{
+					"name": "hammer",
+					"parent": "Deagle",
+					"pivot": [-7.99965, 16.13954, 19.84857]
+				},
+				{
+					"name": "R",
+					"parent": "group",
+					"pivot": [0, -0.4, 0.743],
+					"rotation": [82.413, 172.978, -0.261]
+				},
+				{
+					"name": "RightHand",
+					"parent": "R",
+					"pivot": [6, -12.946, 0.743],
+					"rotation": [-0.027, -0.15, 0.026]
+				},
+				{
+					"name": "deaglerarm",
+					"parent": "RightHand",
+					"pivot": [-6, 22, 0],
+					"cubes": [
+						{"origin": [-8, 12, -2], "size": [4, 12, 4], "uv": [40, 16]}
+					]
+				},
+				{
+					"name": "l",
+					"parent": "bone2",
+					"pivot": [-1.086, -1.9, 0.8],
+					"rotation": [-84.391, -27.794, 113.494]
+				},
+				{
+					"name": "LeftHand",
+					"parent": "l",
+					"pivot": [-6.589, -14.295, 0.8],
+					"rotation": [2.39, 2.295, -2.491]
+				},
+				{
+					"name": "deaglelarm",
+					"parent": "LeftHand",
+					"pivot": [6, 22, 0],
+					"cubes": [
+						{"origin": [4, 12, -2], "size": [4, 12, 4], "uv": [32, 48]}
+					]
+				},
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "waist",
+					"parent": "root",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "body",
+					"parent": "waist",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "head",
+					"parent": "body",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "leftArm",
+					"parent": "body",
+					"pivot": [5, 22, 0]
+				},
+				{
+					"name": "leftItem",
+					"parent": "leftArm",
+					"pivot": [6, 15, 1]
+				},
+				{
+					"name": "rightArm",
+					"parent": "body",
+					"pivot": [-5, 22, 0]
+				},
+				{
+					"name": "rightItem",
+					"parent": "rightArm",
+					"pivot": [-6, 15, 1]
+				},
+				{
+					"name": "leftLeg",
+					"parent": "root",
+					"pivot": [1.9, 12, 0]
+				},
+				{
+					"name": "rightLeg",
+					"parent": "root",
+					"pivot": [-1.9, 12, 0]
+				}
+			]
+		}
+	]
+}

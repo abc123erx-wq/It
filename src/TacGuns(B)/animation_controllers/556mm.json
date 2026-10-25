@@ -1,0 +1,997 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.coltpython.reload": {
+      "initial_state": "setup",
+      "states": {
+        "setup": {
+          "on_entry": [
+            "@s tac_guns:noreload",
+            "/stopsound @s coltpython.reload",
+            "/stopsound @s coltpython.tacreload"
+          ],
+          "transitions": [
+            {
+              "trigger.reload": "query.get_equipped_item_name=='coltpython_emp' && variable.attack_time == 0.0 && q.is_using_item"
+            },
+            {
+              "trigger.tac": "(query.get_equipped_item_name=='coltpython' && variable.attack_time > 0.0f && query.scoreboard('coltpython') <= 5 && q.mark_variant != 3)"
+            }
+          ]
+        },
+        "trigger.tac": {
+          "on_entry": [
+            "/function coltpythonquantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='coltpython' && q.property('tac_guns:coltpythonreload') == 0"
+            },
+            {
+              "reload.tac": "query.get_equipped_item_name=='coltpython' && q.property('tac_guns:coltpythonreload') >= 1"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='coltpython'"
+            }
+          ]
+        },
+        "trigger.reload": {
+          "on_entry": [
+            "/function coltpythonquantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='coltpython_emp' && q.property('tac_guns:coltpythonreload') == 0"
+            },
+            {
+              "reload": "query.get_equipped_item_name=='coltpython_emp' && q.property('tac_guns:coltpythonreload') >= 1"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='coltpython'"
+            }
+          ]
+        },
+        "reload": {
+          "animations": [
+            {
+              "coltpythonreload": "query.get_equipped_item_name('main_hand')=='coltpython_emp' || query.get_equipped_item_name('main_hand')=='coltpython'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reload",
+            "/playsound coltpython.reload @s"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='coltpython_emp'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reload.tac": {
+          "animations": [
+            {
+              "coltpythonreloadtac": "query.get_equipped_item_name('main_hand')=='coltpython_emp' || query.get_equipped_item_name('main_hand')=='coltpython'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reloadtac",
+            "/playsound coltpython.reload @s"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='coltpython'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reloadfinish": {
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='coltpython' || query.get_equipped_item_name=='coltpython_emp'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.deagle.reload": {
+      "initial_state": "setup",
+      "states": {
+        "setup": {
+          "on_entry": [
+            "@s tac_guns:noreload",
+            "/stopsound @s deagle.reload",
+            "/stopsound @s deagle.tacreload"
+          ],
+          "transitions": [
+            {
+              "trigger.reload": "query.get_equipped_item_name=='deagle_emp' && variable.attack_time == 0.0 && q.is_using_item"
+            },
+            {
+              "trigger.tac": "(query.get_equipped_item_name=='deagle' && variable.attack_time > 0.0f && query.scoreboard('deagle') <= 7 && q.mark_variant != 3)"
+            }
+          ]
+        },
+        "trigger.tac": {
+          "on_entry": [
+            "/function deaglequantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='deagle' && q.property('tac_guns:coltpythonreload') == 0"
+            },
+            {
+              "reload.tac": "query.get_equipped_item_name=='deagle' && q.property('tac_guns:coltpythonreload') >= 1"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='deagle'"
+            }
+          ]
+        },
+        "trigger.reload": {
+          "on_entry": [
+            "/function deaglequantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='deagle_emp' && q.property('tac_guns:coltpythonreload') == 0"
+            },
+            {
+              "reload": "query.get_equipped_item_name=='deagle_emp' && q.property('tac_guns:coltpythonreload') >= 1"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='deagle'"
+            }
+          ]
+        },
+        "reload": {
+          "animations": [
+            {
+              "deaglereload": "query.get_equipped_item_name('main_hand')=='deagle_emp' || query.get_equipped_item_name('main_hand')=='deagle'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reload",
+            "/playsound deagle.reload @s"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='deagle_emp'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reload.tac": {
+          "animations": [
+            {
+              "deaglereloadtac": "query.get_equipped_item_name('main_hand')=='deagle_emp' || query.get_equipped_item_name('main_hand')=='deagle'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reloadtac",
+            "/playsound deagle.tacreload"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='deagle'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reloadfinish": {
+          "on_entry": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='deagle' || query.get_equipped_item_name=='deagle_emp'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.db.reload": {
+      "initial_state": "setup",
+      "states": {
+        "setup": {
+          "on_entry": [
+            "@s tac_guns:noreload",
+            "/stopsound @s db.reload",
+            "/stopsound @s db.tacreload"
+          ],
+          "transitions": [
+            {
+              "trigger.reload": "query.get_equipped_item_name=='db_emp' && variable.attack_time == 0.0 && q.is_using_item"
+            },
+            {
+              "trigger.tac": "(query.get_equipped_item_name=='db' && variable.attack_time > 0.0f && query.scoreboard('db') <= 1 && q.mark_variant != 3)"
+            }
+          ]
+        },
+        "trigger.tac": {
+          "on_entry": [
+            "/function dbquantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='db' && q.property('tac_guns:coltpythonreload') == 0"
+            },
+            {
+              "reload.tac": "query.get_equipped_item_name=='db' && q.property('tac_guns:coltpythonreload') >= 1"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='db'"
+            }
+          ]
+        },
+        "trigger.reload": {
+          "on_entry": [
+            "/function dbquantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='db_emp' && q.property('tac_guns:coltpythonreload') == 0"
+            },
+            {
+              "reload": "query.get_equipped_item_name=='db_emp' && q.property('tac_guns:coltpythonreload') >= 1"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='db'"
+            }
+          ]
+        },
+        "reload": {
+          "animations": [
+            {
+              "dbreload": "query.get_equipped_item_name('main_hand')=='db_emp' || query.get_equipped_item_name('main_hand')=='db'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reload",
+            "/playsound db.reload @s"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='db_emp'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reload.tac": {
+          "animations": [
+            {
+              "dbreloadtac": "query.get_equipped_item_name('main_hand')=='db_emp' || query.get_equipped_item_name('main_hand')=='db'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reloadtac",
+            "/playsound db.tacreload"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='db'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reloadfinish": {
+          "on_entry": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='db' || query.get_equipped_item_name=='db_emp'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.glock17.reload": {
+      "initial_state": "setup",
+      "states": {
+        "setup": {
+          "on_entry": [
+            "@s tac_guns:noreload",
+            "/stopsound @s glock17.reload",
+            "/stopsound @s glock17.tacreload"
+          ],
+          "transitions": [
+            {
+              "trigger.reload": "query.get_equipped_item_name=='glock17_emp' && variable.attack_time == 0.0 && q.is_using_item"
+            },
+            {
+              "trigger.tac": "(query.get_equipped_item_name=='glock17' && variable.attack_time > 0.0f && query.scoreboard('glock17') <= 17 && q.mark_variant != 3)"
+            }
+          ]
+        },
+        "trigger.tac": {
+          "on_entry": [
+            "/function glock17quantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='glock17' && q.property('tac_guns:coltpythonreload') == 0"
+            },
+            {
+              "reload.tac": "query.get_equipped_item_name=='glock17' && q.property('tac_guns:coltpythonreload') >= 1"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='glock17'"
+            }
+          ]
+        },
+        "trigger.reload": {
+          "on_entry": [
+            "/function glock17quantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='glock17_emp' && q.property('tac_guns:coltpythonreload') == 0"
+            },
+            {
+              "reload": "query.get_equipped_item_name=='glock17_emp' && q.property('tac_guns:coltpythonreload') >= 1"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='glock17'"
+            }
+          ]
+        },
+        "reload": {
+          "animations": [
+            {
+              "glock17reload": "query.get_equipped_item_name('main_hand')=='glock17_emp' || query.get_equipped_item_name('main_hand')=='glock17'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reload",
+            "/playsound glock17.reload @s"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='glock17_emp'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reload.tac": {
+          "animations": [
+            {
+              "glock17reloadtac": "query.get_equipped_item_name('main_hand')=='glock17_emp' || query.get_equipped_item_name('main_hand')=='glock17'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reloadtac",
+            "/playsound glock17.tacreload"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='glock17'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reloadfinish": {
+          "on_entry": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='glock17' || query.get_equipped_item_name=='glock17_emp'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.m870.reload": {
+      "initial_state": "setup",
+      "states": {
+        "setup": {
+          "on_entry": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "checker": "query.get_equipped_item_name=='m870_emp' && variable.attack_time == 0.0 && q.is_using_item"
+            },
+            {
+              "checker": "(query.get_equipped_item_name=='m870' && variable.attack_time > 0.0f && query.scoreboard('m870') <= 5 && q.mark_variant != 3)"
+            }
+          ]
+        },
+        "checker": {
+          "on_entry": [
+            "/event entity @s[hasitem={item=tac_guns:12gauge}] tac_guns:shotgunreload"
+          ],
+          "transitions": [
+            {
+              "reload": "q.mark_variant == 5 && query.get_equipped_item_name=='m870_emp'"
+            },
+            {
+              "reloadtac": "q.mark_variant == 5 && query.get_equipped_item_name=='m870'"
+            },
+            {
+              "setup": "(query.get_equipped_item_name=='m870' || query.get_equipped_item_name=='m870_emp') && q.mark_variant == 0"
+            }
+          ]
+        },
+        "reload": {
+          "animations": [
+            {
+              "m870reload": "q.mark_variant == 5"
+            }
+          ],
+          "on_entry": [
+            "v.time = q.life_time;",
+            "/event entity @s[hasitem={item=tac_guns:12gauge}] tac_guns:shotgunreload"
+          ],
+          "transitions": [
+            {
+              "reloadtac": "query.get_equipped_item_name!='m870_emp'"
+            },
+            {
+              "holder": "query.any_animation_finished"
+            },
+            {
+              "holder2": "query.scoreboard('m870') >= 6"
+            },
+            {
+              "holder2": "q.is_using_item && (q.life_time - v.time) >= 0.1"
+            }
+          ]
+        },
+        "holder": {
+          "on_entry": [
+            "v.time = q.life_time;",
+            "/event entity @s[hasitem={item=tac_guns:12gauge}] tac_guns:shotgunreload"
+          ],
+          "transitions": [
+            {
+              "reload": "q.mark_variant == 5 && query.get_equipped_item_name=='m870_emp'"
+            },
+            {
+              "reloadtac": "q.mark_variant == 5 && query.get_equipped_item_name=='m870'"
+            },
+            {
+              "holder2": "(query.get_equipped_item_name=='m870' || query.get_equipped_item_name=='m870_emp') && q.mark_variant == 0"
+            },
+            {
+              "holder2": "q.is_using_item && (q.life_time - v.time) >= 0.1"
+            }
+          ]
+        },
+        "reloadtac": {
+          "animations": [
+            {
+              "m870reload": "q.mark_variant == 5"
+            }
+          ],
+          "on_entry": [
+            "v.time = q.life_time;",
+            "/event entity @s[hasitem={item=tac_guns:12gauge}] tac_guns:shotgunreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='m870'"
+            },
+            {
+              "holder": "query.any_animation_finished"
+            },
+            {
+              "holder2": "query.scoreboard('m870') >= 6"
+            },
+            {
+              "holder2": "q.is_using_item && (q.life_time - v.time) >= 0.1"
+            }
+          ]
+        },
+        "holder2": {
+          "on_entry":[
+            "v.time = q.life_time;",
+            "@s tac_guns:shotgunreloadfinish"
+          ],
+          "transitions": [
+            {
+              "reloadfinish": "query.all_animations_finished && (q.life_time - v.time) >= 1.5"
+            }
+          ]
+        },
+        "reloadfinish": {
+          "on_entry": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='m870' || query.get_equipped_item_name=='m870_emp'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.ak47.reload": {
+      "initial_state": "setup",
+      "states": {
+        "setup": {
+          "on_entry": [
+            "@s tac_guns:noreload",
+            "/stopsound @s ak47.reload",
+            "/stopsound @s ak47.tacreload"
+          ],
+          "transitions": [
+            {
+              "trigger.reload": "query.get_equipped_item_name=='ak47_emp' && variable.attack_time == 0.0 && q.is_using_item"
+            },
+            {
+              "trigger.tac": "(query.get_equipped_item_name=='ak47' && variable.attack_time > 0.0f && query.scoreboard('ak47') <= 30 && q.mark_variant != 3)"
+            }
+          ]
+        },
+        "trigger.tac": {
+          "on_entry": [
+            "/function ak47quantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='ak47' && q.property('tac_guns:gunreload') == 80"
+            },
+            {
+              "reload.tac": "query.get_equipped_item_name=='ak47' && q.property('tac_guns:gunreload') >= 81"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='ak47'"
+            }
+          ]
+        },
+        "trigger.reload": {
+          "on_entry": [
+            "/function ak47quantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='ak47_emp' && q.property('tac_guns:gunreload') == 80"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='ak47_emp'"
+            },
+            {
+              "reload": "query.get_equipped_item_name=='ak47_emp' && q.property('tac_guns:gunreload') >= 81"
+            }
+          ]
+        },
+        "reload": {
+          "animations": [
+            {
+              "ak47reload": "query.get_equipped_item_name('main_hand')=='ak47_emp' || query.get_equipped_item_name('main_hand')=='ak47'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reload",
+            "/playsound ak47.reload @s"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='ak47_emp'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reload.tac": {
+          "animations": [
+            {
+              "ak47reloadtac": "query.get_equipped_item_name('main_hand')=='ak47_emp' || query.get_equipped_item_name('main_hand')=='ak47'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reloadtac",
+            "/playsound ak47.tacreload"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='ak47'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reloadfinish": {
+          "on_entry": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='ak47' || query.get_equipped_item_name=='ak47_emp'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.awp.reload": {
+      "initial_state": "setup",
+      "states": {
+        "setup": {
+          "on_entry": [
+            "@s tac_guns:noreload",
+            "/stopsound @s awp.reload",
+            "/stopsound @s awp.tacreload"
+          ],
+          "transitions": [
+            {
+              "trigger.reload": "query.get_equipped_item_name=='awp_emp' && variable.attack_time == 0.0 && q.is_using_item"
+            },
+            {
+              "trigger.tac": "(query.get_equipped_item_name=='awp' && variable.attack_time > 0.0f && query.scoreboard('awp') <= 5 && q.mark_variant != 3)"
+            }
+          ]
+        },
+        "trigger.tac": {
+          "on_entry": [
+          "/function awpquantity",
+          "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='awp' && q.property('tac_guns:gunreload') == 260"
+            },
+            {
+              "reload.tac": "query.get_equipped_item_name=='awp' && q.property('tac_guns:gunreload') >= 261"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='awp'"
+            }
+          ]
+        },
+        "trigger.reload": {
+          "on_entry": [
+          "/function awpquantity",
+          "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='awp_emp' && q.property('tac_guns:gunreload') == 260"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='awp_emp'"
+            },
+            {
+              "reload": "query.get_equipped_item_name=='awp_emp' && q.property('tac_guns:gunreload') >= 261"
+            }
+          ]
+        },
+        "reload": {
+          "animations": [
+            {
+              "awpreload": "query.get_equipped_item_name('main_hand')=='awp_emp' || query.get_equipped_item_name('main_hand')=='awp'"
+            }
+          ],
+          "on_entry": [
+            "/playanimation @s animation.awp.stopanimation",
+            "/playsound awp.reload @s",
+            "@s tac_guns:reload"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='awp_emp'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reload.tac": {
+          "animations": [
+            {
+              "awpreloadtac": "query.get_equipped_item_name('main_hand')=='awp_emp' || query.get_equipped_item_name('main_hand')=='awp'"
+            }
+          ],
+          "on_entry": [
+            "/playanimation @s animation.awp.stopanimation",
+            "/playsound awp.tacreload @s",
+            "@s tac_guns:reloadtac"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='awp'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reloadfinish": {
+          "on_entry": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='awp' || query.get_equipped_item_name=='awp_emp'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.mk18.reload": {
+      "initial_state": "setup",
+      "states": {
+        "setup": {
+          "on_entry": [
+            "@s tac_guns:noreload",
+            "/stopsound @s mk18.reload",
+            "/stopsound @s mk18.tacreload"
+          ],
+          "transitions": [
+            {
+              "trigger.reload": "query.get_equipped_item_name=='mk18_emp' && variable.attack_time == 0.0 && q.is_using_item"
+            },
+            {
+              "trigger.tac": "(query.get_equipped_item_name=='mk18' && variable.attack_time > 0.0f && query.scoreboard('mk18') <= 30 && q.mark_variant != 3)"
+            }
+          ]
+        },
+        "trigger.tac": {
+          "on_entry": [
+            "/function mk18quantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='mk18' && q.property('tac_guns:gunreload') == 340"
+            },
+            {
+              "reload.tac": "query.get_equipped_item_name=='mk18' && q.property('tac_guns:gunreload') >= 341"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='mk18'"
+            }
+          ]
+        },
+        "trigger.reload": {
+          "on_entry": [
+            "/function mk18quantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='mk18_emp' && q.property('tac_guns:gunreload') == 340"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='mk18_emp'"
+            },
+            {
+              "reload": "query.get_equipped_item_name=='mk18_emp' && q.property('tac_guns:gunreload') >= 341"
+            }
+          ]
+        },
+        "reload": {
+          "animations": [
+            {
+              "mk18reload": "query.get_equipped_item_name('main_hand')=='mk18_emp' || query.get_equipped_item_name('main_hand')=='mk18'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reload",
+            "/playsound mk18.reload @s"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='mk18_emp'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reload.tac": {
+          "animations": [
+            {
+              "mk18reloadtac": "query.get_equipped_item_name('main_hand')=='mk18_emp' || query.get_equipped_item_name('main_hand')=='mk18'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reloadtac",
+            "/playsound mk18.tacreload @s"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='mk18'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reloadfinish": {
+          "on_entry": [
+            "/function mk18",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='mk18' || query.get_equipped_item_name=='mk18_emp'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.dp28.reload": {
+      "initial_state": "setup",
+      "states": {
+        "setup": {
+          "on_entry": [
+            "@s tac_guns:noreload",
+            "/stopsound @s dp28.reload",
+            "/stopsound @s dp28.tacreload"
+          ],
+          "transitions": [
+            {
+              "trigger.reload": "query.get_equipped_item_name=='dp28_emp' && variable.attack_time == 0.0 && q.is_using_item"
+            },
+            {
+              "trigger.tac": "(query.get_equipped_item_name=='dp28' && variable.attack_time > 0.0f && query.scoreboard('dp28') <= 49 && q.mark_variant != 3)"
+            }
+          ]
+        },
+        "trigger.tac": {
+          "on_entry": [
+            "/function dp28quantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='dp28' && q.property('tac_guns:gunreload') == 111"
+            },
+            {
+              "reload.tac": "query.get_equipped_item_name=='dp28' && q.property('tac_guns:gunreload') >= 112"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='dp28'"
+            }
+          ]
+        },
+        "trigger.reload": {
+          "on_entry": [
+            "/function dp28quantity",
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='dp28_emp' && q.property('tac_guns:gunreload') == 111"
+            },
+            {
+              "setup": "query.get_equipped_item_name!='dp28_emp'"
+            },
+            {
+              "reload": "query.get_equipped_item_name=='dp28_emp' && q.property('tac_guns:gunreload') >= 112"
+            }
+          ]
+        },
+        "reload": {
+          "animations": [
+            {
+              "dp28reload": "query.get_equipped_item_name('main_hand')=='dp28_emp' || query.get_equipped_item_name('main_hand')=='dp28'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reload",
+            "/playsound dp28.reload @s"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='dp28_emp'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reload.tac": {
+          "animations": [
+            {
+              "dp28reloadtac": "query.get_equipped_item_name('main_hand')=='dp28_emp' || query.get_equipped_item_name('main_hand')=='dp28'"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:reloadtac",
+            "/playsound dp28.tacreload"
+          ],
+          "on_exit": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name!='dp28'"
+            },
+            {
+              "reloadfinish": "query.all_animations_finished"
+            }
+          ]
+        },
+        "reloadfinish": {
+          "on_entry": [
+            "@s tac_guns:noreload"
+          ],
+          "transitions": [
+            {
+              "setup": "query.get_equipped_item_name=='dp28' || query.get_equipped_item_name=='dp28_emp'"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

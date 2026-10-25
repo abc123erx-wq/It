@@ -1,0 +1,53 @@
+// Exclusive code for indoAr, you are prohibited from using, studying, or modifying it without the owner permission
+
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.gun.recoil": {
+      "initial_state": "setup",
+      "states": {
+        "setup": {
+          "blend_transition": 0.6,
+          "blend_via_shortest_path": true,
+          "animations": [
+            {
+              "shootdelay": "q.is_using_item"
+            }
+          ],
+          "transitions": [
+            {
+              "shoot.hip": "q.is_using_item && q.mark_variant == 0 && !q.is_sneaking && q.all_animations_finished"
+            },
+            {
+              "shoot.sight": "q.is_using_item && q.mark_variant == 0 && q.is_sneaking && q.all_animations_finished"
+            }
+          ]
+        },
+        "shoot.hip": {
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true,
+          "animations": [
+              "gun_recoil"
+          ],
+          "transitions": [
+            {
+              "setup": "!q.is_using_item || q.mark_variant != 0 || q.is_sneaking"
+            }
+          ]
+        },
+        "shoot.sight": {
+          "blend_transition": 0.6,
+          "blend_via_shortest_path": true,
+          "animations": [
+              "recoil_sight"
+          ],
+          "transitions": [
+            {
+              "setup": "!q.is_using_item || q.mark_variant != 0 || !q.is_sneaking"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

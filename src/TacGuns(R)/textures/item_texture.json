@@ -1,0 +1,75 @@
+{
+  "resource_pack_name": "M2543",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    //////guns
+    "mk18": {
+      "textures": "textures/items/mk18"
+    },
+    "m134": {
+      "textures": "textures/items/m134"
+    },
+    "ak47": {
+      "textures": "textures/items/ak47"
+    },
+    "deagle": {
+      "textures": "textures/items/deagle"
+    },
+    "db": {
+      "textures": "textures/items/db"
+    },
+    "glock17": {
+      "textures": "textures/items/glock17"
+    },
+    "awp": {
+      "textures": "textures/items/awp"
+    },
+    "coltpython": {
+      "textures": "textures/items/coltpython"
+    },
+    "m870": {
+      "textures": "textures/items/m870"
+    },
+    "dp28": {
+      "textures": "textures/items/dp28"
+    },
+    //////////ammo
+    "338lapua": {
+      "textures": "textures/items/338lapua"
+    },
+    "308winchester": {
+      "textures": "textures/items/308winchester"
+    },
+    "762x39mm": {
+      "textures": "textures/items/762x39mm"
+    },
+    "762x54mmr": {
+      "textures": "textures/items/762x54mmr"
+    },
+    "357magnum": {
+      "textures": "textures/items/357magnum"
+    },
+    "50ae": {
+      "textures": "textures/items/50ae"
+    },
+    "9x19mm": {
+      "textures": "textures/items/9x19mm"
+    },
+    "556x45mm": {
+      "textures": "textures/items/556x45mm"
+    },
+    "12gauge": {
+      "textures": "textures/items/12gauge"
+    },
+    //////////throwables
+    "m67_grenade": {
+      "textures": "textures/items/m67_grenade"
+    },
+    "flash_grenade": {
+      "textures": "textures/items/flash_grenade"
+    },
+    "impact_flash_grenade": {
+      "textures": "textures/items/impact_flash_grenade"
+    }
+  }
+}

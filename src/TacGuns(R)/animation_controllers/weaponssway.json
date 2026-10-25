@@ -1,0 +1,202 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.weaponsway": {
+      "initial_state": "forward",
+      "states": {
+        "forward": {
+          "animations": [
+            {
+              "no_sway": "v.holding_all_guns"
+            }
+          ],
+          "transitions": [
+            {
+              "forwardtoright": "v.holding_all_guns && q.variant == 1"
+            },
+            {
+              "forwardtoleft": "v.holding_all_guns && q.variant == 2"
+            }
+          ]
+        },
+        "forwardtoright": {
+          "animations": [
+            {
+              "forward_to_right": "v.holding_all_guns"
+            }
+          ],
+          "transitions": [
+            {
+              "right": "v.holding_all_guns && q.variant == 1 && q.any_animation_finished"
+            },
+            {
+              "righttoforward": "v.holding_all_guns && q.variant != 1 && q.any_animation_finished"
+            }
+          ]
+        },
+        "righttoforward": {
+          "animations": [
+            {
+              "right_to_forward": "v.holding_all_guns"
+            }
+          ],
+          "transitions": [
+            {
+              "forward": "v.holding_all_guns && q.variant != 1 && q.any_animation_finished"
+            },
+            {
+              "forwardtoright": "v.holding_all_guns && q.variant == 1 && q.any_animation_finished"
+            }
+          ]
+        },
+        "right": {
+          "animations": [
+            {
+              "right_sway": "v.holding_all_guns"
+            }
+          ],
+          "transitions": [
+            {
+              "righttoforward": "v.holding_all_guns && q.variant != 1"
+            }
+          ]
+        },
+        "forwardtoleft": {
+          "animations": [
+            {
+              "forward_to_left": "v.holding_all_guns"
+            }
+          ],
+          "transitions": [
+            {
+              "left": "v.holding_all_guns && q.variant == 2 && q.any_animation_finished"
+            },
+            {
+              "lefttoforward": "v.holding_all_guns && q.variant != 2 && q.any_animation_finished"
+            }
+          ]
+        },
+        "lefttoforward": {
+          "animations": [
+            {
+              "left_to_forward": "v.holding_all_guns"
+            }
+          ],
+          "transitions": [
+            {
+              "forward": "v.holding_all_guns && q.variant != 2 && q.any_animation_finished"
+            },
+            {
+              "forwardtoleft": "v.holding_all_guns && q.variant == 2 && q.any_animation_finished"
+            }
+          ]
+        },
+        "left": {
+          "animations": [
+            {
+              "left_sway": "v.holding_all_guns"
+            }
+          ],
+          "transitions": [
+            {
+              "lefttoforward": "v.holding_all_guns && q.variant != 2"
+            }
+          ]
+        }
+      }
+    },
+		"controller.animation.viewmodel.up": {
+			"initial_state": "idle",
+			"states": {
+				"idle": {
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true,
+					"transitions": [
+						{
+							"up": "v.holding_all_guns && q.vertical_speed>0"
+						}
+					]
+				},
+				"up": {
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true,
+					"animations": [
+						{
+							"gun_up": "v.holding_all_guns"
+						}
+					],
+					"transitions": [
+						{
+							"idle": "v.holding_all_guns && q.vertical_speed==0"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.viewmodel.down": {
+			"initial_state": "idle",
+			"states": {
+				"idle": {
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true,
+					"transitions": [
+						{
+							"down": "v.holding_all_guns && q.vertical_speed<0"
+						}
+					]
+				},
+				"down": {
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true,
+					"animations": [
+						{
+							"gun_down": "v.holding_all_guns"
+						}
+					],
+					"transitions": [
+						{
+							"idle": "v.holding_all_guns && q.vertical_speed==0"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.viewmodel.land": {
+			"initial_state": "idle",
+			"states": {
+				"idle": {
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true,
+					"transitions": [
+						{
+							"midair": "v.holding_all_guns && !q.is_on_ground"
+						}
+					]
+				},
+				"midair": {
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true,
+					"transitions": [
+						{
+							"land": "v.holding_all_guns && q.is_on_ground"
+						}
+					]
+				},
+				"land": {
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true,
+					"animations": [
+						{
+							"gun_normal": "v.holding_all_guns"
+						}
+					],
+					"transitions": [
+						{
+							"idle": "v.holding_all_guns && q.any_animation_finished"
+						}
+					]
+				}
+			}
+		}
+  }
+}

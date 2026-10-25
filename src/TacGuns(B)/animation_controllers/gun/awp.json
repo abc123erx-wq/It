@@ -1,0 +1,44 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.awp": {
+      "initial_state": "setup1",
+      "states": {
+        "setup1": {
+          "transitions": [
+            {
+              "setup": "(query.get_equipped_item_name=='awp' && q.is_using_item) || query.get_equipped_item_name=='awp_emp'"
+            }
+          ],
+          "on_entry": [
+            "/scoreboard players set @s awp 5",
+            "@s[hasitem={item=tac_guns:awp, location=slot.weapon.mainhand}] tac_guns:noreload"
+          ]
+        },
+        "setup": {
+          "transitions": [
+            {
+              "awp.30": "query.get_equipped_item_name=='awp' && query.is_using_item && query.scoreboard('awp') >= 1 && q.mark_variant == 0"
+            }
+          ]
+        },
+        "awp.30": {
+          "animations": [
+            "awpshoot"
+          ],
+          "transitions": [
+            {
+              "setup": "query.all_animations_finished && !q.is_using_item"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:awp_fire",
+            "/scoreboard players remove @s[scores={awp=1..6}] awp 1",
+            "/playsound awp.shoot @a ~~~",
+            "/replaceitem entity @s[scores={awp=0}] slot.weapon.mainhand 1 tac_guns:awp_emp 1 0"
+          ]
+        }
+      }
+    }
+  }
+}

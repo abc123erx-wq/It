@@ -1,0 +1,17 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.workbench.item_rotate": {
+			"loop": true,
+			"bones": {
+				"3drotate": {
+					"rotation": [0, "q.anim_time * 45", 0]
+				},
+				"ui": {
+					"position": [-4.5, 24.8, -48],
+					"scale": 0.1
+				}
+			}
+		}
+	}
+}

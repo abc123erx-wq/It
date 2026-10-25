@@ -1,0 +1,127 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.awp.fp": {
+      "initial_state": "hold",
+      "states": {
+        "hold": {
+          "blend_transition": 0.275,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "awp_fp_hold": "v.awp"
+           }
+          ],
+          "transitions": [
+            {
+              "reload": "v.awpemp && q.mark_variant == 1"
+            },
+            {
+              "inspect": "v.awp && q.mark_variant == 4 && !q.is_sneaking"
+            },
+            {
+              "reloadtac": "v.awp && q.mark_variant == 2"
+            },
+            {
+              "sprint": "v.awp && q.is_sprinting && !q.is_using_item"
+            },
+            {
+              "sight": "v.awp && q.is_sneaking"
+            },
+            {
+              "hold": "v.awp && q.is_using_item"
+            }
+          ]
+        },
+        "inspect": {
+          "animations": [
+            {
+              "awp_fp_inspect": "v.awp"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "(v.awp && q.all_animations_finished) || (v.awp && q.is_using_item) || (v.awp && q.is_sneaking) || (v.awp && q.mark_variant != 4)"
+            }
+          ]
+        },
+        "sprint": {
+          "blend_transition": 0.35,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "awp_fp_sprint": "v.awp"
+           }
+          ],
+          "transitions": [
+            {
+              "hold": "v.awp && !q.is_sprinting"
+            },
+            {
+              "inspect": "v.awp && q.mark_variant == 4 && !q.is_sneaking"
+            },
+            {
+              "hold": "v.awp && q.is_using_item"
+            },
+            {
+              "reload": "v.awpemp && q.mark_variant == 1"
+            },
+            {
+              "reloadtac": "v.awp && q.mark_variant == 2"
+            },
+            {
+              "sight": "v.awp && q.is_sneaking"
+            }
+          ]
+        },
+        "reload": {
+          "animations": [
+           {
+            "awp_fp_reload": "v.awp"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "v.awp && (q.all_animations_finished || q.mark_variant != 1)"
+            }
+          ]
+        },
+        "reloadtac": {
+          "animations": [
+           {
+            "awp_fp_reload_tac": "v.awp"
+            }
+          ],
+          "transitions": [
+            {
+              "hold": "v.awp && q.all_animations_finished"
+            },
+            {
+              "hold": "v.awpb && q.mark_variant != 2"
+            }
+          ]
+        },
+        "sight": {
+          "blend_transition": 0.25,
+          "blend_via_shortest_path": true,
+          "animations": [
+           {
+            "awp_fp_sight": "v.awp"
+           }
+          ],
+          "transitions": [
+            {
+              "hold": "v.awp && !q.is_sneaking"
+            },
+            {
+              "reloadtac": "v.awp && q.mark_variant == 2"
+            },
+            {
+              "reload": "v.awpemp && q.mark_variant == 1"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

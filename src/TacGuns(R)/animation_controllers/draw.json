@@ -1,0 +1,194 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.draw": {
+      "initial_state": "setup",
+      "states": {
+        "setup": {
+          "transitions": [
+            { "draw.m134": "v.m134" },
+            { "draw.mk18": "v.mk18" },
+            { "draw.ak47": "v.ak47" },
+            { "draw.awp": "v.awp" },
+            { "draw.coltpython": "v.coltpython" },
+            { "draw.deagle": "v.deagle" },
+            { "draw.db": "v.db" },
+            { "draw.glock17": "v.glock17" },
+            { "draw.m870": "v.m870" },
+            { "draw.dp28": "v.dp28" }
+          ]
+        },
+        "draw.ak47": {
+          "animations": [{ "ak47_fp_draw": "v.ak47" }],
+          "transitions": [
+            {
+              "setup": "!v.db && !v.m870 && !v.glock17 && !v.deagle && !v.ak47 && !v.coltpython && !v.awp && !v.m134 && !v.mk18 && !v.dp28"
+            },
+            { "draw.mk18": "v.mk18" },
+            { "draw.m134": "v.m134" },
+            { "draw.awp": "v.awp" },
+            { "draw.coltpython": "v.coltpython" },
+            { "draw.deagle": "v.deagle" },
+            { "draw.db": "v.db" },
+            { "draw.glock17": "v.glock17" },
+            { "draw.m870": "v.m870" },
+            { "draw.dp28": "v.dp28" }
+          ]
+        },
+        "draw.awp": {
+          "animations": [{ "awp_fp_draw": "v.awp" }],
+          "transitions": [
+            {
+              "setup": "!v.db && !v.m870 && !v.glock17 && !v.deagle && !v.ak47 && !v.coltpython && !v.awp && !v.m134 && !v.mk18 && !v.dp28"
+            },
+            { "draw.m134": "v.m134" },
+            { "draw.mk18": "v.mk18" },
+            { "draw.ak47": "v.ak47" },
+            { "draw.coltpython": "v.coltpython" },
+            { "draw.deagle": "v.deagle" },
+            { "draw.db": "v.db" },
+            { "draw.glock17": "v.glock17" },
+            { "draw.m870": "v.m870" },
+            { "draw.dp28": "v.dp28" }
+          ]
+        },
+        "draw.coltpython": {
+          "animations": [{ "coltpython_fp_draw": "v.coltpython" }],
+          "transitions": [
+            {
+              "setup": "!v.db && !v.m870 && !v.glock17 && !v.deagle && !v.ak47 && !v.coltpython && !v.awp && !v.m134 && !v.mk18 && !v.dp28"
+            },
+            { "draw.mk18": "v.mk18" },
+            { "draw.m134": "v.m134" },
+            { "draw.awp": "v.awp" },
+            { "draw.ak47": "v.ak47" },
+            { "draw.deagle": "v.deagle" },
+            { "draw.db": "v.db" },
+            { "draw.glock17": "v.glock17" },
+            { "draw.m870": "v.m870" },
+            { "draw.dp28": "v.dp28" }
+          ]
+        },
+        "draw.deagle": {
+          "animations": [{ "deagle_fp_draw": "v.deagle" }],
+          "transitions": [
+            {
+              "setup": "!v.db && !v.m870 && !v.glock17 && !v.deagle && !v.ak47 && !v.coltpython && !v.awp && !v.m134 && !v.mk18 && !v.dp28"
+            },
+            { "draw.mk18": "v.mk18" },
+            { "draw.m134": "v.m134" },
+            { "draw.awp": "v.awp" },
+            { "draw.ak47": "v.ak47" },
+            { "draw.db": "v.db" },
+            { "draw.coltpython": "v.coltpython" },
+            { "draw.glock17": "v.glock17" },
+            { "draw.m870": "v.m870" },
+            { "draw.dp28": "v.dp28" }
+          ]
+        },
+        "draw.db": {
+          "animations": [{ "db_fp_draw": "v.db" }],
+          "transitions": [
+            {
+              "setup": "!v.db && !v.m870 && !v.glock17 && !v.deagle && !v.ak47 && !v.coltpython && !v.awp && !v.m134 && !v.mk18 && !v.dp28"
+            },
+            { "draw.mk18": "v.mk18" },
+            { "draw.m134": "v.m134" },
+            { "draw.awp": "v.awp" },
+            { "draw.ak47": "v.ak47" },
+            { "draw.deagle": "v.deagle" },
+            { "draw.coltpython": "v.coltpython" },
+            { "draw.glock17": "v.glock17" },
+            { "draw.m870": "v.m870" },
+            { "draw.dp28": "v.dp28" }
+          ]
+        },
+        "draw.glock17": {
+          "animations": [{ "glock17_fp_draw": "v.glock17" }],
+          "transitions": [
+            {
+              "setup": "!v.db && !v.m870 && !v.glock17 && !v.deagle && !v.ak47 && !v.coltpython && !v.awp && !v.m134 && !v.mk18 && !v.dp28"
+            },
+            { "draw.mk18": "v.mk18" },
+            { "draw.m134": "v.m134" },
+            { "draw.awp": "v.awp" },
+            { "draw.ak47": "v.ak47" },
+            { "draw.coltpython": "v.coltpython" },
+            { "draw.deagle": "v.deagle" },
+            { "draw.db": "v.db" },
+            { "draw.m870": "v.m870" },
+            { "draw.dp28": "v.dp28" }
+          ]
+        },
+        "draw.m134": {
+          "animations": [{ "m134_fp_draw": "v.m134" }],
+          "transitions": [
+            {
+              "setup": "!v.db && !v.m870 && !v.glock17 && !v.deagle && !v.ak47 && !v.coltpython && !v.awp && !v.m134 && !v.mk18 && !v.dp28"
+            },
+            { "draw.mk18": "v.mk18" },
+            { "draw.coltpython": "v.coltpython" },
+            { "draw.awp": "v.awp" },
+            { "draw.ak47": "v.ak47" },
+            { "draw.deagle": "v.deagle" },
+            { "draw.db": "v.db" },
+            { "draw.glock17": "v.glock17" },
+            { "draw.m870": "v.m870" },
+            { "draw.dp28": "v.dp28" }
+          ]
+        },
+        "draw.mk18": {
+          "animations": [{ "mk18_fp_draw": "v.mk18" }],
+          "transitions": [
+            {
+              "setup": "!v.db && !v.m870 && !v.glock17 && !v.deagle && !v.ak47 && !v.coltpython && !v.awp && !v.m134 && !v.mk18 && !v.dp28"
+            },
+            { "draw.m134": "v.m134" },
+            { "draw.coltpython": "v.coltpython" },
+            { "draw.awp": "v.awp" },
+            { "draw.ak47": "v.ak47" },
+            { "draw.deagle": "v.deagle" },
+            { "draw.db": "v.db" },
+            { "draw.glock17": "v.glock17" },
+            { "draw.m870": "v.m870" },
+            { "draw.dp28": "v.dp28" }
+          ]
+        },
+        "draw.m870": {
+          "animations": [{ "m870_fp_draw": "v.m870" }],
+          "transitions": [
+            {
+              "setup": "!v.db && !v.m870 && !v.glock17 && !v.deagle && !v.ak47 && !v.coltpython && !v.awp && !v.m134 && !v.mk18 && !v.dp28"
+            },
+            { "draw.m134": "v.m134" },
+            { "draw.coltpython": "v.coltpython" },
+            { "draw.awp": "v.awp" },
+            { "draw.ak47": "v.ak47" },
+            { "draw.deagle": "v.deagle" },
+            { "draw.db": "v.db" },
+            { "draw.glock17": "v.glock17" },
+            { "draw.mk18": "v.mk18" },
+            { "draw.dp28": "v.dp28" }
+          ]
+        },
+        "draw.dp28": {
+          "animations": [{ "dp28_fp_draw": "v.dp28" }],
+          "transitions": [
+            {
+              "setup": "!v.db && !v.m870 && !v.glock17 && !v.deagle && !v.ak47 && !v.coltpython && !v.awp && !v.m134 && !v.mk18 && !v.dp28"
+            },
+            { "draw.mk18": "v.mk18" },
+            { "draw.m134": "v.m134" },
+            { "draw.coltpython": "v.coltpython" },
+            { "draw.awp": "v.awp" },
+            { "draw.ak47": "v.ak47" },
+            { "draw.deagle": "v.deagle" },
+            { "draw.db": "v.db" },
+            { "draw.glock17": "v.glock17" },
+            { "draw.m870": "v.m870" }
+          ]
+        }
+      }
+    }
+  }
+}

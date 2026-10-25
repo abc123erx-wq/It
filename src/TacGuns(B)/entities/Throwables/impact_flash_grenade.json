@@ -1,0 +1,59 @@
+{
+  "format_version": "1.13",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "tac_guns:impact_flash_grenade_thrown",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "tac_guns:grenade_stop": {
+        "minecraft:projectile": {
+          "gravity": 0
+        }
+      }
+    },
+    "components": {
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deals_damage": false
+          }
+        ]
+      },
+      "minecraft:projectile": {
+        "on_hit": {
+          "impact_damage": {
+            "knockback": false
+          },
+          "stick_in_ground": {}
+        },
+        "power": 1.5,
+        "gravity": 0.05,
+        "angle_offset": -20.0,
+        "anchor": 1
+      },
+      "minecraft:collision_box": {
+        "width": 0.05,
+        "height": 0.05
+      },
+      "minecraft:type_family": {
+        "family": [
+          "grenade"
+        ]
+      },
+      "minecraft:physics": {}
+    },
+    "events": {
+      "tac_guns:grenade_stop": {
+        "add": {
+          "component_groups": [
+            "tac_guns:grenade_stop"
+          ]
+        }
+      }
+    }
+  }
+}

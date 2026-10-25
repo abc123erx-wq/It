@@ -1,0 +1,62 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.coltpython": {
+      "initial_state": "setup1",
+      "states": {
+        "setup1": {
+          "transitions": [
+            {
+              "setup": "(query.get_equipped_item_name=='coltpython' && q.is_using_item) || query.get_equipped_item_name=='coltpython_emp'"
+            }
+          ],
+          "on_entry": [
+            "@s[hasitem={item=tac_guns:coltpython, location=slot.weapon.mainhand}] tac_guns:noreload"
+          ]
+        },
+        "setup": {
+          "transitions": [
+            {
+              "coltpython.30": "query.get_equipped_item_name=='coltpython' && query.is_using_item && query.scoreboard('coltpython') >= 2 && q.mark_variant == 0"
+            },
+            {
+              "coltpython.31": "query.get_equipped_item_name=='coltpython' && query.is_using_item && query.scoreboard('coltpython') == 1 && q.mark_variant == 0"
+            }
+          ]
+        },
+        "coltpython.30": {
+          "animations": [
+            "coltpythonshoot"
+          ],
+          "transitions": [
+            {
+              "setup": "query.all_animations_finished && !q.is_using_item"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:coltpython_fire",
+            "/scoreboard players remove @s[scores={coltpython=1..6}] coltpython 1",
+            "/playsound coltpython.shoot @a ~~~",
+            "/replaceitem entity @s[scores={coltpython=0}] slot.weapon.mainhand 1 tac_guns:coltpython_emp 1 0"
+          ]
+        },
+        "coltpython.31": {
+          "animations": [
+            "coltpythonshoot"
+          ],
+          "transitions": [
+            {
+              "setup": "query.all_animations_finished && !q.is_using_item"
+            }
+          ],
+          "on_entry": [
+            "@s tac_guns:coltpython_fire2",
+            "/scoreboard players remove @s[scores={coltpython=1..6}] coltpython 1",
+            "/playsound coltpython.shoot @a ~~~",
+            "/replaceitem entity @s[scores={coltpython=0}] slot.weapon.mainhand 1 tac_guns:coltpython_emp 1 0"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4384 @@
+{
+  "format_version": "1.19.10",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:player",
+      "is_spawnable": false,
+      "is_summonable": false,
+      "is_experimental": false,
+      "properties": {
+        "tac_guns:item": { 
+            "type": "bool",
+            "default": false,
+            "client_sync": true 
+        },
+        "tac_guns:tab": { 
+            "type": "int",
+            "range": [0, 8],
+            "default": 0,
+            "client_sync": true 
+        },
+        "tac_guns:itemtab": { 
+            "type": "int",
+            "range": [1, 11],
+            "default": 1,
+            "client_sync": true 
+        },
+        "tac_guns:gunreload": {
+          "range": [
+            0,
+            1000
+          ],
+          "default": 30,
+          "type": "int",
+          "client_sync": true
+        },
+        "tac_guns:coltpythonreload": {
+          "range": [
+            0,
+            1000
+          ],
+          "default": 0,
+          "type": "int",
+          "client_sync": true
+        }
+      },
+      "scripts": {
+        "animate": [
+          {
+            "workbench": "q.mark_variant == 100"
+          },
+          "inspect",
+          "minigunbarrel",
+          {
+            "m1341": "query.get_equipped_item_name=='m134'"
+          },
+          "m1342",
+          "m1343",
+          {
+            "mk18": "query.get_equipped_item_name=='mk18' || query.get_equipped_item_name=='mk18_emp'"
+          },
+          "mk18reloading",
+          {
+            "coltpython": "query.get_equipped_item_name=='coltpython' || query.get_equipped_item_name=='coltpython_emp'"
+          },
+          "coltpythonreloading",
+          {
+            "deagle": "query.get_equipped_item_name=='deagle' || query.get_equipped_item_name=='deagle_emp'"
+          },
+          "deaglereloading",
+          {
+            "db": "query.get_equipped_item_name=='db' || query.get_equipped_item_name=='db_emp'"
+          },
+          "dbreloading",
+          {
+            "glock17": "query.get_equipped_item_name=='glock17' || query.get_equipped_item_name=='glock17_emp'"
+          },
+          "glock17reloading",
+          {
+            "m870": "query.get_equipped_item_name=='m870' || query.get_equipped_item_name=='m870_emp'"
+          },
+          "m870reloading",
+          {
+            "ak47": "query.get_equipped_item_name=='ak47' || query.get_equipped_item_name=='ak47_emp'"
+          },
+          "ak47reloading",
+          {
+            "dp28": "query.get_equipped_item_name=='dp28' || query.get_equipped_item_name=='dp28_emp'"
+          },
+          "dp28reloading",
+          {
+            "awp": "query.get_equipped_item_name=='awp' || query.get_equipped_item_name=='awp_emp'"
+          },
+          "awpreloading",
+          "scope"
+        ]
+      },
+      "animations": {
+        "workbench": "controller.animation.workbench",
+        "inspect": "controller.animation.inspect",
+        "minigunbarrel": "controller.animation.minigunbarrel",
+        "m1341": "controller.animation.m134.1",
+        "m1342": "controller.animation.m134.2",
+        "m1343": "controller.animation.m134.3",
+        "m134shoot": "animation.m134.shoot",
+        "mk18": "controller.animation.mk18",
+        "mk18reloading": "controller.animation.mk18.reload",
+        "mk18shoot": "animation.mk18.shoot",
+        "mk18reload": "animation.mk18.reload",
+        "mk18reloadtac": "animation.mk18.reload.tac",
+        "coltpython": "controller.animation.coltpython",
+        "coltpythonreloading": "controller.animation.coltpython.reload",
+        "coltpythonshoot": "animation.coltpython.shoot",
+        "coltpythonreload": "animation.coltpython.reload",
+        "coltpythonreloadtac": "animation.coltpython.reload.tac",
+        "deagle": "controller.animation.deagle",
+        "deaglereloading": "controller.animation.deagle.reload",
+        "deagleshoot": "animation.deagle.shoot",
+        "deaglereload": "animation.deagle.reload",
+        "deaglereloadtac": "animation.deagle.reload.tac",
+        "db": "controller.animation.db",
+        "dbreloading": "controller.animation.db.reload",
+        "dbshoot": "animation.db.shoot",
+        "dbreload": "animation.db.reload",
+        "dbreloadtac": "animation.db.reload.tac",
+        "glock17": "controller.animation.glock17",
+        "glock17reloading": "controller.animation.glock17.reload",
+        "glock17shoot": "animation.glock17.shoot",
+        "glock17reload": "animation.glock17.reload",
+        "glock17reloadtac": "animation.glock17.reload.tac",
+        "m870": "controller.animation.m870",
+        "m870reloading": "controller.animation.m870.reload",
+        "m870shoot": "animation.m870.shoot",
+        "m870reload": "animation.m870.reload",
+        "ak47": "controller.animation.ak47",
+        "ak47reloading": "controller.animation.ak47.reload",
+        "ak47shoot": "animation.ak47.shoot",
+        "ak47reload": "animation.ak47.reload",
+        "ak47reloadtac": "animation.ak47.reload.tac",
+        "dp28": "controller.animation.dp28",
+        "dp28reloading": "controller.animation.dp28.reload",
+        "dp28shoot": "animation.dp28.shoot",
+        "dp28reload": "animation.dp28.reload",
+        "dp28reloadtac": "animation.dp28.reload.tac",
+        "awp": "controller.animation.awp",
+        "awpreloading": "controller.animation.awp.reload",
+        "awpshoot": "animation.awp.shoot",
+        "awpreload": "animation.awp.reload",
+        "awpreloadtac": "animation.awp.reload.tac",
+        "scope": "controller.animation.scope"
+      }
+    },
+    "component_groups": {
+      "tac_guns:workbench_ui": {
+        "minecraft:mark_variant": {
+          "value": 100
+        }
+      },
+      "tac_guns:rightsway": {
+        "minecraft:variant": {
+          "value": 1
+        }
+      },
+      "tac_guns:leftsway": {
+        "minecraft:variant": {
+          "value": 2
+        }
+      },
+      "tac_guns:nosway": {
+        "minecraft:variant": {
+          "value": 0
+        }
+      },
+      "tac_guns:build": {
+        "minecraft:variant": {
+          "value": 3
+        }
+      },
+      "tac_guns:bulletbait": {
+        "minecraft:type_family": {
+          "family": [
+            "player",
+            "bulletbait"
+          ]
+        },
+        "minecraft:timer": {
+          "time": 5.0,
+          "time_down_event": {
+              "event": "tac_guns:resetfamily"
+          }
+        }
+      },
+      "tac_guns:resetfamily": {
+        "minecraft:type_family": {
+          "family": [
+            "player"
+          ]
+        }
+      },
+      "tac_guns:reload": {
+        "minecraft:mark_variant": {
+          "value": 1
+        }
+      },
+      "tac_guns:startreload": {
+        "minecraft:mark_variant": {
+          "value": 3
+        }
+      },
+      "tac_guns:shotgunreload": {
+        "minecraft:mark_variant": {
+          "value": 5
+        }
+      },
+      "tac_guns:shotgunreloadfinish": {
+        "minecraft:mark_variant": {
+          "value": 6
+        }
+      },
+      "tac_guns:noreload": {
+        "minecraft:mark_variant": {
+          "value": 0
+        }
+      },
+      "tac_guns:inspect": {
+        "minecraft:mark_variant": {
+          "value": 4
+        }
+      },
+      "tac_guns:reloadtac": {
+        "minecraft:mark_variant": {
+          "value": 2
+        }
+      },
+      "tac_guns:m134_firest": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:m134",
+              "spawn_event": "m134:nsight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:m134_fires": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:m134",
+              "spawn_event": "m134:sight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:mk18_firest": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:mk18",
+              "spawn_event": "mk18:nsight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:mk18_fires": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:mk18",
+              "spawn_event": "mk18:sight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:coltpython_firest": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:coltpython",
+              "spawn_event": "coltpython:nsight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:coltpython_fires": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:coltpython",
+              "spawn_event": "coltpython:sight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:deagle_firest": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:deagle",
+              "spawn_event": "deagle:nsight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:deagle_fires": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:deagle",
+              "spawn_event": "deagle:sight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:db_firest": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:db",
+              "spawn_event": "db:nsight",
+              "num_to_spawn": 8
+            }
+          ]
+        }
+      },
+      "tac_guns:db_fires": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:db",
+              "spawn_event": "db:sight",
+              "num_to_spawn": 8
+            }
+          ]
+        }
+      },
+      "tac_guns:glock17_firest": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:glock17",
+              "spawn_event": "glock17:nsight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:glock17_fires": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:glock17",
+              "spawn_event": "glock17:sight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:m870_firest": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:m870",
+              "spawn_event": "m870:nsight",
+              "num_to_spawn": 8
+            }
+          ]
+        }
+      },
+      "tac_guns:m870_fires": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:m870",
+              "spawn_event": "m870:sight",
+              "num_to_spawn": 8
+            }
+          ]
+        }
+      },
+      "tac_guns:scope4x": {
+        "minecraft:spell_effects": {
+          "add_effects": [
+            {
+              "effect": "slowness",
+              "amplifier": 7,
+              "duration": 9999999,
+              "visible": false
+            }
+          ]
+        }
+      },
+      "tac_guns:normal": {
+        "minecraft:spell_effects": {
+          "remove_effects": "slowness"
+        }
+      },
+      "tac_guns:ak47_firest": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:ak47",
+              "spawn_event": "ak47:nsight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:ak47_fires": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:ak47",
+              "spawn_event": "ak47:sight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:dp28_firest": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:dp28",
+              "spawn_event": "dp28:nsight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:dp28_fires": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:dp28",
+              "spawn_event": "dp28:sight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:awp_firest": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:awp",
+              "spawn_event": "awp:nsight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "tac_guns:awp_fires": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "bullet:awp",
+              "spawn_event": "awp:sight",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "minecraft:add_bad_omen": {
+        "minecraft:spell_effects": {
+          "add_effects": [
+            {
+              "effect": "bad_omen",
+              "duration": 6000,
+              "display_on_screen_animation": true
+            }
+          ]
+        },
+        "minecraft:timer": {
+          "time": [
+            0.0,
+            0.0
+          ],
+          "looping": false,
+          "time_down_event": {
+            "event": "minecraft:clear_add_bad_omen",
+            "target": "self"
+          }
+        }
+      },
+      "minecraft:clear_bad_omen_spell_effect": {
+        "minecraft:spell_effects": {}
+      },
+      "minecraft:raid_trigger": {
+        "minecraft:raid_trigger": {
+          "triggered_event": {
+            "event": "minecraft:remove_raid_trigger",
+            "target": "self"
+          }
+        },
+        "minecraft:spell_effects": {
+          "remove_effects": "bad_omen"
+        }
+      }
+    },
+    "components": {
+      "minecraft:experience_reward": {
+        "on_death": "Math.Min(query.player_level * 7, 100)"
+      },
+      "minecraft:type_family": {
+        "family": [
+          "player"
+        ]
+      },
+      "minecraft:is_hidden_when_invisible": {},
+      "minecraft:loot": {
+        "table": "loot_tables/empty.json"
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.8
+      },
+      "minecraft:can_climb": {},
+      "minecraft:movement": {
+        "value": 0.1
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": {
+              "test": "in_lava",
+              "subject": "self",
+              "operator": "==",
+              "value": true
+            },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:attack": {
+        "damage": 1
+      },
+      "minecraft:player.saturation": {
+        "value": 20
+      },
+      "minecraft:player.exhaustion": {
+        "value": 0,
+        "max": 4
+      },
+      "minecraft:player.level": {
+        "value": 0,
+        "max": 24791
+      },
+      "minecraft:player.experience": {
+        "value": 0,
+        "max": 1
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": -1,
+        "inhale_time": 3.75,
+        "generates_bubbles": false
+      },
+      "minecraft:nameable": {
+        "always_show": true,
+        "allow_name_tag_renaming": false
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:insomnia": {
+        "days_until_insomnia": 3
+      },
+      "minecraft:rideable": {
+        "seat_count": 2,
+        "family_types": [
+          "parrot_tame"
+        ],
+        "pull_in_entities": true,
+        "seats": [
+          {
+            "position": [
+              0.4,
+              -0.2,
+              -0.1
+            ],
+            "min_rider_count": 0,
+            "max_rider_count": 0,
+            "lock_rider_rotation": 0
+          },
+          {
+            "position": [
+              -0.4,
+              -0.2,
+              -0.1
+            ],
+            "min_rider_count": 1,
+            "max_rider_count": 2,
+            "lock_rider_rotation": 0
+          }
+        ]
+      },
+      "minecraft:block_climber": {},
+      "minecraft:environment_sensor": {
+        "triggers": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_mob_effect",
+                  "subject": "self",
+                  "value": "bad_omen"
+                },
+                {
+                  "test": "is_in_village",
+                  "subject": "self",
+                  "value": true
+                }
+              ]
+            },
+            "event": "minecraft:trigger_raid"
+          }
+        ]
+      }
+    },
+    "events": {
+      "tac_guns:itemtab1": {
+        "set_property": {
+          "tac_guns:itemtab": 1
+        }
+      },
+      "tac_guns:itemtab2": {
+        "set_property": {
+          "tac_guns:itemtab": 2
+        }
+      },
+      "tac_guns:itemtab3": {
+        "set_property": {
+          "tac_guns:itemtab": 3
+        }
+      },
+      "tac_guns:itemtab4": {
+        "set_property": {
+          "tac_guns:itemtab": 4
+        }
+      },
+      "tac_guns:itemtab5": {
+        "set_property": {
+          "tac_guns:itemtab": 5
+        }
+      },
+      "tac_guns:itemtab6": {
+        "set_property": {
+          "tac_guns:itemtab": 6
+        }
+      },
+      "tac_guns:itemtab7": {
+        "set_property": {
+          "tac_guns:itemtab": 7
+        }
+      },
+      "tac_guns:itemtab8": {
+        "set_property": {
+          "tac_guns:itemtab": 8
+        }
+      },
+      "tac_guns:itemtab9": {
+        "set_property": {
+          "tac_guns:itemtab": 9
+        }
+      },
+      "tac_guns:itemtab10": {
+        "set_property": {
+          "tac_guns:itemtab": 10
+        }
+      },
+      "tac_guns:itemtab11": {
+        "set_property": {
+          "tac_guns:itemtab": 11
+        }
+      },
+      "tac_guns:workbench_ui": {
+        "add": {
+          "component_groups": [
+            "tac_guns:workbench_ui"
+          ]
+        }
+      },
+      "tac_guns:rightsway": {
+        "add": {
+          "component_groups": [
+            "tac_guns:rightsway"
+          ]
+        }
+      },
+      "tac_guns:leftsway": {
+        "add": {
+          "component_groups": [
+            "tac_guns:leftsway"
+          ]
+        }
+      },
+      "tac_guns:nosway": {
+        "add": {
+          "component_groups": [
+            "tac_guns:nosway"
+          ]
+        }
+      },
+      "tac_guns:build": {
+        "add": {
+          "component_groups": [
+            "tac_guns:build"
+          ]
+        }
+      },
+      "tac_guns:bulletbait": {
+        "add": {
+          "component_groups": [
+            "tac_guns:bulletbait"
+          ]
+        }
+      },
+      "tac_guns:resetfamily": {
+        "remove": {
+          "component_groups": [
+            "tac_guns:bulletbait"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "tac_guns:resetfamily"
+          ]
+        }
+      },
+      "tac_guns:shotgunreload": {
+        "add": {
+          "component_groups": [
+            "tac_guns:shotgunreload"
+          ]
+        }
+      },
+      "tac_guns:shotgunreloadfinish": {
+        "add": {
+          "component_groups": [
+            "tac_guns:shotgunreloadfinish"
+          ]
+        }
+      },
+      "tac_guns:reload": {
+        "add": {
+          "component_groups": [
+            "tac_guns:reload"
+          ]
+        }
+      },
+      "tac_guns:noreload": {
+        "add": {
+          "component_groups": [
+            "tac_guns:noreload"
+          ]
+        }
+      },
+      "tac_guns:inspect": {
+        "add": {
+          "component_groups": [
+            "tac_guns:inspect"
+          ]
+        }
+      },
+      "tac_guns:glreload": {
+        "add": {
+          "component_groups": [
+            "tac_guns:glreload"
+          ]
+        }
+      },
+      "tac_guns:reloadtac": {
+        "add": {
+          "component_groups": [
+            "tac_guns:reloadtac"
+          ]
+        }
+      },
+      "tac_guns:m134_fire": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": true,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:m134_fires"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.m134.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.015 0.27 rotational",
+                "playsound m134.shoot @a ~~~",
+                "clear @s tac_guns:308winchester 0 1"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": false,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:m134_firest"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.m134.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.022 0.28 rotational",
+                "playsound m134.shoot @a ~~~",
+                "clear @s tac_guns:308winchester 0 1"
+              ]
+            }
+          }
+        ]
+      },
+      "tac_guns:mk18_fire": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": true,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:mk18_fires"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.mk18.shoot.sight shoot",
+                "camerashake add @s[r=0.5] 0.032 0.2 rotational"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": false,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:mk18_firest"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.mk18.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.037 0.2 rotational"
+              ]
+            }
+          }
+        ]
+      },
+      "tac_guns:coltpython_fire": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": true,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:coltpython_fires"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.coltpython.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.032 0.15 rotational"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": false,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:coltpython_firest"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.coltpython.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.045 0.17 rotational"
+              ]
+            }
+          }
+        ]
+      },
+      "tac_guns:coltpython_fire2": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": true,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:coltpython_fires"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.coltpython.shoot.nsight2 shoot",
+                "camerashake add @s[r=0.5] 0.032 0.15 rotational"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": false,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:coltpython_firest"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.coltpython.shoot.nsight2 shoot",
+                "camerashake add @s[r=0.5] 0.045 0.17 rotational"
+              ]
+            }
+          }
+        ]
+      },
+      "tac_guns:deagle_fire": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": true,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:deagle_fires"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.deagle.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.032 0.15 rotational"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": false,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:deagle_firest"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.deagle.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.045 0.17 rotational"
+              ]
+            }
+          }
+        ]
+      },
+      "tac_guns:db_fire": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": true,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:db_fires"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.db.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.072 0.15 rotational"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": false,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:db_firest"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.db.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.125 0.25 rotational"
+              ]
+            }
+          }
+        ]
+      },
+      "tac_guns:glock17_fire": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": true,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:glock17_fires"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.glock17.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.032 0.15 rotational"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": false,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:glock17_firest"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.glock17.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.045 0.17 rotational"
+              ]
+            }
+          }
+        ]
+      },
+      "tac_guns:m870_fire": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": true,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:m870_fires"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.m870.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.072 0.15 rotational"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": false,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:m870_firest"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.m870.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.125 0.25 rotational"
+              ]
+            }
+          }
+        ]
+      },
+      "tac_guns:ak47_fire": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": true,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:ak47_fires"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.ak47.shoot.sight shoot",
+                "camerashake add @s[r=0.5] 0.032 0.28 rotational"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": false,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:ak47_firest"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.ak47.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.032 0.3 rotational"
+              ]
+            }
+          }
+        ]
+      },
+      "tac_guns:dp28_fire": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": true,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:dp28_fires"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.dp28.shoot.sight shoot",
+                "camerashake add @s[r=0.5] 0.052 0.28 rotational"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": false,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:dp28_firest"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.dp28.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.052 0.3 rotational"
+              ]
+            }
+          }
+        ]
+      },
+      "tac_guns:awp_fire": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": true,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:awp_fires"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.awp.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.032 0.28 rotational"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_sneaking",
+              "value": false,
+              "subject": "self"
+            },
+            "add": {
+              "component_groups": [
+                "tac_guns:awp_firest"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "playanimation @s[r=0.5] animation.awp.shoot.nsight shoot",
+                "camerashake add @s[r=0.5] 0.032 0.3 rotational"
+              ]
+            }
+          }
+        ]
+      },
+      "tac_guns:scope": {
+        "remove": {
+          "component_groups": [
+            "tac_guns:scope4x"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "tac_guns:scope"
+          ]
+        }
+      },
+      "tac_guns:scope4x": {
+        "add": {
+          "component_groups": [
+            "tac_guns:scope4x"
+          ]
+        },
+        "remove": {
+          "component_groups": [
+            "tac_guns:scope"
+          ]
+        }
+      },
+      "tac_guns:normal": {
+        "add": {
+          "component_groups": [
+            "tac_guns:normal"
+          ]
+        }
+      },
+      "minecraft:gain_bad_omen": {
+        "add": {
+          "component_groups": [
+            "minecraft:add_bad_omen"
+          ]
+        }
+      },
+      "minecraft:clear_add_bad_omen": {
+        "remove": {
+          "component_groups": [
+            "minecraft:add_bad_omen"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "minecraft:clear_bad_omen_spell_effect"
+          ]
+        }
+      },
+      "ak47reload0": {
+        "set_property": {
+          "tac_guns:gunreload": 80
+        }
+      },
+      "ak47reload1": {
+        "set_property": {
+          "tac_guns:gunreload": 81
+        }
+      },
+      "ak47reload2": {
+        "set_property": {
+          "tac_guns:gunreload": 82
+        }
+      },
+      "ak47reload3": {
+        "set_property": {
+          "tac_guns:gunreload": 83
+        }
+      },
+      "ak47reload4": {
+        "set_property": {
+          "tac_guns:gunreload": 84
+        }
+      },
+      "ak47reload5": {
+        "set_property": {
+          "tac_guns:gunreload": 85
+        }
+      },
+      "ak47reload6": {
+        "set_property": {
+          "tac_guns:gunreload": 86
+        }
+      },
+      "ak47reload7": {
+        "set_property": {
+          "tac_guns:gunreload": 87
+        }
+      },
+      "ak47reload8": {
+        "set_property": {
+          "tac_guns:gunreload": 88
+        }
+      },
+      "ak47reload9": {
+        "set_property": {
+          "tac_guns:gunreload": 89
+        }
+      },
+      "ak47reload10": {
+        "set_property": {
+          "tac_guns:gunreload": 90
+        }
+      },
+      "ak47reload11": {
+        "set_property": {
+          "tac_guns:gunreload": 91
+        }
+      },
+      "ak47reload12": {
+        "set_property": {
+          "tac_guns:gunreload": 92
+        }
+      },
+      "ak47reload13": {
+        "set_property": {
+          "tac_guns:gunreload": 93
+        }
+      },
+      "ak47reload14": {
+        "set_property": {
+          "tac_guns:gunreload": 94
+        }
+      },
+      "ak47reload15": {
+        "set_property": {
+          "tac_guns:gunreload": 95
+        }
+      },
+      "ak47reload16": {
+        "set_property": {
+          "tac_guns:gunreload": 96
+        }
+      },
+      "ak47reload17": {
+        "set_property": {
+          "tac_guns:gunreload": 97
+        }
+      },
+      "ak47reload18": {
+        "set_property": {
+          "tac_guns:gunreload": 98
+        }
+      },
+      "ak47reload19": {
+        "set_property": {
+          "tac_guns:gunreload": 99
+        }
+      },
+      "ak47reload20": {
+        "set_property": {
+          "tac_guns:gunreload": 100
+        }
+      },
+      "ak47reload21": {
+        "set_property": {
+          "tac_guns:gunreload": 101
+        }
+      },
+      "ak47reload22": {
+        "set_property": {
+          "tac_guns:gunreload": 102
+        }
+      },
+      "ak47reload23": {
+        "set_property": {
+          "tac_guns:gunreload": 103
+        }
+      },
+      "ak47reload24": {
+        "set_property": {
+          "tac_guns:gunreload": 104
+        }
+      },
+      "ak47reload25": {
+        "set_property": {
+          "tac_guns:gunreload": 105
+        }
+      },
+      "ak47reload26": {
+        "set_property": {
+          "tac_guns:gunreload": 106
+        }
+      },
+      "ak47reload27": {
+        "set_property": {
+          "tac_guns:gunreload": 107
+        }
+      },
+      "ak47reload28": {
+        "set_property": {
+          "tac_guns:gunreload": 108
+        }
+      },
+      "ak47reload29": {
+        "set_property": {
+          "tac_guns:gunreload": 109
+        }
+      },
+      "ak47reload30": {
+        "set_property": {
+          "tac_guns:gunreload": 110
+        }
+      },
+      "tac_guns:ak47_reload": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 81,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 1"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 82,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 2"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 83,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 3"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 84,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 4"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 85,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 5"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 86,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 6"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 87,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 7"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 88,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 8"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 89,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 9"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 90,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 10"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 91,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 11"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 92,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 12"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 93,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 13"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 94,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 14"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 95,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 15"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 96,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 16"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 97,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 17"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 98,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 18"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 99,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 19"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 100,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 20"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 101,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 21"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 102,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 22"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 103,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 23"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 104,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 24"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 105,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 25"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 106,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 26"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 107,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 27"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 108,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 28"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 109,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 29"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 110,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s ak47 30"
+              ]
+            }
+          }
+        ]
+      },
+      "awpreload0": {
+        "set_property": {
+          "tac_guns:gunreload": 260
+        }
+      },
+      "awpreload1": {
+        "set_property": {
+          "tac_guns:gunreload": 261
+        }
+      },
+      "awpreload2": {
+        "set_property": {
+          "tac_guns:gunreload": 262
+        }
+      },
+      "awpreload3": {
+        "set_property": {
+          "tac_guns:gunreload": 263
+        }
+      },
+      "awpreload4": {
+        "set_property": {
+          "tac_guns:gunreload": 264
+        }
+      },
+      "awpreload5": {
+        "set_property": {
+          "tac_guns:gunreload": 265
+        }
+      },
+      "awpreload6": {
+        "set_property": {
+          "tac_guns:gunreload": 266
+        }
+      },
+      "awpreload7": {
+        "set_property": {
+          "tac_guns:gunreload": 267
+        }
+      },
+      "awpreload8": {
+        "set_property": {
+          "tac_guns:gunreload": 268
+        }
+      },
+      "awpreload9": {
+        "set_property": {
+          "tac_guns:gunreload": 269
+        }
+      },
+      "awpreload10": {
+        "set_property": {
+          "tac_guns:gunreload": 270
+        }
+      },
+      "awpreload11": {
+        "set_property": {
+          "tac_guns:gunreload": 271
+        }
+      },
+      "awpreload12": {
+        "set_property": {
+          "tac_guns:gunreload": 272
+        }
+      },
+      "awpreload13": {
+        "set_property": {
+          "tac_guns:gunreload": 273
+        }
+      },
+      "awpreload14": {
+        "set_property": {
+          "tac_guns:gunreload": 274
+        }
+      },
+      "awpreload15": {
+        "set_property": {
+          "tac_guns:gunreload": 275
+        }
+      },
+      "awpreload16": {
+        "set_property": {
+          "tac_guns:gunreload": 276
+        }
+      },
+      "awpreload17": {
+        "set_property": {
+          "tac_guns:gunreload": 277
+        }
+      },
+      "awpreload18": {
+        "set_property": {
+          "tac_guns:gunreload": 278
+        }
+      },
+      "awpreload19": {
+        "set_property": {
+          "tac_guns:gunreload": 279
+        }
+      },
+      "awpreload20": {
+        "set_property": {
+          "tac_guns:gunreload": 280
+        }
+      },
+      "tac_guns:awp_reload": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 261,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 1"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 262,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 2"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 263,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 3"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 264,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 4"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 265,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 5"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 266,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 6"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 267,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 7"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 268,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 8"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 269,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 9"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 270,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 10"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 271,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 11"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 272,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 12"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 273,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 13"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 274,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 14"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 275,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 15"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 276,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 16"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 277,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 17"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 278,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 18"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 279,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 19"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 280,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s awp 20"
+              ]
+            }
+          }
+        ]
+      },
+      "mk18reload0": {
+    "set_property": {
+      "tac_guns:gunreload": 340
+    }
+  },
+  "mk18reload1": {
+    "set_property": {
+      "tac_guns:gunreload": 341
+    }
+  },
+  "mk18reload2": {
+    "set_property": {
+      "tac_guns:gunreload": 342
+    }
+  },
+  "mk18reload3": {
+    "set_property": {
+      "tac_guns:gunreload": 343
+    }
+  },
+  "mk18reload4": {
+    "set_property": {
+      "tac_guns:gunreload": 344
+    }
+  },
+  "mk18reload5": {
+    "set_property": {
+      "tac_guns:gunreload": 345
+    }
+  },
+  "mk18reload6": {
+    "set_property": {
+      "tac_guns:gunreload": 346
+    }
+  },
+  "mk18reload7": {
+    "set_property": {
+      "tac_guns:gunreload": 347
+    }
+  },
+  "mk18reload8": {
+    "set_property": {
+      "tac_guns:gunreload": 348
+    }
+  },
+  "mk18reload9": {
+    "set_property": {
+      "tac_guns:gunreload": 349
+    }
+  },
+  "mk18reload10": {
+    "set_property": {
+      "tac_guns:gunreload": 350
+    }
+  },
+  "mk18reload11": {
+    "set_property": {
+      "tac_guns:gunreload": 351
+    }
+  },
+  "mk18reload12": {
+    "set_property": {
+      "tac_guns:gunreload": 352
+    }
+  },
+  "mk18reload13": {
+    "set_property": {
+      "tac_guns:gunreload": 353
+    }
+  },
+  "mk18reload14": {
+    "set_property": {
+      "tac_guns:gunreload": 354
+    }
+  },
+  "mk18reload15": {
+    "set_property": {
+      "tac_guns:gunreload": 355
+    }
+  },
+  "mk18reload16": {
+    "set_property": {
+      "tac_guns:gunreload": 356
+    }
+  },
+  "mk18reload17": {
+    "set_property": {
+      "tac_guns:gunreload": 357
+    }
+  },
+  "mk18reload18": {
+    "set_property": {
+      "tac_guns:gunreload": 358
+    }
+  },
+  "mk18reload19": {
+    "set_property": {
+      "tac_guns:gunreload": 359
+    }
+  },
+  "mk18reload20": {
+    "set_property": {
+      "tac_guns:gunreload": 360
+    }
+  },
+  "mk18reload21": {
+    "set_property": {
+      "tac_guns:gunreload": 361
+    }
+  },
+  "mk18reload22": {
+    "set_property": {
+      "tac_guns:gunreload": 362
+    }
+  },
+  "mk18reload23": {
+    "set_property": {
+      "tac_guns:gunreload": 363
+    }
+  },
+  "mk18reload24": {
+    "set_property": {
+      "tac_guns:gunreload": 364
+    }
+  },
+  "mk18reload25": {
+    "set_property": {
+      "tac_guns:gunreload": 365
+    }
+  },
+  "mk18reload26": {
+    "set_property": {
+      "tac_guns:gunreload": 366
+    }
+  },
+  "mk18reload27": {
+    "set_property": {
+      "tac_guns:gunreload": 367
+    }
+  },
+  "mk18reload28": {
+    "set_property": {
+      "tac_guns:gunreload": 368
+    }
+  },
+  "mk18reload29": {
+    "set_property": {
+      "tac_guns:gunreload": 369
+    }
+  },
+  "mk18reload30": {
+    "set_property": {
+      "tac_guns:gunreload": 370
+    }
+  },
+  "tac_guns:mk18_reload": {
+  "sequence": [
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 341,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 1"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 342,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 2"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 343,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 3"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 344,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 4"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 345,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 5"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 346,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 6"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 347,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 7"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 348,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 8"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 349,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 9"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 350,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 10"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 351,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 11"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 352,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 12"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 353,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 13"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 354,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 14"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 355,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 15"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 356,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 16"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 357,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 17"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 358,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 18"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 359,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 19"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 360,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 20"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 361,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 21"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 362,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 22"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 363,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 23"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 364,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 24"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 365,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 25"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 366,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 26"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 367,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 27"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 368,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 28"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 369,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 29"
+        ]
+      }
+    },
+    {
+      "filters": {
+        "test": "int_property",
+        "domain": "tac_guns:gunreload",
+        "value": 370,
+        "subject": "self"
+      },
+      "queue_command": {
+        "command": [
+          "scoreboard players add @s mk18 30"
+        ]
+      }
+    }
+  ]
+},
+      "coltpythonreload0": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 0
+        }
+      },
+      "coltpythonreload1": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 1
+        }
+      },
+      "coltpythonreload2": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 2
+        }
+      },
+      "coltpythonreload3": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 3
+        }
+      },
+      "coltpythonreload4": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 4
+        }
+      },
+      "coltpythonreload5": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 5
+        }
+      },
+      "coltpythonreload6": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 6
+        }
+      },
+      "tac_guns:coltpython_reload": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 1,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s coltpython 1"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 2,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s coltpython 2"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 3,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s coltpython 3"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 4,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s coltpython 4"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 5,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s coltpython 5"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 6,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s coltpython 6"
+              ]
+            }
+          }
+        ]
+      },
+      "deaglereload0": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 0
+        }
+      },
+      "deaglereload1": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 7
+        }
+      },
+      "deaglereload2": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 8
+        }
+      },
+      "deaglereload3": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 9
+        }
+      },
+      "deaglereload4": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 10
+        }
+      },
+      "deaglereload5": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 11
+        }
+      },
+      "deaglereload6": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 12
+        }
+      },
+      "deaglereload7": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 13
+        }
+      },
+      "deaglereload8": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 14
+        }
+      },
+      "tac_guns:deagle_reload": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 7,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s deagle 1"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 8,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s deagle 2"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 9,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s deagle 3"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 10,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s deagle 4"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 11,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s deagle 5"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 12,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s deagle 6"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 13,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s deagle 7"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 14,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s deagle 8"
+              ]
+            }
+          }
+        ]
+      },
+      "glock17reload0": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 0
+        }
+      },
+      "glock17reload1": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 15
+        }
+      },
+      "glock17reload2": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 16
+        }
+      },
+      "glock17reload3": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 17
+        }
+      },
+      "glock17reload4": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 18
+        }
+      },
+      "glock17reload5": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 19
+        }
+      },
+      "glock17reload6": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 20
+        }
+      },
+      "glock17reload7": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 21
+        }
+      },
+      "glock17reload8": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 22
+        }
+      },
+      "glock17reload9": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 23
+        }
+      },
+      "glock17reload10": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 24
+        }
+      },
+      "glock17reload11": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 25
+        }
+      },
+      "glock17reload12": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 26
+        }
+      },
+      "glock17reload13": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 27
+        }
+      },
+      "glock17reload14": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 28
+        }
+      },
+      "glock17reload15": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 29
+        }
+      },
+      "glock17reload16": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 30
+        }
+      },
+      "glock17reload17": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 31
+        }
+      },
+      "glock17reload18": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 32
+        }
+      },
+      "tac_guns:glock17_reload": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 15,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 1"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 16,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 2"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 17,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 3"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 18,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 4"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 19,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 5"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 20,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 6"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 21,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 7"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 22,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 8"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 23,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 9"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 24,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 10"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 25,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 11"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 26,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 12"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 27,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 13"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 28,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 14"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 29,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 15"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 30,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 16"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 31,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 17"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 32,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s glock17 18"
+              ]
+            }
+          }
+        ]
+      },
+      "dbreload0": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 0
+        }
+      },
+      "dbreload1": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 33
+        }
+      },
+      "dbreload2": {
+        "set_property": {
+          "tac_guns:coltpythonreload": 34
+        }
+      },
+      "tac_guns:db_reload": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 33,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s db 1"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:coltpythonreload",
+              "value": 34,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s db 2"
+              ]
+            }
+          }
+        ]
+      },
+      "dp28reload0": {
+        "set_property": {
+          "tac_guns:gunreload": 111
+        }
+      },
+      "dp28reload1": {
+        "set_property": {
+          "tac_guns:gunreload": 112
+        }
+      },
+      "dp28reload2": {
+        "set_property": {
+          "tac_guns:gunreload": 113
+        }
+      },
+      "dp28reload3": {
+        "set_property": {
+          "tac_guns:gunreload": 114
+        }
+      },
+      "dp28reload4": {
+        "set_property": {
+          "tac_guns:gunreload": 115
+        }
+      },
+      "dp28reload5": {
+        "set_property": {
+          "tac_guns:gunreload": 116
+        }
+      },
+      "dp28reload6": {
+        "set_property": {
+          "tac_guns:gunreload": 117
+        }
+      },
+      "dp28reload7": {
+        "set_property": {
+          "tac_guns:gunreload": 118
+        }
+      },
+      "dp28reload8": {
+        "set_property": {
+          "tac_guns:gunreload": 119
+        }
+      },
+      "dp28reload9": {
+        "set_property": {
+          "tac_guns:gunreload": 120
+        }
+      },
+      "dp28reload10": {
+        "set_property": {
+          "tac_guns:gunreload": 121
+        }
+      },
+      "dp28reload11": {
+        "set_property": {
+          "tac_guns:gunreload": 122
+        }
+      },
+      "dp28reload12": {
+        "set_property": {
+          "tac_guns:gunreload": 123
+        }
+      },
+      "dp28reload13": {
+        "set_property": {
+          "tac_guns:gunreload": 124
+        }
+      },
+      "dp28reload14": {
+        "set_property": {
+          "tac_guns:gunreload": 125
+        }
+      },
+      "dp28reload15": {
+        "set_property": {
+          "tac_guns:gunreload": 126
+        }
+      },
+      "dp28reload16": {
+        "set_property": {
+          "tac_guns:gunreload": 127
+        }
+      },
+      "dp28reload17": {
+        "set_property": {
+          "tac_guns:gunreload": 128
+        }
+      },
+      "dp28reload18": {
+        "set_property": {
+          "tac_guns:gunreload": 129
+        }
+      },
+      "dp28reload19": {
+        "set_property": {
+          "tac_guns:gunreload": 130
+        }
+      },
+      "dp28reload20": {
+        "set_property": {
+          "tac_guns:gunreload": 131
+        }
+      },
+      "dp28reload21": {
+        "set_property": {
+          "tac_guns:gunreload": 132
+        }
+      },
+      "dp28reload22": {
+        "set_property": {
+          "tac_guns:gunreload": 133
+        }
+      },
+      "dp28reload23": {
+        "set_property": {
+          "tac_guns:gunreload": 134
+        }
+      },
+      "dp28reload24": {
+        "set_property": {
+          "tac_guns:gunreload": 135
+        }
+      },
+      "dp28reload25": {
+        "set_property": {
+          "tac_guns:gunreload": 136
+        }
+      },
+      "dp28reload26": {
+        "set_property": {
+          "tac_guns:gunreload": 137
+        }
+      },
+      "dp28reload27": {
+        "set_property": {
+          "tac_guns:gunreload": 138
+        }
+      },
+      "dp28reload28": {
+        "set_property": {
+          "tac_guns:gunreload": 139
+        }
+      },
+      "dp28reload29": {
+        "set_property": {
+          "tac_guns:gunreload": 140
+        }
+      },
+      "dp28reload30": {
+        "set_property": {
+          "tac_guns:gunreload": 141
+        }
+      },
+      "dp28reload31": {
+        "set_property": {
+          "tac_guns:gunreload": 142
+        }
+      },
+      "dp28reload32": {
+        "set_property": {
+          "tac_guns:gunreload": 143
+        }
+      },
+      "dp28reload33": {
+        "set_property": {
+          "tac_guns:gunreload": 144
+        }
+      },
+      "dp28reload34": {
+        "set_property": {
+          "tac_guns:gunreload": 145
+        }
+      },
+      "dp28reload35": {
+        "set_property": {
+          "tac_guns:gunreload": 146
+        }
+      },
+      "dp28reload36": {
+        "set_property": {
+          "tac_guns:gunreload": 147
+        }
+      },
+      "dp28reload37": {
+        "set_property": {
+          "tac_guns:gunreload": 148
+        }
+      },
+      "dp28reload38": {
+        "set_property": {
+          "tac_guns:gunreload": 149
+        }
+      },
+      "dp28reload39": {
+        "set_property": {
+          "tac_guns:gunreload": 150
+        }
+      },
+      "dp28reload40": {
+        "set_property": {
+          "tac_guns:gunreload": 151
+        }
+      },
+      "dp28reload41": {
+        "set_property": {
+          "tac_guns:gunreload": 152
+        }
+      },
+      "dp28reload42": {
+        "set_property": {
+          "tac_guns:gunreload": 153
+        }
+      },
+      "dp28reload43": {
+        "set_property": {
+          "tac_guns:gunreload": 154
+        }
+      },
+      "dp28reload44": {
+        "set_property": {
+          "tac_guns:gunreload": 155
+        }
+      },
+      "dp28reload45": {
+        "set_property": {
+          "tac_guns:gunreload": 156
+        }
+      },
+      "dp28reload46": {
+        "set_property": {
+          "tac_guns:gunreload": 157
+        }
+      },
+      "dp28reload47": {
+        "set_property": {
+          "tac_guns:gunreload": 158
+        }
+      },
+      "dp28reload48": {
+        "set_property": {
+          "tac_guns:gunreload": 159
+        }
+      },
+      "dp28reload49": {
+        "set_property": {
+          "tac_guns:gunreload": 160
+        }
+      },
+      "dp28reload50": {
+        "set_property": {
+          "tac_guns:gunreload": 161
+        }
+      },
+      "tac_guns:dp28_reload": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 112,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 1"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 113,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 2"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 114,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 3"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 115,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 4"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 116,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 5"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 117,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 6"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 118,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 7"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 119,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 8"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 120,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 9"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 121,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 10"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 122,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 11"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 123,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 12"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 124,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 13"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 125,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 14"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 126,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 15"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 127,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 16"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 128,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 17"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 129,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 18"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 130,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 19"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 131,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 20"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 132,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 21"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 133,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 22"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 134,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 23"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 135,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 24"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 136,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 25"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 137,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 26"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 138,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 27"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 139,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 28"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 140,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 29"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 141,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 30"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 142,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 31"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 143,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 32"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 144,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 33"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 145,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 34"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 146,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 35"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 147,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 36"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 148,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 37"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 149,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 38"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 150,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 39"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 151,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 40"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 152,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 41"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 153,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 42"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 154,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 43"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 155,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 44"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 156,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 45"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 157,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 46"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 158,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 47"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 159,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 48"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 160,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 49"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "int_property",
+              "domain": "tac_guns:gunreload",
+              "value": 161,
+              "subject": "self"
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s dp28 50"
+              ]
+            }
+          }
+        ]
+      },
+      "minecraft:trigger_raid": {
+        "add": {
+          "component_groups": [
+            "minecraft:raid_trigger"
+          ]
+        }
+      },
+      "minecraft:remove_raid_trigger": {
+        "remove": {
+          "component_groups": [
+            "minecraft:raid_trigger"
+          ]
+        }
+      }
+    }
+  }
+}
