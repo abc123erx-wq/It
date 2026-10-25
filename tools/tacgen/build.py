@@ -969,12 +969,11 @@ class Build:
                 module["version"] = list(self.VERSION)
         rp["dependencies"] = [{"uuid": bp["header"]["uuid"],
                                "version": list(self.VERSION)}]
-        # versoes de modulo explicitas: 1.x do @minecraft/server existe desde 1.20.60
-        # e continua carregavel nas versoes novas (compatibilidade retroativa), o que
-        # evita o script morrer em mundos que nao tem a API 2.x disponivel.
+        # versoes de modulo explicitas: 2.0.0 e a primeira estavel da API 2.x
+        # (Minecraft 1.21.90+) e continua disponivel nas versoes seguintes.
         bp["dependencies"] = [
-            {"module_name": "@minecraft/server", "version": "1.11.0"},
-            {"module_name": "@minecraft/server-ui", "version": "1.2.0"},
+            {"module_name": "@minecraft/server", "version": "2.0.0"},
+            {"module_name": "@minecraft/server-ui", "version": "2.0.0"},
             {"uuid": rp["header"]["uuid"], "version": list(self.VERSION)},
         ]
         dump(os.path.join(OUT_BP, "manifest.json"), bp, indent=2)

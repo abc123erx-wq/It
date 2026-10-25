@@ -93,8 +93,8 @@ Cada estrutura é dividida em partes chamáveis (ex.: `/function favela/04_boca`
 | Armas não causam dano / sem HUD de munição | pack de **comportamento** desativado ou script desligado | ative `TacGuns(B)`; o dano vem de `scripts/events/projectileHitEntity.js` |
 | Nada acontece ao usar `/function` | cheats desligadas | ative *Ativar trapaças* no mundo |
 
-Os scripts declaram `@minecraft/server` **1.11.0** e `@minecraft/server-ui` **1.2.0**
-(funciona de 1.20.60 em diante e continua carregável nas versões novas).
+Os scripts declaram `@minecraft/server` **2.0.0** e `@minecraft/server-ui` **2.0.0**
+(API estável a partir do Minecraft 1.21.90 — versões 1.26.x inclusas).
 
 ## Como regenerar
 

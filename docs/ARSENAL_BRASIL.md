@@ -1997,7 +1997,7 @@ A tabela completa é gerada em `factions.js` e validada por `tools/validate.py` 
 
 ### Requisitos e compatibilidade
 
-Os scripts declaram `@minecraft/server` **1.11.0** e `@minecraft/server-ui` **1.2.0** no `manifest.json` (compatível de 1.20.60 em diante e carregável nas versões novas). Se a API de script não estiver disponível no seu jogo, a camada de facção continua utilizável por comando: `/function lado_policial` e `/function lado_ladrao` fazem tag, placar e kit sem depender de script.
+Os scripts declaram `@minecraft/server` **2.0.0** e `@minecraft/server-ui` **2.0.0** no `manifest.json` (API estável a partir do Minecraft 1.21.90). Se a API de script não estiver disponível no seu jogo, a camada de facção continua utilizável por comando: `/function lado_policial` e `/function lado_ladrao` fazem tag, placar e kit sem depender de script.
 
 ### Comandos
 
