@@ -1,6 +1,6 @@
 # Arsenal Brasileiro — documentação técnica e integração no TacGuns
 
-Este documento cobre as armas brasileiras **já implementadas no addon** (packs `out/TacGuns(B)` e `out/TacGuns(R)`): 26 armas distribuídas em cinco categorias, todas herdando o comportamento completo das armas originais do TacGuns (disparo, munição, recarga, recarga tática, inspeção, saque, sprint, sway, recuo, pose em terceira pessoa, bancada e contador de munição no HUD).
+Este documento cobre as armas brasileiras **já implementadas no addon** (packs `out/TacGuns(B)` e `out/TacGuns(R)`): 46 armas distribuídas em cinco categorias, todas herdando o comportamento completo das armas originais do TacGuns (disparo, munição, recarga, recarga tática, inspeção, saque, sprint, sway, recuo, pose em terceira pessoa, bancada e contador de munição no HUD).
 
 ## Como a herança funciona
 
@@ -44,6 +44,37 @@ Cinco acessórios universais são craftáveis na mesa de trabalho e equipáveis 
 **Como instalar:** segure o acessório, agache e use (botão de usar). O script `scripts/events/attachments.js` liga a propriedade do jogador, consome 1 item do inventário e o render controller passa a desenhar o bone correspondente. Repetir o gesto remove a peça. Como o estado vive no jogador (propriedade com `client_sync`), a peça aparece em primeira e terceira pessoa e sobrevive à troca de arma.
 
 Os bones de encaixe existem em todas as 26 armas e são filhos do bone do corpo, portanto acompanham o recuo, o sway, a recarga e a animação de inspeção sem nenhum trabalho extra.
+
+## Linha de facção — armas de crime organizado
+
+20 armas inspiradas em apreensões reais, na mesma plataforma de comportamento das demais (disparo, recarga, inspeção, bancada, HUD). O que muda é a linguagem visual e o kit de acessórios:
+
+- **Estética**: metal estampado oxidado, madeira riscada, fita isolante nas junções, numeração raspada e sigla da facção gravada (material `engrave`).
+- **Acessórios improvisados** exclusivos: luneta de caça amarrada com fita (`att_tape_optic`) e carregador duplo fitado (`att_dualmag`), além dos cinco acessórios padrão.
+- **Bancada**: aba 7 (fuzis de facção) e aba 8 (SMGs, pistolas e escopeta serrada), páginas 1 a 10.
+
+| Arma | Base real | Calibre no mod | Aba/página |
+|---|---|---|---|
+| AK-47 (facção) (`tac_guns:ak47_crime`) | Izhmash / Norinco / fábricas do leste europeu (contrabando) | `tac_guns:762x39mm` | 7/1 |
+| AKM (facção) (`tac_guns:akm_crime`) | União Soviética / Romênia (PM md. 63) / Paraguai | `tac_guns:762x39mm` | 7/2 |
+| AK curta / Hellpup (`tac_guns:ak_curta`) | Pioneer Arms (Hellpup) / Zastava M92 / oficinas clandestinas | `tac_guns:762x39mm` | 7/3 |
+| AR-15 fantasma (3D) (`tac_guns:ar15_ghost`) | Oficinas clandestinas / impressão 3D (ghost guns) | `tac_guns:556x45mm` | 7/4 |
+| M16A1 (contrabando) (`tac_guns:m16_crime`) | Colt (dotação americana dos anos 60/70) | `tac_guns:556x45mm` | 7/5 |
+| G3A3 (contrabando) (`tac_guns:g3_crime`) | Heckler & Koch (licenças sul-americanas) | `tac_guns:308winchester` | 7/6 |
+| FAL internacional (`tac_guns:fal_crime`) | FN Herstal / FMAP Argentina / Venezuela (desvio) | `tac_guns:308winchester` | 7/7 |
+| Carabina SKS (`tac_guns:sks_crime`) | Norinco / Tula (contrabando) | `tac_guns:762x39mm` | 7/8 |
+| Ruger Mini-14 (`tac_guns:mini14_crime`) | Sturm, Ruger & Co. (mercado civil / contrabando) | `tac_guns:556x45mm` | 7/9 |
+| Mosin-Nagant serrado (`tac_guns:mosin_crime`) | Tula / Izhevsk (relíquias contrabandeadas) | `tac_guns:762x54mmr` | 7/10 |
+| Intratec TEC-9 (`tac_guns:tec9`) | Intratec (EUA, produção encerrada) | `tac_guns:9x19mm` | 8/1 |
+| TEC-DC9 (`tac_guns:tec_dc9`) | Intratec (variante DC-9 com bandoleira) | `tac_guns:9x19mm` | 8/2 |
+| MAC-10 (`tac_guns:mac10`) | Military Armament Corporation (EUA) | `tac_guns:9x19mm` | 8/3 |
+| Cobray M11 (.380) (`tac_guns:mac11`) | Cobray / SWD (EUA) | `tac_guns:9x19mm` | 8/4 |
+| IWI Uzi (`tac_guns:uzi_crime`) | Israel Military Industries (contrabando) | `tac_guns:9x19mm` | 8/5 |
+| Glock + Kit Roni (`tac_guns:kit_roni`) | Roni / CAA (kits importados e clones nacionais) | `tac_guns:9x19mm` | 8/6 |
+| Glock 18 (rajada) (`tac_guns:glock18_crime`) | Glock GmbH (peça de seletor de rajada clandestina) | `tac_guns:9x19mm` | 8/7 |
+| Espingarda serrada (`tac_guns:sawed_shotgun`) | Oficinas clandestinas (Rossi/Boito serradas) | `tac_guns:12gauge` | 8/8 |
+| FGC-9 (impressa) (`tac_guns:fgc9`) | Projeto aberto FGC-9 / oficinas de impressão 3D | `tac_guns:9x19mm` | 8/9 |
+| PT24/7 raspada (`tac_guns:pt24_7_raspada`) | Taurus (lote desviado de polícia) | `tac_guns:9x19mm` | 8/10 |
 
 ## Fuzis de assalto e batalha
 
@@ -669,7 +700,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 - **Recarga tática**: 1,85 s — `animation.pt92.fp.tac` (não descarta o pente, mantém a mira).
 - **Recarga vazia**: 2,15 s — `animation.pt92.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
 
-*Receita na bancada de trabalho (aba 2, item 4):* 7x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:pt92_emp` (arma vazia, pronta para municiar).
+*Receita na bancada de trabalho (aba 2, item 3):* 7x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:pt92_emp` (arma vazia, pronta para municiar).
 
 ### Taurus PT24/7  (`tac_guns:pt24_7`)
 
@@ -709,7 +740,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 - **Recarga tática**: 1,8 s — `animation.pt24_7.fp.tac` (não descarta o pente, mantém a mira).
 - **Recarga vazia**: 2,1 s — `animation.pt24_7.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
 
-*Receita na bancada de trabalho (aba 2, item 5):* 7x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:pt24_7_emp` (arma vazia, pronta para municiar).
+*Receita na bancada de trabalho (aba 2, item 4):* 7x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:pt24_7_emp` (arma vazia, pronta para municiar).
 
 ### Taurus TS9  (`tac_guns:ts9`)
 
@@ -749,7 +780,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 - **Recarga tática**: 1,75 s — `animation.ts9.fp.tac` (não descarta o pente, mantém a mira).
 - **Recarga vazia**: 2,05 s — `animation.ts9.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
 
-*Receita na bancada de trabalho (aba 2, item 6):* 7x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:ts9_emp` (arma vazia, pronta para municiar).
+*Receita na bancada de trabalho (aba 2, item 5):* 7x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:ts9_emp` (arma vazia, pronta para municiar).
 
 ### Taurus TH9  (`tac_guns:th9`)
 
@@ -789,7 +820,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 - **Recarga tática**: 1,8 s — `animation.th9.fp.tac` (não descarta o pente, mantém a mira).
 - **Recarga vazia**: 2,1 s — `animation.th9.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
 
-*Receita na bancada de trabalho (aba 2, item 7):* 7x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:th9_emp` (arma vazia, pronta para municiar).
+*Receita na bancada de trabalho (aba 2, item 6):* 7x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:th9_emp` (arma vazia, pronta para municiar).
 
 ### Taurus G3c  (`tac_guns:g3c`)
 
@@ -829,7 +860,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 - **Recarga tática**: 1,7 s — `animation.g3c.fp.tac` (não descarta o pente, mantém a mira).
 - **Recarga vazia**: 2,0 s — `animation.g3c.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
 
-*Receita na bancada de trabalho (aba 2, item 8):* 7x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:g3c_emp` (arma vazia, pronta para municiar).
+*Receita na bancada de trabalho (aba 2, item 7):* 7x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:g3c_emp` (arma vazia, pronta para municiar).
 
 ### Taurus GX4  (`tac_guns:gx4`)
 
@@ -869,7 +900,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 - **Recarga tática**: 1,65 s — `animation.gx4.fp.tac` (não descarta o pente, mantém a mira).
 - **Recarga vazia**: 1,95 s — `animation.gx4.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
 
-*Receita na bancada de trabalho (aba 2, item 9):* 7x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:gx4_emp` (arma vazia, pronta para municiar).
+*Receita na bancada de trabalho (aba 2, item 8):* 7x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:gx4_emp` (arma vazia, pronta para municiar).
 
 ## Revólveres
 
@@ -909,7 +940,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 - **Recarga tática**: recarga rápida de 6 tiros — `animation.rt85.fp.tac` (não descarta o pente, mantém a mira).
 - **Recarga vazia**: recarga completa com ejetor — `animation.rt85.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
 
-*Receita na bancada de trabalho (aba 2, item 10):* 1x `minecraft:gold_ingot`, 6x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:rt85_emp` (arma vazia, pronta para municiar).
+*Receita na bancada de trabalho (aba 2, item 9):* 1x `minecraft:gold_ingot`, 6x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:rt85_emp` (arma vazia, pronta para municiar).
 
 ### Taurus RT608  (`tac_guns:rt608`)
 
@@ -948,7 +979,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 - **Recarga tática**: recarga rápida — `animation.rt608.fp.tac` (não descarta o pente, mantém a mira).
 - **Recarga vazia**: recarga completa — `animation.rt608.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
 
-*Receita na bancada de trabalho (aba 2, item 11):* 1x `minecraft:gold_ingot`, 6x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:rt608_emp` (arma vazia, pronta para municiar).
+*Receita na bancada de trabalho (aba 2, item 10):* 1x `minecraft:gold_ingot`, 6x `minecraft:iron_ingot`, 1x `minecraft:quartz` → `tac_guns:rt608_emp` (arma vazia, pronta para municiar).
 
 ### Taurus Raging Bull .454  (`tac_guns:raging_bull`)
 
@@ -987,9 +1018,9 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 - **Recarga tática**: recarga rápida — `animation.raging_bull.fp.tac` (não descarta o pente, mantém a mira).
 - **Recarga vazia**: recarga completa — `animation.raging_bull.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
 
-*Receita na bancada de trabalho (aba 2, item 12):* 1x `minecraft:gold_ingot`, 6x `minecraft:iron_ingot`, 1x `minecraft:diamond` → `tac_guns:raging_bull_emp` (arma vazia, pronta para municiar).
+*Receita na bancada de trabalho (aba 2, item 11):* 1x `minecraft:gold_ingot`, 6x `minecraft:iron_ingot`, 1x `minecraft:diamond` → `tac_guns:raging_bull_emp` (arma vazia, pronta para municiar).
 
-## Precisão e escopetas
+## Fuzil de precisão
 
 ### Imbel AGLC  (`tac_guns:aglc`)
 
@@ -1032,7 +1063,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 
 *Receita na bancada de trabalho (aba 4, item 3):* 1x `minecraft:diamond`, 1x `minecraft:gold_ingot`, 6x `minecraft:iron_ingot` → `tac_guns:aglc_emp` (arma vazia, pronta para municiar).
 
-## Precisão e escopetas
+## Escopetas táticas
 
 ### Taurus ST12  (`tac_guns:st12`)
 
@@ -1114,15 +1145,797 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 
 *Receita na bancada de trabalho (aba 3, item 4):* 6x `minecraft:iron_ingot`, 1x `minecraft:lapis_lazuli`, 1x `minecraft:oak_log` → `tac_guns:cbc_military_emp` (arma vazia, pronta para municiar).
 
+## Facção — fuzis
+
+### AK-47 (facção)  (`tac_guns:ak47_crime`)
+
+**1. Identificação e lore**
+
+- Fabricante: Izhmash / Norinco / fábricas do leste europeu (contrabando)
+- Calibre: 7,62x39 mm — no mod usa `tac_guns:762x39mm`
+- Uso: Comando Vermelho, PCC, milícias
+- Época: 1949 – atual
+- Contexto: O fuzil mais icônico das facções: entrou pelo Paraguai e pelo mercado de guerra; madeira riscada, ferrugem e sigla da facção gravada na coronha.
+- Dano no addon: **9.0** por projétil · pente **30** · plataforma `mk18`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Mira de caça amarrada com fita isolante | trilho/rosca padrão |
+| Carregador duplo preso com fita | poço do carregador |
+| Supressor artesanal (tubo de rosca adaptado) | boca do cano, rosca 1/2x28 |
+| Coronha serrada | tubo do receptor traseiro |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **109 cubos / 654 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `ak47_body` (40), `magazine` (6), `mk18tp` (46), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Madeira escurecida e lascada, ferrugem nas peças estampadas, fita isolante preta no guarda-mão e marcação vermelha da facção na coronha.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `alavanca de manejo`, `gatilho`, `carregador curvo`, `coronha`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 1,0 s (arma pesada, puxada do coldre de pano) — `animation.ak47_crime.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: checagem de ferrolho em 5,4 s — `animation.ak47_crime.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: recuo alto de 5,8° em 0,82 s — `animation.ak47_crime.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: troca com dois carregadores fitados em 3,0 s — `animation.ak47_crime.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: recarga seca em 3,6 s — `animation.ak47_crime.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 7, item 1):* 7x `minecraft:iron_ingot`, 1x `minecraft:oak_log` → `tac_guns:ak47_crime_emp` (arma vazia, pronta para municiar).
+
+### AKM (facção)  (`tac_guns:akm_crime`)
+
+**1. Identificação e lore**
+
+- Fabricante: União Soviética / Romênia (PM md. 63) / Paraguai
+- Calibre: 7,62x39 mm — no mod usa `tac_guns:762x39mm`
+- Uso: Facções do RJ e SP, milícias
+- Época: 1959 – atual
+- Contexto: Versão modernizada do AK com coronha de madeira e empunhadura frontal; é a variante mais apreendida em operações.
+- Dano no addon: **9.3** por projétil · pente **30** · plataforma `mk18`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Mira de ponto vermelho barata (trilho colado) | trilho/rosca padrão |
+| Carregador duplo fitado | poço do carregador |
+| Freio de boca substituído por rosca artesanal | trilho/rosca padrão |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **109 cubos / 654 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `ak47_body` (40), `magazine` (6), `mk18tp` (46), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Madeira envernizada gasta, metal com oxidação e inscrições feitas à faca.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `alavanca de manejo`, `gatilho`, `carregador`, `coronha`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 1,0 s — `animation.akm_crime.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 5,3 s — `animation.akm_crime.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,8 s com recuo de 5,6° — `animation.akm_crime.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 3,0 s — `animation.akm_crime.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 3,5 s — `animation.akm_crime.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 7, item 2):* 7x `minecraft:iron_ingot`, 1x `minecraft:oak_log` → `tac_guns:akm_crime_emp` (arma vazia, pronta para municiar).
+
+### AK curta / Hellpup  (`tac_guns:ak_curta`)
+
+**1. Identificação e lore**
+
+- Fabricante: Pioneer Arms (Hellpup) / Zastava M92 / oficinas clandestinas
+- Calibre: 7,62x39 mm — no mod usa `tac_guns:762x39mm`
+- Uso: Assaltos a carro-forte, escoltas de facção
+- Época: 1990 – atual
+- Contexto: AK de cano curtíssimo e coronha dobrada, preferido para assaltos dentro de veículos e emboscadas em becos.
+- Dano no addon: **8.4** por projétil · pente **30** · plataforma `mk18`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Mira de caça com fita | trilho/rosca padrão |
+| Carregador duplo fitado | poço do carregador |
+| Punho de fita | trilho/rosca padrão |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **85 cubos / 510 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `ak_short_body` (30), `magazine` (4), `mk18tp` (34), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Metal nu com ferrugem avançada e fita isolante no guarda-mão.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `coronha de arame`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,85 s — `animation.ak_curta.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 4,8 s — `animation.ak_curta.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,8 s com clarão de boca alto — `animation.ak_curta.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 2,6 s — `animation.ak_curta.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 3,1 s — `animation.ak_curta.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 7, item 3):* 7x `minecraft:iron_ingot`, 1x `minecraft:oak_log` → `tac_guns:ak_curta_emp` (arma vazia, pronta para municiar).
+
+### AR-15 fantasma (3D)  (`tac_guns:ar15_ghost`)
+
+**1. Identificação e lore**
+
+- Fabricante: Oficinas clandestinas / impressão 3D (ghost guns)
+- Calibre: 5,56x45 mm — no mod usa `tac_guns:556x45mm`
+- Uso: Facções, milícias e CACs ilegais
+- Época: 2020 – atual
+- Contexto: Recebedor impresso em 3D e peças usinadas sem número de série; apreendido em linhas de montagem dentro de comunidades.
+- Dano no addon: **7.0** por projétil · pente **30** · plataforma `mk18`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Mira improvisada em trilho impresso | trilho/rosca padrão |
+| Carregador fitado | poço do carregador |
+| Junções reforçadas com fita | trilho/rosca padrão |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **75 cubos / 450 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `ghost_ar_body` (26), `magazine` (3), `mk18tp` (29), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Polímero impresso sem acabamento, camadas visíveis, fita isolante nas junções e marcação de facção em vermelho.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `coronha impressa`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,9 s — `animation.ar15_ghost.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 5,0 s — `animation.ar15_ghost.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,75 s — `animation.ar15_ghost.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 2,4 s — `animation.ar15_ghost.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 3,1 s — `animation.ar15_ghost.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 7, item 4):* 7x `minecraft:iron_ingot`, 1x `minecraft:coal_block` → `tac_guns:ar15_ghost_emp` (arma vazia, pronta para municiar).
+
+### M16A1 (contrabando)  (`tac_guns:m16_crime`)
+
+**1. Identificação e lore**
+
+- Fabricante: Colt (dotação americana dos anos 60/70)
+- Calibre: 5,56x45 mm — no mod usa `tac_guns:556x45mm`
+- Uso: Arsenais de tráfico no RJ e na fronteira
+- Época: 1967 – atual
+- Contexto: Fuzil militar antigo desviado de arsenais sul-americanos; coronha triangular e empunhadura desgastada.
+- Dano no addon: **7.2** por projétil · pente **30** · plataforma `mk18`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Mira de caça amarrada | trilho/rosca padrão |
+| Carregador duplo com fita | poço do carregador |
+| Coronha serrada | tubo do receptor traseiro |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **143 cubos / 858 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `m4a1_body` (58), `magazine` (5), `mk18tp` (63), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Preto descascado com alumínio exposto, poeira e marcas de fita.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `coronha`, `guarda-mão`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,95 s — `animation.m16_crime.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 5,0 s — `animation.m16_crime.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,75 s — `animation.m16_crime.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 2,5 s — `animation.m16_crime.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 3,2 s — `animation.m16_crime.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 7, item 5):* 7x `minecraft:iron_ingot`, 1x `minecraft:coal_block` → `tac_guns:m16_crime_emp` (arma vazia, pronta para municiar).
+
+### G3A3 (contrabando)  (`tac_guns:g3_crime`)
+
+**1. Identificação e lore**
+
+- Fabricante: Heckler & Koch (licenças sul-americanas)
+- Calibre: 7,62x51 mm NATO — no mod usa `tac_guns:308winchester`
+- Uso: Quadrilhas de assalto a banco, milícias rurais
+- Época: 1964 – atual
+- Contexto: Fuzil de batalha pesado usado para poder de fogo em confrontos abertos; coronha fixa e carregador de 20 tiros.
+- Dano no addon: **10.0** por projétil · pente **30** · plataforma `mk18`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Mira telescópica de caça amarrada com arame | trilho/rosca padrão |
+| Carregador duplo fitado | poço do carregador |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **131 cubos / 786 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `scar_h_body` (52), `magazine` (5), `mk18tp` (57), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Metal oxidado, coronha de polímero rachada e arame unindo a luneta ao recebedor.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `coronha`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 1,15 s — `animation.g3_crime.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 5,4 s — `animation.g3_crime.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,84 s com recuo de 6,1° — `animation.g3_crime.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 3,0 s — `animation.g3_crime.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 3,6 s — `animation.g3_crime.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 7, item 6):* 7x `minecraft:iron_ingot`, 1x `minecraft:coal_block` → `tac_guns:g3_crime_emp` (arma vazia, pronta para municiar).
+
+### FAL internacional  (`tac_guns:fal_crime`)
+
+**1. Identificação e lore**
+
+- Fabricante: FN Herstal / FMAP Argentina / Venezuela (desvio)
+- Calibre: 7,62x51 mm NATO — no mod usa `tac_guns:308winchester`
+- Uso: Facções com ligação na fronteira norte e sul
+- Época: 1953 – atual
+- Contexto: FAL de fabricação estrangeira com marcações militares raspadas, muito usado em emboscadas contra blindados.
+- Dano no addon: **10.4** por projétil · pente **30** · plataforma `mk18`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Mira de caça com fita | trilho/rosca padrão |
+| Carregador duplo | poço do carregador |
+| Coronha rebatível soldada | tubo do receptor traseiro |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **131 cubos / 786 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `scar_h_body` (52), `magazine` (5), `mk18tp` (57), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Parkerização gasta com ferrugem e marcas de solda na coronha.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `coronha`, `guarda-mão`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 1,1 s — `animation.fal_crime.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 5,3 s — `animation.fal_crime.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,86 s — `animation.fal_crime.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 3,0 s — `animation.fal_crime.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 3,5 s — `animation.fal_crime.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 7, item 7):* 7x `minecraft:iron_ingot`, 1x `minecraft:oak_log` → `tac_guns:fal_crime_emp` (arma vazia, pronta para municiar).
+
+### Carabina SKS  (`tac_guns:sks_crime`)
+
+**1. Identificação e lore**
+
+- Fabricante: Norinco / Tula (contrabando)
+- Calibre: 7,62x39 mm — no mod usa `tac_guns:762x39mm`
+- Uso: Quadrilhas rurais, novo cangaco
+- Época: 1945 – atual
+- Contexto: Carabina semiautomática de madeira com pente fixo; comum em roubos a banco no interior e em assentamentos.
+- Dano no addon: **8.2** por projétil · pente **30** · plataforma `mk18`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Mira de caça amarrada | trilho/rosca padrão |
+| Pente fixo ampliado artesanal | trilho/rosca padrão |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **73 cubos / 438 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `sks_body` (27), `magazine` (1), `mk18tp` (28), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Madeira clara manchada de graxa, ferrolho polido pelo uso.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `pente fixo`, `coronha`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 1,05 s — `animation.sks_crime.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 5,1 s — `animation.sks_crime.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,8 s — `animation.sks_crime.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 2,8 s — `animation.sks_crime.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 3,3 s — `animation.sks_crime.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 7, item 8):* 6x `minecraft:iron_ingot`, 2x `minecraft:oak_log` → `tac_guns:sks_crime_emp` (arma vazia, pronta para municiar).
+
+### Ruger Mini-14  (`tac_guns:mini14_crime`)
+
+**1. Identificação e lore**
+
+- Fabricante: Sturm, Ruger & Co. (mercado civil / contrabando)
+- Calibre: 5,56x45 mm — no mod usa `tac_guns:556x45mm`
+- Uso: Milícias, atiradores de facção
+- Época: 1973 – atual
+- Contexto: Carabina civil de madeira com aparência inofensiva, mas alto poder de fogo e carregadores destacáveis.
+- Dano no addon: **6.4** por projétil · pente **30** · plataforma `mk18`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Mira de caça com fita | trilho/rosca padrão |
+| Carregador duplo fitado | poço do carregador |
+| Coronha serrada | tubo do receptor traseiro |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **143 cubos / 858 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `m4a1_body` (58), `magazine` (5), `mk18tp` (63), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Madeira envernizada e coronha riscada, cano com marcas de ferrugem.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `coronha`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,95 s — `animation.mini14_crime.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 5,0 s — `animation.mini14_crime.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,76 s — `animation.mini14_crime.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 2,6 s — `animation.mini14_crime.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 3,2 s — `animation.mini14_crime.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 7, item 9):* 6x `minecraft:iron_ingot`, 2x `minecraft:oak_log` → `tac_guns:mini14_crime_emp` (arma vazia, pronta para municiar).
+
+### Mosin-Nagant serrado  (`tac_guns:mosin_crime`)
+
+**1. Identificação e lore**
+
+- Fabricante: Tula / Izhevsk (relíquias contrabandeadas)
+- Calibre: 7,62x54 mmR — no mod usa `tac_guns:762x54mmr`
+- Uso: Atiradores de facção em torres de observação
+- Época: 1891 – atual
+- Contexto: Fuzil de ferrolho centenário com o cano cortado, usado para vigiar acessos e disparar contra blindados.
+- Dano no addon: **30.0** por projétil · pente **5** · plataforma `awp`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Luneta de caça soldada | trilho superior, sobre a culatra |
+| Coronha serrada | trilho/rosca padrão |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **89 cubos / 534 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `remington700_body` (33), `bolt` (2), `maga` (1), `awptp` (36), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Madeira escura e cheia de riscos, metal com ferrugem profunda.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `coronha`, `luneta`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 1,3 s — `animation.mosin_crime.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 5,4 s — `animation.mosin_crime.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,95 s por tiro — `animation.mosin_crime.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: recarga de ferrolho em 3,0 s — `animation.mosin_crime.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: recarga seca 3,6 s — `animation.mosin_crime.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 7, item 10):* 6x `minecraft:iron_ingot`, 2x `minecraft:oak_log` → `tac_guns:mosin_crime_emp` (arma vazia, pronta para municiar).
+
+## Facção — submetralhadoras, pistolas e escopeta serrada
+
+### Intratec TEC-9  (`tac_guns:tec9`)
+
+**1. Identificação e lore**
+
+- Fabricante: Intratec (EUA, produção encerrada)
+- Calibre: 9x19 mm — no mod usa `tac_guns:9x19mm`
+- Uso: Facções e assaltantes, símbolo cultural dos anos 90
+- Época: 1985 – 2001
+- Contexto: Pistola semi/automática de corpo estampado e tubo ventilado; carregador de 32 tiros a frente do gatilho.
+- Dano no addon: **5.0** por projétil · pente **18** · plataforma `glock17`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Mira de fita | trilho/rosca padrão |
+| Carregador estendido 32 tiros | base do punho |
+| Coronha improvisada | trilho/rosca padrão |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **75 cubos / 450 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `tec9_body` (26), `mag` (3), `glock17tp` (29), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Aço estampado com ferrugem, fita isolante no tubo e marcação de facção.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `alça de manejo`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,6 s — `animation.tec9.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 4,3 s — `animation.tec9.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,4 s — `animation.tec9.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 1,8 s — `animation.tec9.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 2,2 s — `animation.tec9.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 8, item 1):* 7x `minecraft:iron_ingot`, 1x `minecraft:gunpowder` → `tac_guns:tec9_emp` (arma vazia, pronta para municiar).
+
+### TEC-DC9  (`tac_guns:tec_dc9`)
+
+**1. Identificação e lore**
+
+- Fabricante: Intratec (variante DC-9 com bandoleira)
+- Calibre: 9x19 mm — no mod usa `tac_guns:9x19mm`
+- Uso: Facções, roubo a carro-forte
+- Época: 1990 – 2001
+- Contexto: Versão com gancho de bandoleira e carregador de 32 tiros; dispara com uma mão e é fácil de esconder sob a roupa.
+- Dano no addon: **5.2** por projétil · pente **18** · plataforma `glock17`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Bandoleira tática improvisada | trilho/rosca padrão |
+| Carregador 32 tiros | base do punho |
+| Mira simples | trilho/rosca padrão |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **75 cubos / 450 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `tec9_body` (26), `mag` (3), `glock17tp` (29), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Preto fosco desgastado com fita no punho.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,6 s — `animation.tec_dc9.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 4,2 s — `animation.tec_dc9.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,4 s — `animation.tec_dc9.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 1,8 s — `animation.tec_dc9.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 2,1 s — `animation.tec_dc9.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 8, item 2):* 7x `minecraft:iron_ingot`, 1x `minecraft:gunpowder` → `tac_guns:tec_dc9_emp` (arma vazia, pronta para municiar).
+
+### MAC-10  (`tac_guns:mac10`)
+
+**1. Identificação e lore**
+
+- Fabricante: Military Armament Corporation (EUA)
+- Calibre: 9x19 mm / .45 ACP — no mod usa `tac_guns:9x19mm`
+- Uso: Facções, assaltos rápidos, cobrança
+- Época: 1970 – atual
+- Contexto: Caixa compacta com carregador dentro do punho e coronha de arame; cadência altíssima e precisão sofrível.
+- Dano no addon: **5.4** por projétil · pente **30** · plataforma `mk18`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Supressor artesanal (tubo de óleo) | boca do cano, rosca 1/2x28 |
+| Coronha de arame | tubo do receptor traseiro |
+| Carregador 32 tiros | poço do carregador |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **63 cubos / 378 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `mac10_body` (22), `magazine` (1), `mk18tp` (23), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Estampado oxidado, fita isolante no punho e no cano.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `coronha de arame`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,5 s — `animation.mac10.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 4,0 s — `animation.mac10.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,34 s (cadência altíssima) — `animation.mac10.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 1,6 s — `animation.mac10.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 2,0 s — `animation.mac10.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 8, item 3):* 6x `minecraft:iron_ingot`, 2x `minecraft:gunpowder` → `tac_guns:mac10_emp` (arma vazia, pronta para municiar).
+
+### Cobray M11 (.380)  (`tac_guns:mac11`)
+
+**1. Identificação e lore**
+
+- Fabricante: Cobray / SWD (EUA)
+- Calibre: .380 ACP — no mod usa `tac_guns:9x19mm`
+- Uso: Facções, assaltos de rua
+- Época: 1970 – atual
+- Contexto: Versão menor da MAC-10, muito compacta, com cadência que esvazia o carregador em segundos.
+- Dano no addon: **5.1** por projétil · pente **30** · plataforma `mk18`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Carregador 32 tiros | poço do carregador |
+| Coronha de arame | tubo do receptor traseiro |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **63 cubos / 378 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `mac10_body` (22), `magazine` (1), `mk18tp` (23), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Preto gasto, fita no receptor e numeração raspada.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,45 s — `animation.mac11.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 3,9 s — `animation.mac11.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,3 s — `animation.mac11.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 1,55 s — `animation.mac11.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 1,9 s — `animation.mac11.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 8, item 4):* 6x `minecraft:iron_ingot`, 2x `minecraft:gunpowder` → `tac_guns:mac11_emp` (arma vazia, pronta para municiar).
+
+### IWI Uzi  (`tac_guns:uzi_crime`)
+
+**1. Identificação e lore**
+
+- Fabricante: Israel Military Industries (contrabando)
+- Calibre: 9x19 mm — no mod usa `tac_guns:9x19mm`
+- Uso: Facções, seguranca de bocas de fumo
+- Época: 1954 – atual
+- Contexto: Receptor quadrado com carregador no punho e coronha dobrável; robusta e fácil de operar em espaço confinado.
+- Dano no addon: **5.3** por projétil · pente **30** · plataforma `mk18`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Mira de fita no topo | trilho/rosca padrão |
+| Carregador 32 tiros | poço do carregador |
+| Coronha dobrável | tubo do receptor traseiro |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **67 cubos / 402 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `uzi_body` (24), `magazine` (1), `mk18tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Pintura preta descascada e ferrugem nas dobras da coronha.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `coronha dobrável`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,55 s — `animation.uzi_crime.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 4,1 s — `animation.uzi_crime.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,38 s — `animation.uzi_crime.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 1,7 s — `animation.uzi_crime.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 2,1 s — `animation.uzi_crime.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 8, item 5):* 6x `minecraft:iron_ingot`, 2x `minecraft:gunpowder` → `tac_guns:uzi_crime_emp` (arma vazia, pronta para municiar).
+
+### Glock + Kit Roni  (`tac_guns:kit_roni`)
+
+**1. Identificação e lore**
+
+- Fabricante: Roni / CAA (kits importados e clones nacionais)
+- Calibre: 9x19 mm — no mod usa `tac_guns:9x19mm`
+- Uso: Facções e milícias que já possuem pistolas Glock
+- Época: 2010 – atual
+- Contexto: Carcaça plástica que transforma a pistola em submetralhadora, com coronha, trilhos e apoio frontal.
+- Dano no addon: **5.0** por projétil · pente **18** · plataforma `glock17`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Red dot barato | placa óptica / trilho curto no ferrolho |
+| Carregador estendido | base do punho |
+| Coronha dobrável do kit | trilho/rosca padrão |
+| Empunhadura frontal | trilho/rosca padrão |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **65 cubos / 390 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `kit_roni_body` (22), `mag` (2), `glock17tp` (24), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Polímero preto arranhado, fita unindo o chassi e inscrição de facção.
+- Separação de malha (peças móveis em bones independentes): `ferrolho da pistola`, `gatilho`, `carregador`, `coronha do kit`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,55 s — `animation.kit_roni.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 4,11 s — `animation.kit_roni.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,36 s — `animation.kit_roni.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 1,85 s — `animation.kit_roni.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 2,15 s — `animation.kit_roni.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 8, item 6):* 7x `minecraft:iron_ingot`, 1x `minecraft:coal_block` → `tac_guns:kit_roni_emp` (arma vazia, pronta para municiar).
+
+### Glock 18 (rajada)  (`tac_guns:glock18_crime`)
+
+**1. Identificação e lore**
+
+- Fabricante: Glock GmbH (peça de seletor de rajada clandestina)
+- Calibre: 9x19 mm — no mod usa `tac_guns:9x19mm`
+- Uso: Lideranças de facção (arma de status)
+- Época: 1986 – atual
+- Contexto: Pistola adaptada com seletor de rajada e carregador caracol; símbolo de status nas mãos da liderança do tráfico.
+- Dano no addon: **5.6** por projétil · pente **18** · plataforma `glock17`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Carregador caracol/estendido | base do punho |
+| Seletor de rajada artesanal | trilho/rosca padrão |
+| Mira de fita | trilho/rosca padrão |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **67 cubos / 402 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `five_seven_body` (23), `mag` (2), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Polímero preto gasto, fita no punho e inscrição da facção no ferrolho.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `seletor`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,5 s — `animation.glock18_crime.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 4,11 s — `animation.glock18_crime.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,3 s (rajada) — `animation.glock18_crime.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 1,85 s — `animation.glock18_crime.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 2,15 s — `animation.glock18_crime.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 8, item 7):* 6x `minecraft:iron_ingot`, 2x `minecraft:gunpowder` → `tac_guns:glock18_crime_emp` (arma vazia, pronta para municiar).
+
+### Espingarda serrada  (`tac_guns:sawed_shotgun`)
+
+**1. Identificação e lore**
+
+- Fabricante: Oficinas clandestinas (Rossi/Boito serradas)
+- Calibre: 12 gauge — no mod usa `tac_guns:12gauge`
+- Uso: Assaltos a lojas, saidinha de banco, milicias
+- Época: —
+- Contexto: Espingarda de dois canos com a coronha removida: devasta a curta distância e cabe debaixo do casaco.
+- Dano no addon: **6.0** por projétil · pente **6** · plataforma `m870`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Cano serrado | trilho/rosca padrão |
+| Punho de fita | trilho/rosca padrão |
+| Mira de fita | trilho/rosca padrão |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **67 cubos / 402 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `sawedoff_body` (25), `m870tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Canos com ferrugem, madeira lascada e fita isolante no punho.
+- Separação de malha (peças móveis em bones independentes): `bascula`, `gatilho`, `canos`, `punho`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,7 s — `animation.sawed_shotgun.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 4,46 s — `animation.sawed_shotgun.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,7 s com clarão enorme — `animation.sawed_shotgun.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: recarga por cartucho (0,55 s) — `animation.sawed_shotgun.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: recarga seca — `animation.sawed_shotgun.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 8, item 8):* 6x `minecraft:iron_ingot`, 2x `minecraft:oak_log` → `tac_guns:sawed_shotgun_emp` (arma vazia, pronta para municiar).
+
+### FGC-9 (impressa)  (`tac_guns:fgc9`)
+
+**1. Identificação e lore**
+
+- Fabricante: Projeto aberto FGC-9 / oficinas de impressão 3D
+- Calibre: 9x19 mm — no mod usa `tac_guns:9x19mm`
+- Uso: Facções com armaria própria (ghost guns)
+- Época: 2020 – atual
+- Contexto: SMG de impressão 3D com peças de metal compradas em loja; sem número de série e montada em horas.
+- Dano no addon: **5.0** por projétil · pente **18** · plataforma `glock17`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Mira impressa | trilho/rosca padrão |
+| Carregador fitado | base do punho |
+| Coronha impressa | trilho/rosca padrão |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **75 cubos / 450 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `tec9_body` (26), `mag` (3), `glock17tp` (29), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Polímero preto sem acabamento, camadas visíveis e fita nas junções.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `coronha`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,6 s — `animation.fgc9.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 4,2 s — `animation.fgc9.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,4 s — `animation.fgc9.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 1,8 s — `animation.fgc9.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 2,2 s — `animation.fgc9.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 8, item 9):* 5x `minecraft:iron_ingot`, 3x `minecraft:coal_block` → `tac_guns:fgc9_emp` (arma vazia, pronta para municiar).
+
+### PT24/7 raspada  (`tac_guns:pt24_7_raspada`)
+
+**1. Identificação e lore**
+
+- Fabricante: Taurus (lote desviado de polícia)
+- Calibre: 9x19 mm — no mod usa `tac_guns:9x19mm`
+- Uso: Facções que compram armas de policiais corruptos
+- Época: 2000 – 2015
+- Contexto: Pistola de dotação policial com numeração raspada por ácido; rastro do desvio de armas do Estado para o crime.
+- Dano no addon: **5.0** por projétil · pente **18** · plataforma `glock17`
+
+**2. Sistema de attachments**
+
+| Acessório | Ponto de encaixe |
+|---|---|
+| Mira de fita | trilho/rosca padrão |
+| Carregador estendido | base do punho |
+
+No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`, `att_tape_optic`, `att_dualmag` (improvisados)) para que a peça possa ser trocada sem editar o corpo da arma.
+
+**3. Diretrizes do modelo 3D**
+
+- Malha voxel: **67 cubos / 402 faces** (atlas único 128x128, 1 material `material.guns`).
+- Bones com geometria: `five_seven_body` (23), `mag` (2), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
+- Texturização: Ferrugem e ácido visíveis na lateral do ferrolho, empunhadura derretida.
+- Separação de malha (peças móveis em bones independentes): `ferrolho`, `cano`, `gatilho`, `carregador`.
+
+**4. Animações nativas**
+
+- **Equipar (Draw)**: 0,5 s — `animation.pt24_7_raspada.fp.draw` (reproduzida também no controller `draw` global).
+- **Inspecionar (Inspect)**: 4,0 s — `animation.pt24_7_raspada.fp.inspect`, disparada com a arma cheia + agachado.
+- **Atirar (Fire)**: 0,33 s — `animation.pt24_7_raspada.shoot.nsight` (quadril) e `.shoot.sight` (mira), com partículas de boca e de ejeção no locator `<arma>shell`.
+- **Recarga tática**: 1,8 s — `animation.pt24_7_raspada.fp.tac` (não descarta o pente, mantém a mira).
+- **Recarga vazia**: 2,1 s — `animation.pt24_7_raspada.fp.reload`, termina com `/replaceitem` devolvendo a arma carregada.
+
+*Receita na bancada de trabalho (aba 8, item 10):* 7x `minecraft:iron_ingot`, 1x `minecraft:gunpowder` → `tac_guns:pt24_7_raspada_emp` (arma vazia, pronta para municiar).
+
 ## Cobertura da lista solicitada
 
-| Categoria da lista | Armas implementadas |
+| Categoria | Armas implementadas |
 |---|---|
 | Fuzis 1-25 | IA2 5.56, IA2 7.62, MD97L, MD97LM, M964 FAL, MD2, T4, T4 CQC |
 | SMGs 26-50 | SAF 9mm, Mini-SAF, MT9 G2, SMT9, Uru 9mm, MT12 |
 | Pistolas 51-80 | PT92, PT24/7, TS9, TH9, G3c, GX4 |
 | Revólveres 81-95 | RT85, RT608, Raging Bull .454 |
 | Precisão / escopetas 96-105 | AGLC, ST12, CBC Military 3.0 |
+| Crime organizado | AK-47, AKM, AK curta, AR fantasma 3D, M16A1, G3A3, FAL internacional, SKS, Mini-14, Mosin serrado, TEC-9, TEC-DC9, MAC-10, M11, Uzi, Kit Roni, Glock 18, espingarda serrada, FGC-9, PT24/7 raspada |
 
 As demais armas da lista usam as mesmas cinco plataformas: para incluí-las basta adicionar uma entrada em `tools/tacgen/specs.py` (id, família, design voxel, calibre, faixa de propriedade livre, receita e textos) e rodar `python3 tools/tacgen/build.py && python3 tools/validate.py`.
 

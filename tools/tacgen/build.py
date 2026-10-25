@@ -20,8 +20,13 @@ from tacgen import preview, texture as texmod  # noqa: E402
 from tacgen.analysis import load_template  # noqa: E402
 from tacgen.clone import dump, gun_obj, load, write_text  # noqa: E402
 from tacgen.designs import DESIGNS  # noqa: E402
+from tacgen.designs_crime import DESIGNS_CRIME  # noqa: E402
+
+ALL_DESIGNS = dict(DESIGNS)
+ALL_DESIGNS.update(DESIGNS_CRIME)
 from tacgen.geometry import build_geometry  # noqa: E402
-from tacgen.specs import FAMILIES, RIGS, SPECS, recipe_items, recipe_pattern  # noqa: E402
+from tacgen.specs import (FAMILIES, RECOLORS, RIGS, SPECS, recipe_items,  # noqa: E402
+                         recipe_pattern)
 
 SRC_BP = os.path.join(ROOT, "src", "TacGuns(B)")
 SRC_RP = os.path.join(ROOT, "src", "TacGuns(R)")
@@ -37,6 +42,9 @@ ATTACH_PROPS = [("att_optic", "tac_guns:att_optic"),
                 ("att_laser", "tac_guns:att_laser"),
                 ("att_grip", "tac_guns:att_grip"),
                 ("att_exmag", "tac_guns:att_exmag")]
+
+CRIME_ATTACH_PROPS = [("att_tape_optic", "tac_guns:att_tape_optic"),
+                      ("att_dualmag", "tac_guns:att_dualmag")]
 
 ATTACHMENTS = [
     dict(id="att_optic", name="Red dot", prop="tac_guns:att_optic",
@@ -55,6 +63,13 @@ ATTACHMENTS = [
     dict(id="att_exmag", name="Carregador estendido", prop="tac_guns:att_exmag",
          craft={"minecraft:iron_ingot": 5},
          desc="Extensor de carregador (+capacidade visual)."),
+    # --- improvisados (linha de faccao)
+    dict(id="att_tape_optic", name="Luneta amarrada", prop="tac_guns:att_tape_optic",
+         craft={"minecraft:iron_ingot": 2, "minecraft:string": 2},
+         desc="Luneta de caca presa com fita isolante no recebedor."),
+    dict(id="att_dualmag", name="Carregador duplo fitado", prop="tac_guns:att_dualmag",
+         craft={"minecraft:iron_ingot": 2, "minecraft:string": 1},
+         desc="Dois carregadores presos com fita para recarga rapida."),
 ]
 
 TEMPLATE_FULL = {"mk18": 31, "glock17": 18, "coltpython": 6, "awp": 6, "m870": 6}
@@ -93,9 +108,14 @@ class Build:
         fam = FAMILIES[spec["family"]]
         rig = RIGS[fam["template"]]
         tpl = self.tpl_cache[fam["template"]]
-        design = DESIGNS[spec.get("design") or spec["id"]]()
+        design = ALL_DESIGNS[spec.get("design") or spec["id"]]()
+        recolor = RECOLORS.get(spec["recolor"]) if spec.get("recolor") else None
+        if recolor:
+            for box in design.boxes:
+                box.mat = recolor.get(box.mat, box.mat)
         cfg = dict(template=fam["template"], body_parent=rig["body_parent"],
-                   part_bones=rig["part_bones"], locator_prefix=spec["id"])
+                   part_bones=rig["part_bones"], locator_prefix=spec["id"],
+                   scale=spec.get("scale", 1.0), faction=spec.get("faction"))
         doc = build_geometry(tpl, design, cfg)
         doc["minecraft:geometry"][0]["description"]["identifier"] = f"geometry.{spec['id']}"
         dump(os.path.join(OUT_RP, "models", "entity", "guns", f"{spec['id']}.json"), doc)
@@ -193,7 +213,10 @@ class Build:
                 rctrl = gun_obj(found[key], tpl, spec["id"])
                 if key == f"controller.render.{tpl}":
                     vis = rctrl.setdefault("part_visibility", [])
-                    for bone, prop in ATTACH_PROPS:
+                    props = list(ATTACH_PROPS)
+                    if spec.get("faction") == "crime":
+                        props += CRIME_ATTACH_PROPS
+                    for bone, prop in props:
                         vis.append({bone: f"q.property('{prop}') == true"})
                 out[gun_obj(key, tpl, spec["id"])] = rctrl
         dump(os.path.join(OUT_RP, "render_controllers", f"extra_{spec['id']}.json"),
@@ -552,6 +575,37 @@ class Build:
             raise SystemExit("global.js: ancora de dano nao encontrada")
         write_text(path, text)
 
+    def bp_workbench(self):
+        """Reescreve a navegacao da bancada para todas as abas (0-8) e paginas (1-11)."""
+        path = os.path.join(OUT_BP, "animation_controllers", "workbench.json")
+        doc = load(path)
+        ctrl = doc["animation_controllers"]["controller.animation.workbench"]
+        states = {}
+        tabs = list(range(0, 9))
+        pages = list(range(1, 12))
+        for tab in tabs:
+            transitions = []
+            for page in pages:
+                nxt = pages[page % len(pages)]
+                prv = pages[(page - 2) % len(pages)]
+                guard = (f"q.property('tac_guns:tab') == {tab} && "
+                         f"q.property('tac_guns:itemtab') == {page} && q.mark_variant == 100")
+                transitions.append({f"item{nxt}":
+                                    guard + " && q.variant == 2 && (q.life_time - v.time) >= 0.15"})
+                transitions.append({f"item{prv}":
+                                    guard + " && q.variant == 1 && (q.life_time - v.time) >= 0.15"})
+            for other in tabs:
+                transitions.append({f"tab{other}": f"q.property('tac_guns:tab') == {other}"})
+            states[f"tab{tab}"] = {"on_entry": ["v.time = q.life_time;"],
+                                   "transitions": transitions}
+        for page in pages:
+            states[f"item{page}"] = {
+                "on_entry": ["/playsound random.click @s", f"@s tac_guns:itemtab{page}"],
+                "transitions": [{f"tab{t}": f"q.property('tac_guns:tab') == {t}"} for t in tabs],
+            }
+        ctrl["states"] = states
+        dump(path, doc)
+
     # ------------------------------------------------------------ attachments
     def attach_items(self):
         """Itens de acessorio + receitas de bancada."""
@@ -590,7 +644,8 @@ class Build:
             drw = ImageDraw.Draw(img)
             colour = {"att_optic": (58, 62, 70), "att_suppressor": (44, 46, 50),
                       "att_laser": (38, 40, 46), "att_grip": (52, 54, 60),
-                      "att_exmag": (64, 66, 72)}[att["id"]]
+                      "att_exmag": (64, 66, 72), "att_tape_optic": (70, 72, 78),
+                      "att_dualmag": (58, 60, 66)}[att["id"]]
             if att["id"] == "att_optic":
                 drw.rectangle([12, 22, 52, 42], fill=colour)
                 drw.rectangle([18, 14, 46, 22], fill=(30, 32, 36))
@@ -605,6 +660,16 @@ class Build:
                 drw.rectangle([12, 26, 48, 38], fill=colour)
                 drw.rectangle([46, 28, 54, 36], fill=(140, 30, 30))
                 drw.rectangle([16, 38, 24, 46], fill=(20, 22, 26))
+            elif att["id"] == "att_tape_optic":
+                drw.rectangle([10, 26, 54, 36], fill=colour)
+                drw.rectangle([18, 22, 30, 40], fill=(36, 36, 40))
+                drw.rectangle([34, 22, 46, 40], fill=(36, 36, 40))
+                drw.rectangle([16, 28, 20, 34], fill=(60, 90, 130))
+            elif att["id"] == "att_dualmag":
+                drw.rectangle([18, 14, 30, 50], fill=colour)
+                drw.rectangle([34, 14, 46, 50], fill=colour)
+                drw.rectangle([16, 26, 48, 32], fill=(34, 34, 38))
+                drw.rectangle([16, 38, 48, 43], fill=(34, 34, 38))
             elif att["id"] == "att_grip":
                 drw.rectangle([26, 16, 40, 52], fill=colour)
                 drw.rectangle([20, 10, 46, 18], fill=(28, 30, 34))
@@ -675,6 +740,7 @@ class Build:
             lines.append(f"item.tac_guns:{spec['id']}_emp.name={spec['name']} (vazio)")
         for att in ATTACHMENTS:
             lines.append(f"item.tac_guns:{att['id']}.name={att['name']}")
+            lines.append(f"item.tac_guns:{att['id']}_emp.name={att['name']}")
         write_text(path, "\n".join(lines) + "\n")
         pt = os.path.join(OUT_RP, "texts", "pt_BR.lang")
         existing = read(pt) if os.path.exists(pt) else ""
@@ -723,6 +789,7 @@ def build():
     b.bp_player()
     b.bp_reload_controllers()
     b.bp_animations()
+    b.bp_workbench()
     b.bp_inspect_controller()
     b.bp_scope_controller()
     b.bp_recipes()

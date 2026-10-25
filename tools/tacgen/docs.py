@@ -21,8 +21,14 @@ GROUPS = [
     ("Submetralhadoras", "rifle", ["saf_9mm", "mini_saf", "mt9_g2", "smt9", "uru", "mt12"]),
     ("Pistolas", "pistol", ["pt92", "pt24_7", "ts9", "th9", "g3c", "gx4"]),
     ("Revólveres", "revolver", ["rt85", "rt608", "raging_bull"]),
-    ("Precisão e escopetas", "sniper", ["aglc"]),
-    ("Precisão e escopetas", "shotgun", ["st12", "cbc_military"]),
+    ("Fuzil de precisão", "sniper", ["aglc"]),
+    ("Escopetas táticas", "shotgun", ["st12", "cbc_military"]),
+    ("Facção — fuzis", "rifle", ["ak47_crime", "akm_crime", "ak_curta", "ar15_ghost",
+                                 "m16_crime", "g3_crime", "fal_crime", "sks_crime",
+                                 "mini14_crime", "mosin_crime"]),
+    ("Facção — submetralhadoras, pistolas e escopeta serrada", "pistol",
+     ["tec9", "tec_dc9", "mac10", "mac11", "uzi_crime", "kit_roni", "glock18_crime",
+      "sawed_shotgun", "fgc9", "pt24_7_raspada"]),
 ]
 
 ATTACH_MOUNTS = {
@@ -47,6 +53,11 @@ ATTACH_MOUNTS = {
                 ("Tube extensor", "tubo carregador sob o cano"),
                 ("Coronha", "traseira do receptor")],
 }
+
+CRIME_ATTACHMENTS_DOC = [
+    dict(id="att_tape_optic", name="Luneta amarrada", mount="recebedor (fita isolante)"),
+    dict(id="att_dualmag", name="Carregador duplo fitado", mount="poço do carregador"),
+]
 
 ATTACHMENTS_DOC = [
     dict(id="att_optic", name="Red dot", prop="tac_guns:att_optic", bone="att_optic",
@@ -143,6 +154,28 @@ def render():
         "portanto acompanham o recuo, o sway, a recarga e a animação de inspeção sem nenhum "
         "trabalho extra.")
     add("")
+    # ------------------------------------------------ linha de faccao
+    crime = [w for w in SPECS if w.get("faction") == "crime"]
+    add("## Linha de facção — armas de crime organizado")
+    add("")
+    add(f"{len(crime)} armas inspiradas em apreensões reais, na mesma plataforma de "
+        "comportamento das demais (disparo, recarga, inspeção, bancada, HUD). O que muda é "
+        "a linguagem visual e o kit de acessórios:")
+    add("")
+    add("- **Estética**: metal estampado oxidado, madeira riscada, fita isolante nas "
+        "junções, numeração raspada e sigla da facção gravada (material `engrave`).")
+    add("- **Acessórios improvisados** exclusivos: luneta de caça amarrada com fita "
+        "(`att_tape_optic`) e carregador duplo fitado (`att_dualmag`), além dos cinco "
+        "acessórios padrão.")
+    add("- **Bancada**: aba 7 (fuzis de facção) e aba 8 (SMGs, pistolas e escopeta "
+        "serrada), páginas 1 a 10.")
+    add("")
+    add("| Arma | Base real | Calibre no mod | Aba/página |")
+    add("|---|---|---|---|")
+    for w in crime:
+        add(f"| {w['name']} (`tac_guns:{w['id']}`) | {w['lore']['maker']} | "
+            f"`tac_guns:{w['ammo']}` | {w['tab']}/{w['itemtab']} |")
+    add("")
     for title, fam_key, ids in GROUPS:
         if not ids:
             continue
@@ -177,9 +210,13 @@ def render():
                         break
                 add(f"| {acc} | {mount} |")
             add("")
+            bones_att = ("`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, "
+                         "`att_exmag`")
+            if spec.get("faction") == "crime":
+                bones_att += ", `att_tape_optic`, `att_dualmag` (improvisados)"
             add("No modelo, cada ponto de encaixe é um bone próprio "
-                "(`att_optic`, `att_suppressor`, `att_grip`, `att_laser`, `att_exmag`) "
-                "para que a peça possa ser trocada sem editar o corpo da arma.")
+                f"({bones_att}) para que a peça possa ser trocada sem editar o corpo "
+                "da arma.")
             add("")
             add("**3. Diretrizes do modelo 3D**")
             add("")
@@ -213,13 +250,16 @@ def render():
             add("")
     add("## Cobertura da lista solicitada")
     add("")
-    add("| Categoria da lista | Armas implementadas |")
+    add("| Categoria | Armas implementadas |")
     add("|---|---|")
     add("| Fuzis 1-25 | IA2 5.56, IA2 7.62, MD97L, MD97LM, M964 FAL, MD2, T4, T4 CQC |")
     add("| SMGs 26-50 | SAF 9mm, Mini-SAF, MT9 G2, SMT9, Uru 9mm, MT12 |")
     add("| Pistolas 51-80 | PT92, PT24/7, TS9, TH9, G3c, GX4 |")
     add("| Revólveres 81-95 | RT85, RT608, Raging Bull .454 |")
     add("| Precisão / escopetas 96-105 | AGLC, ST12, CBC Military 3.0 |")
+    add("| Crime organizado | AK-47, AKM, AK curta, AR fantasma 3D, M16A1, G3A3, "
+        "FAL internacional, SKS, Mini-14, Mosin serrado, TEC-9, TEC-DC9, MAC-10, M11, "
+        "Uzi, Kit Roni, Glock 18, espingarda serrada, FGC-9, PT24/7 raspada |")
     add("")
     add("As demais armas da lista usam as mesmas cinco plataformas: para incluí-las basta "
         "adicionar uma entrada em `tools/tacgen/specs.py` (id, família, design voxel, calibre, "

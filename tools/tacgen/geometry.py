@@ -93,6 +93,7 @@ def _as_boxes(items):
 # pontos de encaixe modulares (attachments)
 # ---------------------------------------------------------------------------
 ATTACHMENTS = ("att_optic", "att_suppressor", "att_grip", "att_laser", "att_exmag")
+CRIME_ATTACHMENTS = ("att_tape_optic", "att_dualmag")
 
 
 def _att_boxes(design):
@@ -131,10 +132,32 @@ def _att_boxes(design):
     return boxes
 
 
-def build_attachments(template, design, placement, body_name):
+def _crime_att_boxes(design):
+    """Acessorios improvisados: luneta amarrada com fita e carregador duplo fitado."""
+    L = design.length
+    return {
+        # luneta de caca presa com fita sobre o recebedor
+        "att_tape_optic": [
+            dict(mat="steel", x0=-0.5, x1=0.5, y0=2.2, y1=2.9, z0=0.28 * L, z1=0.46 * L),
+            dict(mat="blue", x0=-0.35, x1=0.35, y0=2.35, y1=2.75, z0=0.26 * L, z1=0.28 * L),
+            dict(mat="tape", x0=-0.75, x1=0.75, y0=1.7, y1=3.0, z0=0.30 * L, z1=0.32 * L),
+            dict(mat="tape", x0=-0.75, x1=0.75, y0=1.7, y1=3.0, z0=0.42 * L, z1=0.44 * L),
+        ],
+        # dois carregadores presos com fita isolante
+        "att_dualmag": [
+            dict(mat="gunmetal", x0=-1.05, x1=1.05, y0=-6.6, y1=-4.4, z0=0.46 * L, z1=0.54 * L),
+            dict(mat="tape", x0=-1.2, x1=1.2, y0=-6.2, y1=-4.8, z0=0.46 * L, z1=0.54 * L),
+        ],
+    }
+
+
+def build_attachments(template, design, placement, body_name, crime=False):
     """Bones extras (filhos do corpo) que ficam ocultos ate o jogador instalar a peca."""
+    boxes_sets = _att_boxes(design)
+    if crime:
+        boxes_sets.update(_crime_att_boxes(design))
     bones = []
-    for name, boxes in _att_boxes(design).items():
+    for name, boxes in boxes_sets.items():
         world = [placement.to_world(_B(b)) for b in boxes]
         local = _to_local(world, template, body_name)
         bone = {"name": name, "parent": body_name,
@@ -176,7 +199,7 @@ def build_geometry(template, design, cfg):
         b["cubes"] = []
         b.pop("locators", None)
 
-    pl = Placement(template, design)
+    pl = Placement(template, design, extra_scale=cfg.get("scale", 1.0))
     world = [pl.to_world(b) for b in design.boxes]
 
     body_name = f"{design.gun_id}_body"
@@ -229,6 +252,7 @@ def build_geometry(template, design, cfg):
         bones[tp]["locators"] = lbs
 
     # 5. pontos de encaixe de attachments (ocultos por padrao)
-    geo["bones"].extend(build_attachments(template, design, pl, body_name))
+    geo["bones"].extend(build_attachments(template, design, pl, body_name,
+                                           crime=cfg.get("faction") == "crime"))
 
     return geo_doc
