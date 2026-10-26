@@ -207,6 +207,16 @@ def build_geometry(template, design, cfg):
     template.register_virtual_bone(body_name, cfg["body_parent"])
     root = bones[cfg["body_parent"]]
     new_bone = template.bones[body_name]
+    # PIVOT: usa o mesmo centro de rotacao da arma original. Sem isso o corpo novo
+    # gira em torno de (0,0,0) nas animacoes (saque, recarga, sprint) e "flutua"
+    # longe da mao. Em repouso o pivo nao desloca nada: T(p)*R(0)*T(-p) = I.
+    pivo_da_arma = cfg.get("pivot")
+    if not pivo_da_arma:
+        mesh = cfg.get("mesh_bone")
+        if mesh and mesh in template.bones:
+            pivo_da_arma = template.bones[mesh].get("pivot")
+    if pivo_da_arma:
+        new_bone["pivot"] = [round(v, 4) for v in pivo_da_arma]
     geo["bones"].insert(geo["bones"].index(root) + 1, new_bone)
     bones[body_name] = new_bone
 

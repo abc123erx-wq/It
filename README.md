@@ -91,6 +91,8 @@ Cada estrutura é dividida em partes chamáveis (ex.: `/function favela/04_boca`
 | Arma na mão sem modelo 3D / jogador invisível em 1ª pessoa | pack de **recursos** desativado, ou cópia antiga (1.1.0) com as raízes de primeira pessoa quebradas (corrigido na 1.2.0) | ative `TacGuns(R)` e reinstale a 1.2.0 |
 | Menu de escolha de lado não abre | API de script indisponível na versão do jogo | use `/function lado_policial` ou `/function lado_ladrao` (funciona sem script) |
 | Armas não causam dano / sem HUD de munição | pack de **comportamento** desativado ou script desligado | ative `TacGuns(B)`; o dano vem de `scripts/events/projectileHitEntity.js` |
+| Não consigo atirar nem recarregar | cadeia de Molang do pack (que exige `is_using_item`) | nesta versão o tiro e a recarga são feitos por script (`events/weapons.js`): segure usar para atirar, agache + usar para recarregar; diagnóstico com `/scriptevent tac_guns:teste` |
+| Arma flutuando longe da mão | o corpo novo não pode girar em torno de (0,0,0) | corrigido: cada modelo usa o bone e o pivô da arma original; o validador agora reprova o build se divergir |
 | Nada acontece ao usar `/function` | cheats desligadas | ative *Ativar trapaças* no mundo |
 
 Os scripts declaram `@minecraft/server` **2.0.0** e `@minecraft/server-ui` **2.0.0**

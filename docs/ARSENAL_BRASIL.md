@@ -687,7 +687,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **61 cubos / 366 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `five_seven_body` (23), `mag` (2), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
+- Bones com geometria: `mag` (2), `five_seven_body` (23), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Aço azulado com facetas prateadas nos cantos e empunhadura de madeira ou borracha.
 - Separação de malha (peças móveis em bones independentes): `ferrolho`, `cano`, `gatilho`, `retém do carregador`, `carregador`, `martelo`, `trava de segurança`.
@@ -727,7 +727,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **61 cubos / 366 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `five_seven_body` (23), `mag` (2), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
+- Bones com geometria: `mag` (2), `five_seven_body` (23), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Polímero preto com insertos de borracha e desgaste no trilho.
 - Separação de malha (peças móveis em bones independentes): `ferrolho`, `cano`, `gatilho`, `retém`, `carregador`, `martelo`.
@@ -767,7 +767,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **61 cubos / 366 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `five_seven_body` (23), `mag` (2), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
+- Bones com geometria: `mag` (2), `five_seven_body` (23), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Preto fosco com textura aderente no punho e desgaste no serrilhado.
 - Separação de malha (peças móveis em bones independentes): `ferrolho`, `cano`, `gatilho`, `retém`, `carregador`, `extrator`.
@@ -807,7 +807,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **61 cubos / 366 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `five_seven_body` (23), `mag` (2), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
+- Bones com geometria: `mag` (2), `five_seven_body` (23), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Preto mate com desgaste leve e poeira nas reentrâncias do punho.
 - Separação de malha (peças móveis em bones independentes): `ferrolho`, `cano`, `gatilho`, `retém`, `carregador`, `martelo`, `trava ambidestra`.
@@ -847,7 +847,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **61 cubos / 366 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `five_seven_body` (23), `mag` (2), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
+- Bones com geometria: `mag` (2), `five_seven_body` (23), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Polímero preto texturizado, desgaste no topo do ferrolho.
 - Separação de malha (peças móveis em bones independentes): `ferrolho`, `cano`, `gatilho`, `retém`, `carregador`, `extrator`.
@@ -887,7 +887,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **61 cubos / 366 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `five_seven_body` (23), `mag` (2), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
+- Bones com geometria: `mag` (2), `five_seven_body` (23), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Inox escovado com armação preta e marcas de uso no gatilho.
 - Separação de malha (peças móveis em bones independentes): `ferrolho`, `cano`, `gatilho`, `retém`, `carregador`.
@@ -1048,7 +1048,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **129 cubos / 774 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `intervention_body` (55), `bolt` (2), `maga` (2), `awptp` (59), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
+- Bones com geometria: `bolt` (2), `maga` (2), `intervention_body` (55), `awptp` (59), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Verde-oliva com rede de camuflagem e desgaste no ferrolho.
 - Separação de malha (peças móveis em bones independentes): `ferrolho (bolt)`, `gatilho`, `retém`, `carregador`, `coronha ajustável`, `bipé`, `luneta`.
@@ -1520,7 +1520,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **89 cubos / 534 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `remington700_body` (33), `bolt` (2), `maga` (1), `awptp` (36), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Bones com geometria: `bolt` (2), `maga` (1), `remington700_body` (33), `awptp` (36), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Madeira escura e cheia de riscos, metal com ferrugem profunda.
 - Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `coronha`, `luneta`.
@@ -1561,7 +1561,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **75 cubos / 450 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `tec9_body` (26), `mag` (3), `glock17tp` (29), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Bones com geometria: `mag` (3), `tec9_body` (26), `glock17tp` (29), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Aço estampado com ferrugem, fita isolante no tubo e marcação de facção.
 - Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `alça de manejo`.
@@ -1600,7 +1600,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **75 cubos / 450 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `tec9_body` (26), `mag` (3), `glock17tp` (29), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Bones com geometria: `mag` (3), `tec9_body` (26), `glock17tp` (29), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Preto fosco desgastado com fita no punho.
 - Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`.
@@ -1756,7 +1756,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **65 cubos / 390 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `kit_roni_body` (22), `mag` (2), `glock17tp` (24), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Bones com geometria: `mag` (2), `kit_roni_body` (22), `glock17tp` (24), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Polímero preto arranhado, fita unindo o chassi e inscrição de facção.
 - Separação de malha (peças móveis em bones independentes): `ferrolho da pistola`, `gatilho`, `carregador`, `coronha do kit`.
@@ -1795,7 +1795,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **67 cubos / 402 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `five_seven_body` (23), `mag` (2), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Bones com geometria: `mag` (2), `five_seven_body` (23), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Polímero preto gasto, fita no punho e inscrição da facção no ferrolho.
 - Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `seletor`.
@@ -1873,7 +1873,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **75 cubos / 450 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `tec9_body` (26), `mag` (3), `glock17tp` (29), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Bones com geometria: `mag` (3), `tec9_body` (26), `glock17tp` (29), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Polímero preto sem acabamento, camadas visíveis e fita nas junções.
 - Separação de malha (peças móveis em bones independentes): `ferrolho`, `gatilho`, `carregador`, `coronha`.
@@ -1911,7 +1911,7 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 **3. Diretrizes do modelo 3D**
 
 - Malha voxel: **67 cubos / 402 faces** (atlas único 128x128, 1 material `material.guns`).
-- Bones com geometria: `five_seven_body` (23), `mag` (2), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
+- Bones com geometria: `mag` (2), `five_seven_body` (23), `glock17tp` (25), `att_optic` (4), `att_suppressor` (2), `att_grip` (1), `att_laser` (2), `att_exmag` (2), `att_tape_optic` (4), `att_dualmag` (2).
 - Estilo: voxel com blocos de 1 unidade, sem chanfros; silhueta legível a 3 blocos de distância e mira alinhada ao ponto de visada da câmera.
 - Texturização: Ferrugem e ácido visíveis na lateral do ferrolho, empunhadura derretida.
 - Separação de malha (peças móveis em bones independentes): `ferrolho`, `cano`, `gatilho`, `carregador`.
@@ -1995,6 +1995,20 @@ Cada arma pertence a um lado. **Usar arma do lado oposto é bloqueado** (`before
 
 A tabela completa é gerada em `factions.js` e validada por `tools/validate.py` (garante que a loja da polícia nunca vende arma de facção).
 
+### Tiro e recarga (script próprio)
+
+O pack original dispara por uma cadeia de controllers de animação que depende de `q.is_using_item`, `q.mark_variant` e de várias `/function`. Em versões novas essa cadeia falha e a arma não faz nada. Por isso o addon assumiu o controle no script `scripts/events/weapons.js`:
+
+| Ação | Como funciona agora |
+|---|---|
+| Atirar | segure usar; o script conta o pente, gasta a munição e lança a bala `bullet:<arma>` (dano da tabela + multiplicador de facção) |
+| Recarregar | agache e use, ou tente usar com o pente vazio; consome a munição da mochila |
+| Tiro automático | fuzis, metralhadoras e SMGs mantêm o disparo enquanto o botão estiver pressionado |
+| Pente | o placar `<arma>` é a fonte da verdade; ao zerar, o item vira `<arma>_emp` e volta ao cheio depois da recarga |
+| Diagnóstico | `/scriptevent tac_guns:teste` mostra item, pente, munição e se o tiro saiu; `/scriptevent tac_guns:recarregar` força a recarga |
+
+Os comandos da cadeia antiga (spawn de bala, gasto de pente, `/replaceitem` e `/function *quantity`) são removidos no build para o tiro não acontecer duas vezes; as animações e os controllers continuam no pacote.
+
 ### Requisitos e compatibilidade
 
 Os scripts declaram `@minecraft/server` **2.0.0** e `@minecraft/server-ui` **2.0.0** no `manifest.json` (API estável a partir do Minecraft 1.21.90). Se a API de script não estiver disponível no seu jogo, a camada de facção continua utilizável por comando: `/function lado_policial` e `/function lado_ladrao` fazem tag, placar e kit sem depender de script.
@@ -2030,6 +2044,8 @@ Duas estruturas completas são geradas como funções de comando (sem `.mcstruct
 ![Favela](estrutura_favela.png)
 
 Imagens geradas por `tools/tacgen/render_structures.py`, que aplica os próprios `.mcfunction` gerados e desenha a vista de cima + um corte vertical.
+
+**Encaixe dos modelos:** cada arma nova tem um bone `<arma>_body` pendurado no **mesmo bone que segurava a arma original** (ex.: `mk18`, `grip_lower`, `defaultgun`) e com o mesmo pivô. É isso que faz o modelo acompanhar as mãos em saque, recarga, inspeção e sprint sem flutuar; o validador reprova o build se o pai ou o pivô divergirem.
 
 **Como usar:** ative cheats no mundo, fique em área aberta e carregada (a estrutura ocupa ~3 chunks de raio) e rode `/function policial` ou `/function favela` no ponto onde quer a construção. O master só encadeia as partes; cada parte pode ser chamada sozinha (ex.: `/function favela/04_boca`).
 

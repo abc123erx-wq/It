@@ -328,6 +328,30 @@ def render():
     add("A tabela completa é gerada em `factions.js` e validada por `tools/validate.py` "
         "(garante que a loja da polícia nunca vende arma de facção).")
     add("")
+    add("### Tiro e recarga (script próprio)")
+    add("")
+    add("O pack original dispara por uma cadeia de controllers de animação que depende de "
+        "`q.is_using_item`, `q.mark_variant` e de várias `/function`. Em versões novas essa "
+        "cadeia falha e a arma não faz nada. Por isso o addon assumiu o controle no script "
+        "`scripts/events/weapons.js`:")
+    add("")
+    add("| Ação | Como funciona agora |")
+    add("|---|---|")
+    add("| Atirar | segure usar; o script conta o pente, gasta a munição e lança a bala "
+        "`bullet:<arma>` (dano da tabela + multiplicador de facção) |")
+    add("| Recarregar | agache e use, ou tente usar com o pente vazio; consome a munição da "
+        "mochila |")
+    add("| Tiro automático | fuzis, metralhadoras e SMGs mantêm o disparo enquanto o botão "
+        "estiver pressionado |")
+    add("| Pente | o placar `<arma>` é a fonte da verdade; ao zerar, o item vira `<arma>_emp` "
+        "e volta ao cheio depois da recarga |")
+    add("| Diagnóstico | `/scriptevent tac_guns:teste` mostra item, pente, munição e se o "
+        "tiro saiu; `/scriptevent tac_guns:recarregar` força a recarga |")
+    add("")
+    add("Os comandos da cadeia antiga (spawn de bala, gasto de pente, `/replaceitem` e "
+        "`/function *quantity`) são removidos no build para o tiro não acontecer duas vezes; "
+        "as animações e os controllers continuam no pacote.")
+    add("")
     add("### Requisitos e compatibilidade")
     add("")
     add("Os scripts declaram `@minecraft/server` **2.0.0** e `@minecraft/server-ui` "
@@ -382,6 +406,12 @@ def render():
     add("")
     add("Imagens geradas por `tools/tacgen/render_structures.py`, que aplica os próprios "
         "`.mcfunction` gerados e desenha a vista de cima + um corte vertical.")
+    add("")
+    add("**Encaixe dos modelos:** cada arma nova tem um bone `<arma>_body` pendurado no "
+        "**mesmo bone que segurava a arma original** (ex.: `mk18`, `grip_lower`, "
+        "`defaultgun`) e com o mesmo pivô. É isso que faz o modelo acompanhar as mãos em "
+        "saque, recarga, inspeção e sprint sem flutuar; o validador reprova o build se o "
+        "pai ou o pivô divergirem.")
     add("")
     add("**Como usar:** ative cheats no mundo, fique em área aberta e carregada (a "
         "estrutura ocupa ~3 chunks de raio) e rode `/function policial` ou `/function favela` "

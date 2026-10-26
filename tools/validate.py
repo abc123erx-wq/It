@@ -449,6 +449,26 @@ def check_models():
             if f"{gid}_fp" not in anims:
                 fail(f"{gid}: animacao {gid}_fp ausente")
 
+    # corpo novo deve pendurar no mesmo bone da arma original, com o mesmo pivo
+    from tacgen.analysis import load_template
+    for spec in SPECS:
+        try:
+            tpl = load_template(FAMILIES[spec["family"]]["template"])
+        except Exception:
+            continue
+        doc = _lenient(os.path.join(RP, "models", "entity", "guns", f"{spec['id']}.json"))
+        geo = doc["minecraft:geometry"][0]
+        body = next((b for b in geo["bones"] if b["name"].endswith("_body")), None)
+        if not body:
+            fail(f"{spec['id']}: bone {spec['id']}_body ausente")
+            continue
+        if body.get("parent") != tpl.mesh_bone:
+            fail(f"{spec['id']}: corpo pendurado em {body.get('parent')} "
+                 f"(esperado {tpl.mesh_bone}, o bone da arma original)")
+        pivo_original = tpl.bones[tpl.mesh_bone].get("pivot")
+        if pivo_original and body.get("pivot") != [round(v, 4) for v in pivo_original]:
+            fail(f"{spec['id']}: pivo {body.get('pivot')} difere do original {pivo_original}")
+
     # controllers apontando para geometria/aliases inexistentes
     RP_ALIAS = {}
     if os.path.exists(player_path):

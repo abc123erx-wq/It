@@ -133,7 +133,19 @@ class Build:
         if recolor:
             for box in design.boxes:
                 box.mat = recolor.get(box.mat, box.mat)
-        cfg = dict(template=fam["template"], body_parent=rig["body_parent"],
+        # o corpo novo pendura no MESMO bone que segurava a arma original:
+        # assim ele herda exatamente a mesma animacao (1a e 3a pessoa) e nao
+        # "flutua" longe das maos durante saque/recarga/inspecao.
+        from tacgen.analysis import is_identity_rot
+        corpo_pai = rig["body_parent"]
+        try:
+            mesh = tpl.mesh_bone
+            if mesh and is_identity_rot(tpl.inv_rest[mesh]):
+                corpo_pai = mesh
+        except Exception:
+            corpo_pai = rig["body_parent"]
+        cfg = dict(template=fam["template"], body_parent=corpo_pai,
+                   mesh_bone=tpl.mesh_bone,
                    part_bones=rig["part_bones"], locator_prefix=spec["id"],
                    scale=spec.get("scale", 1.0), faction=spec.get("faction"))
         doc = build_geometry(tpl, design, cfg)
@@ -731,6 +743,161 @@ class Build:
 
 
 
+
+    def weapon_script(self):
+        """Script de tiro/recarga (substitui a cadeia de Molang do pack)."""
+        CADENCIA = {"rifle": 90, "pistol": 130, "revolver": 260, "sniper": 700,
+                    "shotgun": 420}
+        AUTO = {"rifle"}
+        AUTO_EXTRA = {"mac10", "mac11", "uzi_crime", "tec9", "tec_dc9",
+                      "glock18_crime", "kit_roni", "fgc9", "m134"}
+        linhas = []
+        for spec in SPECS:
+            gid = spec["id"]
+            fam = spec["family"]
+            cadencia = CADENCIA.get(fam, 150)
+            auto = fam in AUTO or gid in AUTO_EXTRA
+            linhas.append(
+                f'    {gid}: {{ nome: "{spec["name"]}", mag: {FAMILIES[fam]["mag"]}, '
+                f'ammo: "tac_guns:{spec["ammo"]}", cadencia: {cadencia}, '
+                f'auto: {str(auto).lower()}, recarga: 2.2, '
+                f'dano: {spec["damage"]} }},')
+        for gid, ammo in (("ak47", "762x39mm"), ("coltpython", "357magnum"),
+                          ("awp", "338lapua"), ("deagle", "50ae"), ("glock17", "9x19mm"),
+                          ("m134", "308winchester"), ("mk18", "556x45mm"),
+                          ("m870", "12gauge"), ("db", "12gauge"), ("dp28", "762x54mmr")):
+            if gid in {s["id"] for s in SPECS}:
+                continue
+            mag = {"ak47": 30, "coltpython": 6, "awp": 5, "deagle": 7, "glock17": 17,
+                   "m134": 100, "mk18": 30, "m870": 6, "db": 2, "dp28": 47}[gid]
+            auto = gid in ("ak47", "m134", "mk18", "dp28")
+            linhas.append(f'    {gid}: {{ nome: "{gid.upper()}", mag: {mag}, '
+                          f'ammo: "tac_guns:{ammo}", cadencia: 100, '
+                          f'auto: {str(auto).lower()}, recarga: 2.2, dano: 5 }},')
+        tabela = "{\n" + "\n".join(linhas) + "\n}"
+        template = read(os.path.join(ROOT, "tools", "tacgen", "templates", "weapons.js"))
+        write_text(os.path.join(OUT_BP, "scripts", "events", "weapons.js"),
+                   template.replace("__TABLE__", tabela))
+
+        main = os.path.join(OUT_BP, "scripts", "main.js")
+        texto = read(main)
+        if "events/weapons.js" not in texto:
+            texto = texto.replace("import './events/factions.js';",
+                                  "import './events/factions.js';\nimport './events/weapons.js';")
+            if "events/weapons.js" not in texto:
+                texto = "import './events/weapons.js';\n" + texto
+        write_text(main, texto)
+
+    def strip_pack_gun_logic(self):
+        """Tira os efeitos colaterais da cadeia de Molang (o script manda agora).
+
+        Mantem as animacoes (visual) e o controller; remove apenas os comandos que
+        spawnavam bala, gastavam pente, davam playanimation de tiro e recarregavam
+        por timeline - senao o tiro aconteceria duas vezes.
+        """
+        guns = [s["id"] for s in SPECS] + ["ak47", "coltpython", "awp", "deagle",
+                                           "glock17", "m134", "mk18", "m870", "db", "dp28"]
+        guns = list(dict.fromkeys(guns))
+        removidos = 0
+        pasta = os.path.join(OUT_BP, "animation_controllers", "gun")
+        for gid in guns:
+            path = os.path.join(pasta, f"{gid}.json")
+            if not os.path.exists(path):
+                continue
+            doc = load(path)
+            mudou = False
+            for ctrl in doc.get("animation_controllers", {}).values():
+                for estado, corpo in ctrl.get("states", {}).items():
+                    entradas = corpo.get("on_entry")
+                    if not entradas:
+                        continue
+                    novas = []
+                    for entrada in entradas:
+                        texto = entrada if isinstance(entrada, str) else ""
+                        ruim = (f"tac_guns:{gid}_fire" in texto
+                                or "scoreboard players remove" in texto
+                                or "/replaceitem" in texto
+                                or f"/playsound {gid}.shoot" in texto
+                                or "bulletbait" in texto)
+                        if ruim:
+                            removidos += 1
+                            mudou = True
+                        else:
+                            novas.append(entrada)
+                    if novas:
+                        corpo["on_entry"] = novas
+                    else:
+                        corpo.pop("on_entry", None)
+            if mudou:
+                dump(path, doc)
+
+        # controllers de recarga (556mm.json e afins): o script cuida do pente
+        for arq in os.listdir(os.path.join(OUT_BP, "animation_controllers")):
+            if not arq.endswith(".json"):
+                continue
+            path = os.path.join(OUT_BP, "animation_controllers", arq)
+            doc = load(path)
+            mudou = False
+            for ctrl in doc.get("animation_controllers", {}).values():
+                for corpo in ctrl.get("states", {}).values():
+                    entradas = corpo.get("on_entry")
+                    if not entradas:
+                        continue
+                    novas = [e for e in entradas
+                             if not (isinstance(e, str) and any(
+                                 m in e for m in ("/function ", "tac_guns:", "/clear ",
+                                                  "/replaceitem", "/scoreboard", "/event ")))]
+                    if len(novas) != len(entradas):
+                        removidos += len(entradas) - len(novas)
+                        mudou = True
+                        if novas:
+                            corpo["on_entry"] = novas
+                        else:
+                            corpo.pop("on_entry", None)
+            if mudou:
+                dump(path, doc)
+
+        # timelines: remove comandos de munição/pente/eventos das animações
+        path = os.path.join(OUT_BP, "animations", "guns.json")
+        if os.path.exists(path):
+            doc = load(path)
+            for nome, anim in doc.get("animations", {}).items():
+                timeline = anim.get("timeline")
+                if not timeline:
+                    continue
+                for tempo, comandos in list(timeline.items()):
+                    if isinstance(comandos, str):
+                        comandos = [comandos]
+                    novos = [c for c in comandos
+                             if not any(m in c for m in
+                                        ("/event entity @s tac_guns:", "/function ",
+                                         "/clear ", "/replaceitem", "/scoreboard"))]
+                    if novos:
+                        timeline[tempo] = novos
+                    else:
+                        timeline.pop(tempo)
+                if not timeline:
+                    anim.pop("timeline", None)
+            dump(path, doc)
+        print(f"  cadeia do pack neutralizada ({removidos} comandos)")
+
+    def fix_player_entity(self):
+        """Adiciona grupos de componentes referenciados mas ausentes no pack."""
+        path = os.path.join(OUT_BP, "entities", "player.json")
+        doc = load_loose(path)
+        ent = doc["minecraft:entity"]
+        grupos = ent.setdefault("component_groups", {})
+        criados = []
+        if "tac_guns:scope" not in grupos:
+            grupos["tac_guns:scope"] = {"minecraft:mark_variant": {"value": 3}}
+            criados.append("tac_guns:scope")
+        if "tac_guns:glreload" not in grupos:
+            grupos["tac_guns:glreload"] = {}
+            criados.append("tac_guns:glreload")
+        dump(path, doc, indent=2)
+        if criados:
+            print("  player.json: grupos criados", ", ".join(criados))
+
     def faction_items(self):
         """Algemas (equipamento policial) + receita + ícone."""
         item = {
@@ -953,7 +1120,7 @@ class Build:
         keep.append("item.tac_guns:algemas.name=Algemas")
         write_text(pt, "\n".join(keep) + "\n")
 
-    VERSION = [1, 2, 0]
+    VERSION = [1, 3, 0]
 
     def manifests(self):
         self.VERSION = getattr(Build, "VERSION", [1, 2, 0])
@@ -1006,11 +1173,14 @@ def build():
     b.attach_items()
     b.attach_properties()
     b.attach_script()
+    b.fix_player_entity()
     b.faction_icons()
     b.faction_items()
     b.faction_script()
     b.structures()
     b.scripts()
+    b.strip_pack_gun_logic()
+    b.weapon_script()
     b.item_texture()
     b.sounds()
     b.lang()
