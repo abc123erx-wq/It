@@ -53,10 +53,21 @@ def check_json_syntax():
 def check_manifest():
     bp = load_json(os.path.join(BP, "manifest.json"))
     rp = load_json(os.path.join(RP, "manifest.json"))
-    if rp["dependencies"][0]["uuid"] != bp["header"]["uuid"]:
-        fail("RP nao depende do UUID do BP")
-    if rp["dependencies"][0]["version"] != bp["header"]["version"]:
-        fail("versao da dependencia RP->BP divergente")
+    deps_bp = {d.get("uuid") for d in bp.get("dependencies", []) if d.get("uuid")}
+    deps_rp = {d.get("uuid") for d in rp.get("dependencies", []) if d.get("uuid")}
+    # dependencia circular entre packs pode impedir o carregamento dos dois
+    if bp["header"]["uuid"] in deps_rp and rp["header"]["uuid"] in deps_bp:
+        fail("dependencia circular BP<->RP (o jogo pode nao carregar os scripts)")
+    if rp["header"]["uuid"] not in deps_bp:
+        fail("BP nao declara dependencia do RP")
+    modulos = {d.get("module_name") for d in bp.get("dependencies", []) if d.get("module_name")}
+    for exigido in ("@minecraft/server", "@minecraft/server-ui"):
+        if exigido not in modulos:
+            fail(f"BP nao declara o modulo {exigido}")
+    if list(bp["header"].get("min_engine_version", [0, 0, 0])) < [1, 21, 90]:
+        fail("min_engine_version abaixo de 1.21.90 (necessario para a API 2.x)")
+    if not any(m.get("type") == "script" for m in bp.get("modules", [])):
+        fail("BP sem modulo de script")
 
 
 def check_items():

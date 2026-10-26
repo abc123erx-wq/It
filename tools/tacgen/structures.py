@@ -667,6 +667,26 @@ KITS = {
 }
 
 
+def diagnostico():
+    """Checklist que funciona sem script - o teste mais rapido de instalacao."""
+    c = Cmds()
+    c.tell("§6§l=== DIAGNÓSTICO TACGUNS ===")
+    c.tell("§7Se você leu esta mensagem, o pacote de §fcomportamento§7 está ativo " +
+           "e as §f/function§7 funcionam (cheats ligadas).")
+    c.tell("§7Agora o script: entre no mundo e veja se aparece no chat a mensagem " +
+           "§aScript de armas ativo§7 (enviada pela tag [TacGuns]).")
+    c.tell("§8- apareceu? script ok -> use /scriptevent tac_guns:teste")
+    c.tell("§8- não apareceu? o módulo de script não carregou (veja o log de conteúdo)")
+    c.tell("§ePente e munição no placar:")
+    c.lines.append('tellraw @s {"rawtext":[{"text":"§7pente da arma na mão: "},'
+                   '{"score":{"name":"@s","objective":"ia2_556"}}]}')
+    c.lines.append('tellraw @s {"rawtext":[{"text":"§7dinheiro: "},'
+                   '{"score":{"name":"@s","objective":"dinheiro"}}]}')
+    c.tell("§eKits por comando: §f/function lado_policial §7ou §f/function lado_ladrao")
+    c.tell("§eBases: §f/function policial §7· §f/function favela")
+    return c
+
+
 def lado(nome):
     """Escolha de lado por comando: funciona mesmo sem os scripts."""
     rotulo, cor, valor, tag, outra, arma, municao, extra = KITS[nome]
@@ -706,6 +726,7 @@ def escrever(bp_dir):
             comandos += len(c.lines)
         rel_.append((nome_mestre, len(partes) + 1, comandos))
     _write_part(os.path.join(bp_dir, "functions", "faccao.mcfunction"), ajuda())
+    _write_part(os.path.join(bp_dir, "functions", "diagnostico.mcfunction"), diagnostico())
     for nome in ("policial", "ladrao"):
         _write_part(os.path.join(bp_dir, "functions", f"lado_{nome}.mcfunction"),
                     lado(nome))

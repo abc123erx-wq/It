@@ -1926,6 +1926,14 @@ No modelo, cada ponto de encaixe é um bone próprio (`att_optic`, `att_suppress
 
 *Receita na bancada de trabalho (aba 8, item 10):* 7x `minecraft:iron_ingot`, 1x `minecraft:gunpowder` → `tac_guns:pt24_7_raspada_emp` (arma vazia, pronta para municiar).
 
+### Independência entre os pacotes
+
+Os dois pacotes deste addon **não** declaram dependência um do outro em ciclo: o BP depende do RP (e dos módulos `@minecraft/server` 2.0.0 e `@minecraft/server-ui` 2.0.0), e o RP não depende de nada. Ciclo entre packs faz o jogo carregar os dois pela metade — inclusive o módulo de script.
+
+### Fallback sem script
+
+O script marca `tac_script = 1` em cada jogador. Os estados do pack que gastam pente e spawnam bala passaram a exigir `query.scoreboard('tac_script') == 0`, então: com script vivo ele manda (sem disparo duplicado); sem script, a cadeia original volta a funcionar sozinha. Nada é apagado do pacote original.
+
 ## Facções: policial x ladrão (camada de jogo)
 
 A camada de facção é implementada por script (`scripts/events/factions.js`) e não duplica itens: as 46 armas continuam as mesmas, mas passam a responder ao lado do jogador. O lado é guardado na tag `policia` / `ladrao` (compatível com `/tag`) e espelhado no scoreboard `faccao` (1 = policial, 2 = ladrão).

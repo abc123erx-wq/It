@@ -251,6 +251,20 @@ def render():
                 f"{recipe} → `tac_guns:{gid}_emp` (arma vazia, pronta para municiar).")
             add("")
     # ------------------------------------------------- camada policia x ladrao
+    add("### Independência entre os pacotes")
+    add("")
+    add("Os dois pacotes deste addon **não** declaram dependência um do outro em ciclo: "
+        "o BP depende do RP (e dos módulos `@minecraft/server` 2.0.0 e "
+        "`@minecraft/server-ui` 2.0.0), e o RP não depende de nada. Ciclo entre packs "
+        "faz o jogo carregar os dois pela metade — inclusive o módulo de script.")
+    add("")
+    add("### Fallback sem script")
+    add("")
+    add("O script marca `tac_script = 1` em cada jogador. Os estados do pack que gastam "
+        "pente e spawnam bala passaram a exigir `query.scoreboard('tac_script') == 0`, "
+        "então: com script vivo ele manda (sem disparo duplicado); sem script, a cadeia "
+        "original volta a funcionar sozinha. Nada é apagado do pacote original.")
+    add("")
     add("## Facções: policial x ladrão (camada de jogo)")
     add("")
     add("A camada de facção é implementada por script (`scripts/events/factions.js`) e não "

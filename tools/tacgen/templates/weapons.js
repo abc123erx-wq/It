@@ -12,6 +12,10 @@ import { world, system, ItemStack, EquipmentSlot } from "@minecraft/server";
  * `projectileHitEntity.js` (dano da tabela + multiplicador de facção).
  */
 
+try {
+    console.warn("[TacGuns] weapons.js carregado");
+} catch (e) { }
+
 const ARMAS = __TABLE__;
 
 const LEGADO = {
@@ -58,6 +62,14 @@ function definirPente(player, arma, valor) {
             o.addScore(player, valor - pontos(arma, player));
         } catch (e2) { }
     }
+}
+
+// marca que o script esta ativo: a cadeia Molang do pack so dispara com
+// tac_script == 0 (fallback). Ver gate_pack_gun_logic() no build.
+function marcarScript(player) {
+    try {
+        obj("tac_script").setScore(player, 1);
+    } catch (e) { }
 }
 
 function aviso(player, texto) {
@@ -216,8 +228,11 @@ function recarregar(player, id, dados, silencioso) {
 
     recarregando.add(player.id);
     try {
-        player.playAnimation(`animation.${id}.reload`, { blendOutTime: 0.2 });
+        // animacao de primeira pessoa: nao tem timeline, entao nao duplica o
+        // consumo de municao que o script ja faz
+        player.playAnimation(`animation.${id}.fp.reload`, { blendOutTime: 0.2 });
     } catch (e) { }
+
     try {
         player.playSound(`${id}.reload`, { volume: 1.0 });
     } catch (e) { }
@@ -295,26 +310,27 @@ system.runInterval(() => {
     }
 }, 1);
 
-// recarga manual por comando e por tecla de agachar + uso (antes do itemUse)
-world.beforeEvents.itemUse.subscribe((evento) => {
-    const player = evento.source;
-    if (!player) return;
-    try {
-        const mao = armaNaMao(player);
-        if (!mao) return;
-        // deixa o uso seguir para disparar/recarregar via itemStartUse
-    } catch (e) { }
-});
-
 world.afterEvents.playerSpawn.subscribe(({ player }) => {
     try {
         system.runTimeout(() => {
             if (!valido(player)) return;
-            const mao = armaNaMao(player);
-            if (mao) return;
-        }, 60);
+            marcarScript(player);
+            player.sendMessage("§8[§6TacGuns§8] §aScript de armas ativo §7- " +
+                "segure usar para atirar, agache + usar para recarregar. " +
+                "Teste: §f/scriptevent tac_guns:teste");
+        }, 80);
     } catch (e) { }
 });
+
+// garante o marcador mesmo se o spawn passar batido
+system.runInterval(() => {
+    try {
+        world.getAllPlayers().forEach((p) => {
+            if (!valido(p)) return;
+            if (pontos("tac_script", p) !== 1) marcarScript(p);
+        });
+    } catch (e) { }
+}, 100);
 
 // --------------------------------------------------------------- comandos
 system.afterEvents.scriptEventReceive.subscribe((ev) => {
@@ -325,7 +341,7 @@ system.afterEvents.scriptEventReceive.subscribe((ev) => {
             const mao = armaNaMao(player);
             if (mao) recarregar(player, mao.id, mao.dados);
             else aviso(player, "§7Segure uma arma do TacGuns.");
-        } else if (ev.id === "tac_guns:teste") {
+        } else if (ev.id === "tac_guns:teste" || ev.id === "tacguns:teste") {
             const mao = armaNaMao(player);
             if (!mao) {
                 player.sendMessage("§cSegure uma arma do TacGuns para testar.");

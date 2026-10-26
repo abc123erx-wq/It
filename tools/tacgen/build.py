@@ -788,98 +788,72 @@ class Build:
                 texto = "import './events/weapons.js';\n" + texto
         write_text(main, texto)
 
-    def strip_pack_gun_logic(self):
-        """Tira os efeitos colaterais da cadeia de Molang (o script manda agora).
+    def gate_pack_gun_logic(self):
+        """Liga a cadeia de tiro do pack como *fallback*, protegida por scoreboard.
 
-        Mantem as animacoes (visual) e o controller; remove apenas os comandos que
-        spawnavam bala, gastavam pente, davam playanimation de tiro e recarregavam
-        por timeline - senao o tiro aconteceria duas vezes.
+        O script (`events/weapons.js`) marca `tac_script = 1` em cada jogador. Os
+        estados do pack que gastam pente/spawnam bala só podem ser alcançados se
+        `query.scoreboard('tac_script') == 0` — ou seja: se o script estiver vivo,
+        ele manda; se o script não carregar, a arma volta a funcionar pelo pacote.
         """
         guns = [s["id"] for s in SPECS] + ["ak47", "coltpython", "awp", "deagle",
                                            "glock17", "m134", "mk18", "m870", "db", "dp28"]
         guns = list(dict.fromkeys(guns))
-        removidos = 0
+        GUARD = "query.scoreboard('tac_script') == 0"
+
+        def bloquear(caminho, marcadores):
+            """Prefixa as transicoes que levam aos estados 'perigosos'."""
+            if not os.path.exists(caminho):
+                return 0
+            doc = load(caminho)
+            total = 0
+            for ctrl in doc.get("animation_controllers", {}).values():
+                estados = ctrl.get("states", {})
+                perigosos = {nome for nome, corpo in estados.items()
+                             if any(isinstance(e, str) and any(m in e for m in marcadores)
+                                    for e in (corpo.get("on_entry") or []))}
+                if not perigosos:
+                    continue
+                for corpo in estados.values():
+                    transicoes = corpo.get("transitions")
+                    if not transicoes:
+                        continue
+                    for trans in transicoes:
+                        for alvo, cond in list(trans.items()):
+                            if alvo in perigosos and GUARD not in cond:
+                                trans[alvo] = f"{GUARD} && ({cond})"
+                                total += 1
+            if total:
+                dump(caminho, doc)
+            return total
+
+        marcadores_tiro = ("_fire", "bulletbait", "scoreboard players remove",
+                           "/replaceitem", ".shoot @a")
+        marcadores_recarga = ("/function ", "/clear ")
+
+        total = 0
         pasta = os.path.join(OUT_BP, "animation_controllers", "gun")
         for gid in guns:
-            path = os.path.join(pasta, f"{gid}.json")
-            if not os.path.exists(path):
-                continue
-            doc = load(path)
-            mudou = False
-            for ctrl in doc.get("animation_controllers", {}).values():
-                for estado, corpo in ctrl.get("states", {}).items():
-                    entradas = corpo.get("on_entry")
-                    if not entradas:
-                        continue
-                    novas = []
-                    for entrada in entradas:
-                        texto = entrada if isinstance(entrada, str) else ""
-                        ruim = (f"tac_guns:{gid}_fire" in texto
-                                or "scoreboard players remove" in texto
-                                or "/replaceitem" in texto
-                                or f"/playsound {gid}.shoot" in texto
-                                or "bulletbait" in texto)
-                        if ruim:
-                            removidos += 1
-                            mudou = True
-                        else:
-                            novas.append(entrada)
-                    if novas:
-                        corpo["on_entry"] = novas
-                    else:
-                        corpo.pop("on_entry", None)
-            if mudou:
-                dump(path, doc)
-
-        # controllers de recarga (556mm.json e afins): o script cuida do pente
+            total += bloquear(os.path.join(pasta, f"{gid}.json"), marcadores_tiro)
         for arq in os.listdir(os.path.join(OUT_BP, "animation_controllers")):
-            if not arq.endswith(".json"):
-                continue
-            path = os.path.join(OUT_BP, "animation_controllers", arq)
-            doc = load(path)
-            mudou = False
-            for ctrl in doc.get("animation_controllers", {}).values():
-                for corpo in ctrl.get("states", {}).values():
-                    entradas = corpo.get("on_entry")
-                    if not entradas:
-                        continue
-                    novas = [e for e in entradas
-                             if not (isinstance(e, str) and any(
-                                 m in e for m in ("/function ", "tac_guns:", "/clear ",
-                                                  "/replaceitem", "/scoreboard", "/event ")))]
-                    if len(novas) != len(entradas):
-                        removidos += len(entradas) - len(novas)
-                        mudou = True
-                        if novas:
-                            corpo["on_entry"] = novas
-                        else:
-                            corpo.pop("on_entry", None)
-            if mudou:
-                dump(path, doc)
+            if arq.endswith(".json"):
+                total += bloquear(os.path.join(OUT_BP, "animation_controllers", arq),
+                                  marcadores_recarga)
+        print(f"  cadeia do pack preservada como fallback ({total} transicoes protegidas)")
 
-        # timelines: remove comandos de munição/pente/eventos das animações
-        path = os.path.join(OUT_BP, "animations", "guns.json")
-        if os.path.exists(path):
-            doc = load(path)
-            for nome, anim in doc.get("animations", {}).items():
-                timeline = anim.get("timeline")
-                if not timeline:
-                    continue
-                for tempo, comandos in list(timeline.items()):
-                    if isinstance(comandos, str):
-                        comandos = [comandos]
-                    novos = [c for c in comandos
-                             if not any(m in c for m in
-                                        ("/event entity @s tac_guns:", "/function ",
-                                         "/clear ", "/replaceitem", "/scoreboard"))]
-                    if novos:
-                        timeline[tempo] = novos
-                    else:
-                        timeline.pop(tempo)
-                if not timeline:
-                    anim.pop("timeline", None)
-            dump(path, doc)
-        print(f"  cadeia do pack neutralizada ({removidos} comandos)")
+    def script_imports(self):
+        """Ordem de importacao: o que e critico primeiro, UI por ultimo."""
+        path = os.path.join(OUT_BP, "scripts", "main.js")
+        texto = read(path)
+        linhas = [l for l in texto.splitlines() if not l.startswith("import './")]
+        imports = ["import './events/weapons.js';",
+                   "import './events/projectileHitEntity.js';",
+                   "import './global/global.js';",
+                   "import './events/factions.js';",
+                   "import './events/attachments.js';"]
+        corpo = "\n".join(imports) + "\n" + "\n".join(linhas)
+        write_text(path, corpo)
+        print("  main.js: imports reordenados")
 
     def fix_player_entity(self):
         """Adiciona grupos de componentes referenciados mas ausentes no pack."""
@@ -1120,7 +1094,7 @@ class Build:
         keep.append("item.tac_guns:algemas.name=Algemas")
         write_text(pt, "\n".join(keep) + "\n")
 
-    VERSION = [1, 3, 0]
+    VERSION = [1, 4, 0]
 
     def manifests(self):
         self.VERSION = getattr(Build, "VERSION", [1, 2, 0])
@@ -1130,12 +1104,14 @@ class Build:
         rp = load(os.path.join(OUT_RP, "manifest.json"))
         for doc, extra in ((bp, ""), (rp, "")):
             doc["header"]["version"] = list(self.VERSION)
+            doc["header"]["min_engine_version"] = [1, 21, 90]
             if note not in doc["header"].get("description", ""):
                 doc["header"]["description"] = doc["header"].get("description", "") + note
             for module in doc["modules"]:
                 module["version"] = list(self.VERSION)
-        rp["dependencies"] = [{"uuid": bp["header"]["uuid"],
-                               "version": list(self.VERSION)}]
+        # NAO criar dependencia circular (BP<->RP): o jogo pode recusar/carregar
+        # os pacotes pela metade, e o modulo de script nunca inicia.
+        rp["dependencies"] = []
         # versoes de modulo explicitas: 2.0.0 e a primeira estavel da API 2.x
         # (Minecraft 1.21.90+) e continua disponivel nas versoes seguintes.
         bp["dependencies"] = [
@@ -1179,8 +1155,9 @@ def build():
     b.faction_script()
     b.structures()
     b.scripts()
-    b.strip_pack_gun_logic()
+    b.gate_pack_gun_logic()
     b.weapon_script()
+    b.script_imports()
     b.item_texture()
     b.sounds()
     b.lang()
